@@ -1,7 +1,7 @@
 import { mode, Styles } from "@chakra-ui/theme-tools";
 import { colorCSSVariables } from "./colors";
 
-const globalStyles = (props: Styles) => ({
+const globalStyles: any = (props: Styles) => ({
   ":root": {
     ...colorCSSVariables,
   },
