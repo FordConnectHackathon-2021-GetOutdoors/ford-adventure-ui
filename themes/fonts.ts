@@ -1,5 +1,6 @@
 const fonts = {
-  test: "Ford Antenna Cond",
+  FontAntennaCond: "Ford Antenna Cond",
+  FontAntenna: "Ford Antenna",
 };
 
 export default fonts;
