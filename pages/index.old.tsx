@@ -1,11 +1,9 @@
+// @ts-nocheck
 import { Box, Container } from "@chakra-ui/react";
-import { Settings } from "components/Settings";
 import { ThemeSwitcher } from "components/ThemeSwitcher";
 import { useAuth } from "utils/AuthContext";
-import Login from "components/Login/Login";
 import Fullscreen from "components/Fullscreen";
-import useSWR from "swr";
-import SupabaseLogin from "components/SocialLogin";
+import React from "react";
 
 const fetcher = (url, token) =>
   fetch(url, {
