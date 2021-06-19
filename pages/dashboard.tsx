@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Dashboard() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Dashboard</Title>
+      <Title faded>Dashboard</Title>
     </Fullscreen>
   );
 }

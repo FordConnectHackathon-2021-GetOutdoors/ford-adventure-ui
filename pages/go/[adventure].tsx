@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Adventure() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Adventure #1</Title>
+      <Title faded>Adventure #1</Title>
     </Fullscreen>
   );
 }

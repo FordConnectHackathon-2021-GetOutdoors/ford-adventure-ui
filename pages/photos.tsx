@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Photos() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Photos</Title>
+      <Title faded>Photos</Title>
     </Fullscreen>
   );
 }

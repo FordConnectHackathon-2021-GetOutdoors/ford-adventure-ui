@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Jobs() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Jobs</Title>
+      <Title faded>Jobs</Title>
     </Fullscreen>
   );
 }

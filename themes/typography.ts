@@ -1,5 +1,15 @@
 // https://chakra-ui.com/docs/theming/customize-theme#customizing-component-styles
 
+export const globalFontSmoothing = {
+  fontVariantLigatures: "none",
+  WebkitFontVariantLigatures: "none",
+  textRendering: "optimizeLegibility",
+  MozOsxFontSmoothing: "grayscale",
+  fontSmoothing: "antialiased",
+  WebkitFontSmoothing: "antialiased",
+  textShadow: "rgba(0, 0, 0, .01) 0 0 1px",
+};
+
 export const Heading = {
   baseStyle: {
     fontFamily: "FontAntennaCond",

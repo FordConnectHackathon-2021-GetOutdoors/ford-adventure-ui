@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Vehicle() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Vehicle</Title>
+      <Title faded>Vehicle</Title>
     </Fullscreen>
   );
 }

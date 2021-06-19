@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Upload() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Upload</Title>
+      <Title faded>Upload</Title>
     </Fullscreen>
   );
 }

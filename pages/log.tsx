@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Log() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Log</Title>
+      <Title faded>Log</Title>
     </Fullscreen>
   );
 }

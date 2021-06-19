@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Badge() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Badge</Title>
+      <Title faded>Badge</Title>
     </Fullscreen>
   );
 }

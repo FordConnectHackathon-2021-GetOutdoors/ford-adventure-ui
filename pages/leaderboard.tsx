@@ -5,7 +5,7 @@ import { Title } from "components/Title";
 export default function Leaderboard() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title placeholder>Leaderboard</Title>
+      <Title faded>Leaderboard</Title>
     </Fullscreen>
   );
 }
