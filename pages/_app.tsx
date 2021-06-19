@@ -1,6 +1,6 @@
 import { Auth } from "@supabase/ui";
-import CustomHead from "@components/CustomHead";
-import { ThemeProvider } from "@components/ThemeProvider";
+import CustomHead from "components/CustomHead";
+import { ThemeProvider } from "components/ThemeProvider";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 
