@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { supabase } from "utils/supabase";
 import { Box, Text } from "@chakra-ui/react";
 

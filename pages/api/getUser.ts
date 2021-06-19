@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { supabase } from "utils/supabase";
 // Example getting data from Supabase
 export default async function getUser(req, res) {
