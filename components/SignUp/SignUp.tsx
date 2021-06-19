@@ -1,8 +1,11 @@
-import { supabase } from '../../utils/initSupabase';
-import { Auth, Typography, Button } from '@supabase/ui'
+import { Auth, Typography, Button } from "@supabase/ui";
+import { supabase } from "utils/supabase";
 
-const Container = (props: { supabaseClient: { auth: { signOut: () => void; }; }; children: any; }) => {
-  const { user } = Auth.useUser()
+const Container = (props: {
+  supabaseClient: { auth: { signOut: () => void } };
+  children: any;
+}) => {
+  const { user } = Auth.useUser();
   if (user)
     return (
       <>
@@ -11,21 +14,21 @@ const Container = (props: { supabaseClient: { auth: { signOut: () => void; }; };
           Sign out
         </Button>
       </>
-    )
-  return props.children
-}
+    );
+  return props.children;
+};
 
 export default function SignUp() {
   return (
     <Auth.UserContextProvider supabaseClient={supabase}>
       <Container supabaseClient={supabase}>
         <Auth
-            supabaseClient={supabase}
-            providers={['google', 'facebook', 'github']}
-            socialLayout="vertical"
-            socialButtonSize="xlarge"
+          supabaseClient={supabase}
+          providers={["google", "facebook", "github"]}
+          socialLayout="vertical"
+          socialButtonSize="xlarge"
         />
       </Container>
     </Auth.UserContextProvider>
-  )
+  );
 }
