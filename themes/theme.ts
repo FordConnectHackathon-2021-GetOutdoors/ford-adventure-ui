@@ -3,7 +3,8 @@ import {
   ThemeConfig,
   withDefaultColorScheme,
 } from "@chakra-ui/react";
-import globalStyles from "./global";
+import global from "./global";
+import fonts from "./fonts";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -12,7 +13,8 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
-  styles: { global: globalStyles },
+  fonts,
+  styles: { global },
   colors: {
     brand: {
       light: "var(--color-1)",

@@ -3,6 +3,7 @@ import Head from "next/head";
 export default function CustomHead({ pageProps }: any) {
   return (
     <Head>
+      <link rel="stylesheet" href="/fonts/antenna/stylesheet.css" />
       <meta
         name="viewport"
         // Support responsive mobile sizes
