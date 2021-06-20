@@ -8,15 +8,24 @@ function getDefaults(props: Record<string, any>) {
   };
 }
 
-function searchInputVariant(props: Record<string, any>) {
+function SearchInputVariant(props: Record<string, any>) {
   const { theme } = props;
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props);
 
   return {
     field: {
+      fontFamily: "FontAntenna",
+      fontSize: "lg",
+      color: mode("text.navy", "text.white")(props),
       border: "1px solid",
-      borderColor: "inherit",
-      bg: "inherit",
+      borderColor: "transparent",
+      bg: "bg.overlay",
+      borderRadius: "full",
+      height: "3.125rem",
+      boxShadow: mode("lightSearchShadow", "darkSearchShadow")(props),
+      _placeholder: {
+        color: mode("text.placeholder", "text.darkPlaceholder")(props),
+      },
       _hover: {
         borderColor: mode("gray.300", "whiteAlpha.400")(props),
       },
@@ -47,5 +56,5 @@ function searchInputVariant(props: Record<string, any>) {
 }
 
 export const Input = {
-  variants: { search: searchInputVariant },
+  variants: { search: SearchInputVariant },
 };

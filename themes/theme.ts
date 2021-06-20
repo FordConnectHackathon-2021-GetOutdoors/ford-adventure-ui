@@ -2,8 +2,9 @@ import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import globalStyles from "./global";
 import fonts from "./fonts";
 import colors from "./colors";
-import { Heading, Text } from "./typography";
-// import { Card } from "./surfaces";
+import shadows from "./shadows";
+import { Heading, Text, textStyles } from "./typography";
+// import { Card } from "./components";
 import { Input } from "./controls";
 
 const config: ThemeConfig = {
@@ -13,9 +14,6 @@ const config: ThemeConfig = {
 };
 
 const theme: Record<string, any> = extendTheme({
-  config,
-  fonts,
-  styles: { global: (props: any) => globalStyles(props) },
   colors,
   components: {
     // Card,
@@ -23,6 +21,11 @@ const theme: Record<string, any> = extendTheme({
     Input,
     Text,
   },
+  config,
+  fonts,
+  shadows,
+  styles: { global: (props: any) => globalStyles(props) },
+  textStyles,
 });
 
 export default theme;
