@@ -1,15 +1,16 @@
-import { colorCSSVariables } from "./colors";
+import { mode, Styles } from "@chakra-ui/theme-tools";
 import { globalFontSmoothing } from "./typography";
 
-const globalStyles = {
-  ":root": {
-    ...colorCSSVariables,
-  },
+const globalStyles = (props: Styles) => ({
   "html, body": {
     fontSize: "100%",
     WebkitTextSizeAdjust: "100%",
-    ...globalFontSmoothing,
   },
-};
+  body: {
+    ...globalFontSmoothing,
+    color: mode("gray.800", "whiteAlpha.900")(props),
+    bg: mode("bg.light", "bg.dark")(props),
+  },
+});
 
 export default globalStyles;

@@ -1,4 +1,4 @@
-import { Heading, HeadingProps } from "@chakra-ui/react";
+import { Text, HeadingProps, Heading, Box } from "@chakra-ui/react";
 import React from "react";
 
 interface TitleProps extends HeadingProps {
@@ -6,5 +6,5 @@ interface TitleProps extends HeadingProps {
 }
 
 export function Title({ faded, ...props }: Partial<TitleProps>) {
-  return <Heading variant="H1" opacity={faded ? 0.2 : 1} {...props} />;
+  return <Box textStyle="h1" opacity={faded ? 0.2 : 1} {...props} />;
 }

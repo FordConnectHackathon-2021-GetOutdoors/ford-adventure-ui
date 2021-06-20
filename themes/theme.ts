@@ -1,31 +1,33 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-import global from "./global";
+import globalStyles from "./global";
 import fonts from "./fonts";
-import { Heading, Text } from "./typography";
-// import { Card } from "./surfaces";
+import colors from "./colors";
+import shadows from "./shadows";
+import { Heading, Text, textStyles, FormLabel } from "./typography";
+// import { Card } from "./components";
 import { Input } from "./controls";
 
 const config: ThemeConfig = {
+  cssVarPrefix: "ford",
   initialColorMode: "dark",
   useSystemColorMode: false,
 };
 
-const theme = extendTheme({
-  config,
-  fonts,
-  styles: { global },
-  colors: {
-    brand: {
-      light: "var(--color-1)",
-      dark: "var(--color-5)",
-    },
-  },
+const theme: Record<string, any> = extendTheme({
+  colors,
   components: {
     // Card,
     Heading,
+    // @ts-ignore
     Input,
     Text,
+    FormLabel,
   },
+  config,
+  fonts,
+  shadows,
+  styles: { global: (props: any) => globalStyles(props) },
+  textStyles,
 });
 
 export default theme;

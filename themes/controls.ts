@@ -8,15 +8,52 @@ function getDefaults(props: Record<string, any>) {
   };
 }
 
-function searchInputVariant(props: Record<string, any>) {
+function DefaultInput(props: Record<string, any>) {
+  return {
+    field: {
+      fontFamily: "FontAntenna",
+      fontSize: "lg",
+      bg: mode("bg.lightOverlay", "bg.darkOverlay")(props),
+      borderRadius: "md",
+      height: "3.125rem",
+      px: 5,
+      color: mode("text.navy", "text.white")(props),
+      boxShadow: mode("lightInputShadow", "darkInputShadow")(props),
+      border: "1px solid",
+      borderColor: mode("text.white", "bg.darkOverlay")(props),
+      _focus: {
+        bg: "white",
+        boxShadow: mode("lightInputFocusShadow", "darkInputFocusShadow")(props),
+        color: "text.navy",
+      },
+      _hover: {
+        bg: "white",
+        boxShadow: mode("lightInputFocusShadow", "darkInputFocusShadow")(props),
+        color: "text.navy",
+      },
+    },
+  };
+}
+
+function SearchInputVariant(props: Record<string, any>) {
   const { theme } = props;
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props);
 
   return {
     field: {
+      fontFamily: "FontAntenna",
+      fontSize: "lg",
+      color: mode("text.navy", "text.white")(props),
       border: "1px solid",
-      borderColor: "inherit",
-      bg: "inherit",
+      borderColor: "transparent",
+      bg: "bg.overlay",
+      borderRadius: "full",
+      height: "3.125rem",
+      boxShadow: mode("lightSearchShadow", "darkSearchShadow")(props),
+      _placeholder: {
+        color: mode("text.placeholder", "text.darkPlaceholder")(props),
+        textAlign: "center",
+      },
       _hover: {
         borderColor: mode("gray.300", "whiteAlpha.400")(props),
       },
@@ -39,13 +76,20 @@ function searchInputVariant(props: Record<string, any>) {
       },
     },
     addon: {
-      border: "1px solid",
+      border: "1px solid red",
       borderColor: mode("inherit", "whiteAlpha.50")(props),
       bg: mode("gray.100", "whiteAlpha.300")(props),
     },
   };
 }
 
+const defaultProps = {
+  size: null,
+  variant: null,
+};
+
 export const Input = {
-  variants: { search: searchInputVariant },
+  baseStyle: DefaultInput,
+  variants: { search: SearchInputVariant },
+  defaultProps,
 };

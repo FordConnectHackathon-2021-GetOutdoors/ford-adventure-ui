@@ -20,17 +20,6 @@ export const Heading = {
     nameplate: {
       fontWeight: 500,
       fontSize: "4.0625rem",
-      color: "red",
-    },
-    H1: {
-      fontWeight: 200,
-      fontSize: "4.0625rem",
-    },
-    H2: {
-      fontSize: "2.8125rem",
-    },
-    H3: {
-      fontSize: "2xl",
     },
   },
 };
@@ -57,5 +46,30 @@ export const Text = {
       fontWeight: "light",
       textTransform: "uppercase",
     },
+  },
+};
+
+export const textStyles = {
+  h1: {
+    fontWeight: 100,
+    fontFamily: "FontAntennaCond",
+    fontSize: "4.0625rem",
+  },
+  h2: {
+    fontSize: "2.8125rem",
+  },
+  h3: {
+    fontSize: "2xl",
+  },
+};
+
+export const FormLabel = {
+  baseStyle: {
+    fontWeight: 400,
+    fontFamily: "FontAntennaCond",
+    textTransform: "uppercase",
+    opacity: 0.3,
+    letterSpacing: "wider",
+    // fontSize: "lg",
   },
 };
