@@ -39,7 +39,7 @@ function searchInputVariant(props: Record<string, any>) {
       },
     },
     addon: {
-      border: "1px solid",
+      border: "1px solid red",
       borderColor: mode("inherit", "whiteAlpha.50")(props),
       bg: mode("gray.100", "whiteAlpha.300")(props),
     },
