@@ -62,3 +62,14 @@ export const textStyles = {
     fontSize: "2xl",
   },
 };
+
+export const FormLabel = {
+  baseStyle: {
+    fontWeight: 400,
+    fontFamily: "FontAntennaCond",
+    textTransform: "uppercase",
+    opacity: 0.3,
+    letterSpacing: "wider",
+    // fontSize: "lg",
+  },
+};

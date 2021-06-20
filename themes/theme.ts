@@ -3,7 +3,7 @@ import globalStyles from "./global";
 import fonts from "./fonts";
 import colors from "./colors";
 import shadows from "./shadows";
-import { Heading, Text, textStyles } from "./typography";
+import { Heading, Text, textStyles, FormLabel } from "./typography";
 // import { Card } from "./components";
 import { Input } from "./controls";
 
@@ -18,8 +18,10 @@ const theme: Record<string, any> = extendTheme({
   components: {
     // Card,
     Heading,
+    // @ts-ignore
     Input,
     Text,
+    FormLabel,
   },
   config,
   fonts,
