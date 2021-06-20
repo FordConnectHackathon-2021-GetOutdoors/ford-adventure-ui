@@ -1,11 +1,9 @@
-import {
-  extendTheme,
-  ThemeConfig,
-  withDefaultColorScheme,
-} from "@chakra-ui/react";
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import global from "./global";
 import fonts from "./fonts";
-import { Heading } from "./typography";
+import { Heading, Text } from "./typography";
+// import { Card } from "./surfaces";
+import { Input } from "./controls";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -23,7 +21,10 @@ const theme = extendTheme({
     },
   },
   components: {
+    // Card,
     Heading,
+    Input,
+    Text,
   },
 });
 

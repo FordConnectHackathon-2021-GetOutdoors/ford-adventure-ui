@@ -1,11 +1,17 @@
-import React from "react";
-import Fullscreen from "components/Fullscreen";
 import { Title } from "components/Title";
+
+import React from "react";
+import { SearchInput } from "components/SearchInput";
+import { Container } from "@chakra-ui/react";
+import Fullscreen from "components/Fullscreen";
 
 export default function Adventures() {
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      <Title faded>Adventures</Title>
+      <Container>
+        <Title faded>Adventures</Title>
+        <SearchInput />
+      </Container>
     </Fullscreen>
   );
 }

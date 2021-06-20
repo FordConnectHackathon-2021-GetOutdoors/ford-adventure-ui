@@ -10,6 +10,7 @@ export default function Fullscreen({ ...props }) {
         right: 0,
         bottom: 0,
         display: "flex",
+        flexDirection: "column",
       }}
       h="var(--100vh)"
       overflow="auto"

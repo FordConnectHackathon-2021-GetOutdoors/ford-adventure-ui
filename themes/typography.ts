@@ -20,6 +20,7 @@ export const Heading = {
     nameplate: {
       fontWeight: 500,
       fontSize: "4.0625rem",
+      color: "red",
     },
     H1: {
       fontWeight: 200,
