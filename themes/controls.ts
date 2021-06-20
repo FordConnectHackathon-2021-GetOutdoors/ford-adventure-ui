@@ -25,6 +25,7 @@ function SearchInputVariant(props: Record<string, any>) {
       boxShadow: mode("lightSearchShadow", "darkSearchShadow")(props),
       _placeholder: {
         color: mode("text.placeholder", "text.darkPlaceholder")(props),
+        textAlign: "center",
       },
       _hover: {
         borderColor: mode("gray.300", "whiteAlpha.400")(props),
