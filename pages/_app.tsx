@@ -14,6 +14,7 @@ function AppContainer({ Component, pageProps }: AppProps) {
     <ThemeProvider cookies={pageProps.cookies}>
       <Auth.UserContextProvider supabaseClient={supabase}>
         <CustomHead {...pageProps} />
+          <h1>hi</h1>
         <Component {...pageProps} />
         <ThemeSwitcher />
       </Auth.UserContextProvider>
