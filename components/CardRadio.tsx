@@ -16,7 +16,6 @@ function RadioCard({ ...props }) {
         p="40px"
         cursor="pointer"
         borderRadius="none"
-        buttonShadowDefault
         boxShadow="lightInputFocusShadow"
         fontFamily="FontAntennaCond"
         fontWeight="600"

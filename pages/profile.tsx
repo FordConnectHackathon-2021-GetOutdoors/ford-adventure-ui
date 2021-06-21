@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { supabase } from "utils/supabase";
 import { Box, Text } from "@chakra-ui/react";
 
-export default function Profile({ user }) {
+export default function Profile({ user }: any) {
   return (
     <Box>
       <Text strong>{user.email}</Text>
@@ -13,7 +12,7 @@ export default function Profile({ user }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }: any) {
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
   if (!user) {
