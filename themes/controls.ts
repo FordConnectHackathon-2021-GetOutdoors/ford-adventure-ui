@@ -14,7 +14,7 @@ function DefaultInput(props: Record<string, any>) {
       fontFamily: "FontAntenna",
       fontSize: "lg",
       bg: mode("bg.lightOverlay", "bg.darkOverlay")(props),
-      borderRadius: "md",
+      borderRadius: "sm",
       height: "3.125rem",
       px: 5,
       color: mode("text.navy", "text.white")(props),
