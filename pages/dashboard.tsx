@@ -1,15 +1,15 @@
-import React from "react";
-import Fullscreen from "components/Fullscreen";
-import { Title } from "components/Title";
-import { Box, Button, Flex } from "@chakra-ui/react";
-import CardRadio from "components/CardRadio";
 import { Auth } from "@supabase/ui";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import { ThreeUpButtonGroup } from "components/ThreeUpButtonGroup";
+import { Title } from "components/Title";
+import CardRadio from "components/CardRadio";
+import Fullscreen from "components/Fullscreen";
 
 export default function Dashboard() {
   const { user } = Auth.useUser();
   return (
     <Fullscreen justifyContent="center" alignItems="center">
-      {user && "SOMEONE"}
+      <ThreeUpButtonGroup />
       <Box pb="10">
         <Title faded>Dashboard</Title>
       </Box>
@@ -19,6 +19,7 @@ export default function Dashboard() {
       <Flex justifyContent="center" w="100%" py="10">
         <CardRadio />
       </Flex>
+      {user && "Is Logged In"}
     </Fullscreen>
   );
 }
