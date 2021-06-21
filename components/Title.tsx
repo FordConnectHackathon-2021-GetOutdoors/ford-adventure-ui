@@ -10,6 +10,7 @@ export function Title({ faded, ...props }: Partial<TitleProps>) {
     <Box
       textStyle="h1"
       textAlign="center"
+      pt={10}
       opacity={faded ? 0.2 : 1}
       {...props}
     />

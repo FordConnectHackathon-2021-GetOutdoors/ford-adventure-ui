@@ -7,11 +7,12 @@ import CardRadio from "components/CardRadio";
 
 export default function Adventures() {
   return (
-    <Fullscreen justifyContent="center" alignItems="center">
+    <Fullscreen
+    // justifyContent="center"
+    // alignItems="center"
+    >
       <Container>
-        <Title faded pb={4}>
-          Ford Adventure
-        </Title>
+        <Title faded>Ford Adventure</Title>
 
         <SearchInput />
         <Box pb={8}>
