@@ -15,11 +15,9 @@ function AppContainer({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider cookies={pageProps.cookies}>
       <AuthProvider>
-        {/* <Auth.UserContextProvider supabaseClient={supabase}> */}
         <CustomHead {...pageProps} />
         <Component {...pageProps} />
         <ThemeSwitcher />
-        {/* </Auth.UserContextProvider> */}
       </AuthProvider>
     </ThemeProvider>
   );

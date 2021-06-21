@@ -1,5 +1,6 @@
 import { supabase } from "utils/supabase";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
+import React from "react";
 
 export default function Profile({ user }: any) {
   return (
@@ -8,6 +9,9 @@ export default function Profile({ user }: any) {
       <Text>
         <pre>{JSON.stringify(user, null, 2)}</pre>
       </Text>
+      <Button block onClick={() => supabase.auth.signOut()}>
+        Sign out
+      </Button>
     </Box>
   );
 }
