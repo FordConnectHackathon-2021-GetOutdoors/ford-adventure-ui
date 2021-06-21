@@ -1,7 +1,7 @@
 import { Title } from "components/Title";
 import { SearchInput } from "components/SearchInput";
 import { FormControl } from "components/FormControl";
-import { Box, Button, Container } from "@chakra-ui/react";
+import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import Fullscreen from "components/Fullscreen";
 import React from "react";
 
@@ -22,7 +22,9 @@ export default function Adventures() {
             helperText="We'll never share your email."
           />
         </Box>
-        <Button variant="tile">Go</Button>
+        <Flex justifyContent="center" w="100%">
+          <Button variant="tile">Go</Button>
+        </Flex>
       </Container>
     </Fullscreen>
   );

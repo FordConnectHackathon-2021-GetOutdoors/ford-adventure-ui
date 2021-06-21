@@ -28,6 +28,7 @@ function TileButtonVariant(props: Record<string, any>) {
     _hover: {
       h: "7rem",
       w: "7rem",
+      boxShadow: "xl",
     },
   };
 }

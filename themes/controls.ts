@@ -20,7 +20,7 @@ function DefaultInput(props: Record<string, any>) {
       color: mode("text.navy", "text.white")(props),
       boxShadow: mode("lightInputShadow", "darkInputShadow")(props),
       border: "1px solid",
-      borderColor: mode("text.white", "bg.darkOverlay")(props),
+      borderColor: mode("white", "bg.darkOverlay")(props),
       _focus: {
         bg: "white",
         boxShadow: mode("lightInputFocusShadow", "darkInputFocusShadow")(props),
