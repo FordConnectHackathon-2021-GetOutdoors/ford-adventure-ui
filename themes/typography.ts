@@ -54,6 +54,8 @@ export const textStyles = {
     fontWeight: 100,
     fontFamily: "FontAntennaCond",
     fontSize: "4.0625rem",
+    lineHeight: "none",
+    textTransform: "uppercase",
   },
   h2: {
     fontSize: "2.8125rem",

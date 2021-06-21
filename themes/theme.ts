@@ -6,6 +6,7 @@ import shadows from "./shadows";
 import { Heading, Text, textStyles, FormLabel } from "./typography";
 // import { Card } from "./components";
 import { Input } from "./controls";
+import { Button } from "./button";
 
 const config: ThemeConfig = {
   cssVarPrefix: "ford",
@@ -15,6 +16,11 @@ const config: ThemeConfig = {
 
 const theme: Record<string, any> = extendTheme({
   colors,
+  config,
+  fonts,
+  shadows,
+  styles: { global: (props: any) => globalStyles(props) },
+  textStyles,
   components: {
     // Card,
     Heading,
@@ -22,12 +28,9 @@ const theme: Record<string, any> = extendTheme({
     Input,
     Text,
     FormLabel,
+    // @ts-ignore
+    Button,
   },
-  config,
-  fonts,
-  shadows,
-  styles: { global: (props: any) => globalStyles(props) },
-  textStyles,
 });
 
 export default theme;
