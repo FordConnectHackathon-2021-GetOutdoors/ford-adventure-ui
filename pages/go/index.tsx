@@ -3,7 +3,7 @@ import { SearchInput } from "components/SearchInput";
 import { FormControl } from "components/FormControl";
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import Fullscreen from "components/Fullscreen";
-import React from "react";
+import CardRadio from "components/CardRadio";
 
 export default function Adventures() {
   return (
@@ -24,6 +24,9 @@ export default function Adventures() {
         </Box>
         <Flex justifyContent="center" w="100%">
           <Button variant="tile">Go</Button>
+        </Flex>
+        <Flex justifyContent="center" w="100%" py="10">
+          <CardRadio />
         </Flex>
       </Container>
     </Fullscreen>
