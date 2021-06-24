@@ -3,6 +3,8 @@ import Head from "next/head";
 export default function CustomHead({ pageProps }: any) {
   return (
     <Head>
+      {/* // Title */}
+      <title>Ford Adventure</title>
       {/* // Favicon */}
       <link rel="shortcut icon" href="favicon.ico" />
       {/* // Support responsive mobile sizes */}
