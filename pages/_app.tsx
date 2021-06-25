@@ -1,4 +1,4 @@
-import { Auth } from "@supabase/ui";
+// import { Auth } from "@supabase/ui";
 import CustomHead from "components/CustomHead";
 import { ThemeProvider } from "components/ThemeProvider";
 import { ThemeSwitcher } from "components/ThemeSwitcher";
@@ -8,15 +8,17 @@ import "../styles/globals.css";
 
 // TODO - Prune the list of imported fonts
 import "../public/fonts/antenna/atenna-font.css";
+import React from "react";
+import { AuthProvider } from "utils/AuthContext";
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider cookies={pageProps.cookies}>
-      <Auth.UserContextProvider supabaseClient={supabase}>
+      <AuthProvider>
         <CustomHead {...pageProps} />
         <Component {...pageProps} />
         <ThemeSwitcher />
-      </Auth.UserContextProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
