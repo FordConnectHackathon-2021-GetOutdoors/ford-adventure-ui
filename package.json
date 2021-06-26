@@ -24,7 +24,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.9.0",
-    "react-query": "^3.17.2"
+    "react-query": "^3.17.2",
+    "react-tinder-card": "^1.4.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.9",
