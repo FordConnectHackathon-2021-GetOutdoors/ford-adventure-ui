@@ -1,6 +1,6 @@
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Center, Flex, Image } from '@chakra-ui/react';
 import React, { useMemo, useState } from 'react';
-import TinderCard from 'react-tinder-card'
+import TinderCard from 'react-tinder-card';
 
 const adventures = [{
   type: 'bandcamp',
@@ -35,23 +35,27 @@ const adventures = [{
 export default function SwipeAdventures() {
   const list = [];
   const childRefs = useMemo(() => Array(adventures.length).fill(0).map(i => React.createRef()), []);
-  const [lastDirection, setLastDirection] = useState();
-  const lovedBucket = [];
-  const hatedBucket = [];
+  const lovedBucket: string[] = [];
+  const hatedBucket: string[] = [];
+
+  let [count, setCount] = useState(adventures.length);
 
   const swiped = (direction: any, adventure: string) => {
-    setLastDirection(direction);
-
     if (direction === 'left') {
-      hatedBucket.push(adventure);
+      hatedBucket.indexOf(adventure) === -1 && hatedBucket.push(adventure);
     } else {
-      lovedBucket.push(adventure)
+      lovedBucket.indexOf(adventure) === -1 && lovedBucket.push(adventure)
     }
+  }
+
+  const outOfFrame = () => {
+    --count;
+    setCount(count);
   }
 
   for (let idx = 0; idx < adventures.length; idx++) {
     list.push(
-      <TinderCard ref={childRefs[idx] as React.RefObject<any>} key={idx} onSwipe={(dir) => swiped(dir, adventures[idx].type)} preventSwipe={['up', 'down']}>
+      <TinderCard ref={childRefs[idx] as React.RefObject<any>} key={idx} onSwipe={(dir) => swiped(dir, adventures[idx].type)} preventSwipe={['up', 'down']} onCardLeftScreen={() => outOfFrame()} flickOnSwipe={true}>
         <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="1rem">
           <Image src={`/adventures/${adventures[idx].type}.png`} alt={`${adventures[idx].displayName}.png`} />
           <Box 
@@ -81,8 +85,18 @@ export default function SwipeAdventures() {
   }
 
   return (
-    <div>
-      {list}
-    </div>
+    <Flex direction="column">
+      {list.length > 0 && list}
+      {count === 0 && 
+        <Center>
+          <Box 
+            m="10"
+            fontWeight="thin"
+            as="h6"
+            lineHeight="tight"
+            flexWrap="wrap"
+            textAlign="center">Yay !! All adventures swiped.</Box>
+        </Center>}
+    </Flex>
   )
 };
