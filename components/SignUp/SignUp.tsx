@@ -24,9 +24,10 @@ export default function SignUp() {
     <Container supabaseClient={supabase}>
       <Auth
         supabaseClient={supabase}
-        providers={["twitter", "google", "facebook"]}
+        providers={["google", "facebook"]}
         // socialLayout="vertical"
         socialButtonSize="xlarge"
+        redirectTo="/adventures"
       />
     </Container>
   );
