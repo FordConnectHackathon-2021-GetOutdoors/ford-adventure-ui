@@ -27,7 +27,6 @@ export default function SignUp() {
         providers={["google", "facebook"]}
         // socialLayout="vertical"
         socialButtonSize="xlarge"
-        redirectTo="/adventures"
       />
     </Container>
   );
