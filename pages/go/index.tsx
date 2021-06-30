@@ -1,21 +1,9 @@
 import Fullscreen from "components/Fullscreen";
-import { Carousel, items } from "../../components/Carousel/Carousel";
-
-const defaultFilters = [
-  {
-    id: "123",
-    displayName: "Desert",
-  },
-
-  {
-    id: "576",
-    displayName: "Beach",
-  },
-  {
-    id: "453",
-    displayName: "Country",
-  },
-];
+import {
+  Carousel,
+  defaultFilters,
+  items,
+} from "../../components/Carousel/Carousel";
 
 export default function Adventures() {
   return (

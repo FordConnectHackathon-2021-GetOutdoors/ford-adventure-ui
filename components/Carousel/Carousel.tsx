@@ -10,10 +10,24 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
-import Image from "next/image";
-import Fullscreen from "components/Fullscreen";
 
-const defaultOptions = [
+export const defaultFilters = [
+  {
+    id: "123",
+    displayName: "Desert",
+  },
+
+  {
+    id: "576",
+    displayName: "Beach",
+  },
+  {
+    id: "453",
+    displayName: "Country",
+  },
+];
+
+export const defaultOptions = [
   {
     id: "234",
     displayName: "Zion National Park",
@@ -52,9 +66,13 @@ const defaultOptions = [
   },
 ];
 
-export const Carousel = ({ options = defaultOptions, filters }: any) => {
-  const [selected, setSelected] = useState("234");
-  const [index, setIndex] = useState(1);
+export const Carousel = ({
+  options = defaultOptions,
+  filters = defaultFilters,
+}: any) => {
+  const [selected, setSelected] = useState("123");
+  const [index, setIndex] = useState(0);
+
   return (
     <>
       <Box
