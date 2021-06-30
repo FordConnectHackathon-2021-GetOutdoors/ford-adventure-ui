@@ -16,5 +16,5 @@
     "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "themes/*.ts"],
-  "exclude": ["node_modules", "packages/components/ImageList"]
+  "exclude": ["node_modules"]
 }
