@@ -1,32 +1,16 @@
+import { Title } from "components/Title";
+import { SearchInput } from "components/SearchInput";
+import { FormControl } from "components/FormControl";
+import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import Fullscreen from "components/Fullscreen";
-import { Carousel, items } from "../../components/Carousel/Carousel";
-
-const defaultFilters = [
-  {
-    id: "123",
-    displayName: "Desert",
-  },
-
-  {
-    id: "576",
-    displayName: "Beach",
-  },
-  {
-    id: "453",
-    displayName: "Country",
-  },
-];
+import CardRadio from "components/CardRadio";
+import React from "react";
+import { ThreeUpButtonGroup } from "components/ThreeUpButtonGroup";
 
 export default function Adventures() {
   return (
     <Fullscreen>
-      {defaultFilters && <Carousel items={items} filters={defaultFilters} />}
-    </Fullscreen>
-  );
-}
-
-{
-  /* <Container>
+      <Container>
         <Title faded>Ford Adventure</Title>
         <ThreeUpButtonGroup />
         <SearchInput />
@@ -44,5 +28,7 @@ export default function Adventures() {
         <Flex justifyContent="center" w="100%" py="10">
           <CardRadio />
         </Flex>
-      </Container> */
+      </Container>
+    </Fullscreen>
+  );
 }

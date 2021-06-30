@@ -17,7 +17,7 @@ function AppContainer({ Component, pageProps }: AppProps) {
       <AuthProvider>
         <CustomHead {...pageProps} />
         <Component {...pageProps} />
-        <ThemeSwitcher />
+        {/* <ThemeSwitcher /> */}
       </AuthProvider>
     </ThemeProvider>
   );

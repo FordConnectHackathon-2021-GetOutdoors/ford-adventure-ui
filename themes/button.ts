@@ -32,6 +32,25 @@ function TileButtonVariant(props: Record<string, any>) {
     },
   };
 }
+function PillButtonVariant(props: Record<string, any>) {
+  return {
+    fontFamily: "FontAntennaCond",
+    fontWeight: 400,
+    letterSpacing: "widest",
+    bg: mode("bg.white", "text.white")(props),
+    borderRadius: "none",
+    color: mode("text.navy", "text.navy")(props),
+    // h: "6.5rem",
+    // w: "6.5rem",
+    transition: "all .1s linear",
+    boxShadow: "buttonShadowDefault",
+    // _hover: {
+    //   h: "7rem",
+    //   w: "7rem",
+    //   boxShadow: "xl",
+    // },
+  };
+}
 
 const defaultProps = {
   variant: null,
@@ -41,6 +60,6 @@ const defaultProps = {
 
 export const Button = {
   baseStyle: DefaultInput,
-  variants: { tile: TileButtonVariant },
+  variants: { tile: TileButtonVariant, pill: PillButtonVariant },
   defaultProps,
 };

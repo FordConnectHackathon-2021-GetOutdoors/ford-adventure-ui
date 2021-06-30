@@ -19,12 +19,14 @@
     "@supabase/supabase-js": "^1.15.1",
     "@supabase/ui": "^0.27.3",
     "@types/node": "^15.12.4",
+    "@types/react-swipeable-views": "^0.13.0",
     "framer-motion": "^4.1.17",
     "next": "11.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.9.0",
     "react-query": "^3.17.2",
+    "react-swipeable-views": "^0.14.0",
     "react-tinder-card": "^1.4.0"
   },
   "devDependencies": {
