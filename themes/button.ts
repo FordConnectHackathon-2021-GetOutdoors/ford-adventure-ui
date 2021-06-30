@@ -1,4 +1,5 @@
-import { AspectRatio } from "@chakra-ui/react";
+import { SmallAddIcon } from "@chakra-ui/icons";
+import { AspectRatio, transition } from "@chakra-ui/react";
 import { getColor, mode } from "@chakra-ui/theme-tools";
 
 function getDefaults(props: Record<string, any>) {
@@ -18,9 +19,9 @@ function TileButtonVariant(props: Record<string, any>) {
     fontFamily: "FontAntennaCond",
     fontWeight: 400,
     letterSpacing: "widest",
-    bg: mode("bg.navy", "text.white")(props),
+    bg: mode("bg.darknavy", "text.white")(props),
     borderRadius: "none",
-    color: mode("text.white", "text.navy")(props),
+    color: mode("text.white", "text.darknavy")(props),
     h: "6.5rem",
     w: "6.5rem",
     transition: "all .1s linear",
@@ -32,23 +33,40 @@ function TileButtonVariant(props: Record<string, any>) {
     },
   };
 }
+
 function PillButtonVariant(props: Record<string, any>) {
   return {
     fontFamily: "FontAntennaCond",
-    fontWeight: 400,
-    letterSpacing: "widest",
-    bg: mode("bg.white", "text.white")(props),
-    borderRadius: "none",
-    color: mode("text.navy", "text.navy")(props),
-    // h: "6.5rem",
-    // w: "6.5rem",
-    transition: "all .1s linear",
-    boxShadow: "buttonShadowDefault",
-    // _hover: {
-    //   h: "7rem",
-    //   w: "7rem",
-    //   boxShadow: "xl",
-    // },
+    fontWeight: 600,
+    fontSize: "xs",
+    letterSpacing: "wider",
+    bg: mode(
+      props.isSelected ? "bg.darknavy" : "bg.white",
+      //TODO
+      props.isSelected ? "bg.darknavy" : "bg.white"
+    )(props),
+
+    color: mode(
+      props.isSelected ? "text.white" : "text.darknavy",
+      //TODO
+      props.isSelected ? "text.darknavy" : "text.white"
+    )(props),
+    px: 8,
+    py: 3,
+    transition: "all .2s ease-out",
+    // boxShadow: "buttonShadowDefault",
+    _hover: {
+      bg: mode(
+        props.isSelected ? "bg.white" : "bg.darknavy",
+        //TODO
+        props.isSelected ? "bg.darknavy" : "bg.white"
+      )(props),
+      color: mode(
+        props.isSelected ? "text.darknavy" : "text.white",
+        //TODO
+        props.isSelected ? "text.white" : "text.darknavy"
+      )(props),
+    },
   };
 }
 

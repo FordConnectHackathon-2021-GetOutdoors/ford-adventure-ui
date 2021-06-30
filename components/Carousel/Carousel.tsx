@@ -1,4 +1,4 @@
-import { Box, Button, chakra, Flex } from "@chakra-ui/react";
+import { Box, Button, chakra, Flex, Grid, HStack } from "@chakra-ui/react";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
 import Image from "next/image";
@@ -47,10 +47,10 @@ export const Carousel = ({ options = defaultOptions, filters }: any) => {
   return (
     <>
       <Box as={SwipeableViews} position="fixed" w="100%">
-        {options.map((option: any) => {
+        {options.map((option: any, i: number) => {
           const { imageSrc, displayName, tagLine } = option;
           return (
-            <Fullscreen>
+            <Fullscreen key={i}>
               <Image
                 height="2000%"
                 width="100px"
@@ -61,11 +61,11 @@ export const Carousel = ({ options = defaultOptions, filters }: any) => {
           );
         })}
       </Box>
-      <chakra.header h="20" position="relative" zIndex={2}>
-        asd
+      <chakra.header h="24" position="relative" zIndex={2}>
+        <asd></asd>
       </chakra.header>
 
-      <Flex pl="9">
+      <HStack pl="9" spacing={3}>
         {filters.map((filter: any) => {
           return (
             <Button
@@ -80,7 +80,7 @@ export const Carousel = ({ options = defaultOptions, filters }: any) => {
             </Button>
           );
         })}
-      </Flex>
+      </HStack>
     </>
   );
 };
