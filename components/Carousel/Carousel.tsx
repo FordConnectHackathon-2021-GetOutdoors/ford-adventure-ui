@@ -1,5 +1,14 @@
-import { Box, Button, chakra, Flex, Grid, HStack } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Button,
+  chakra,
+  filter,
+  Flex,
+  Grid,
+  HStack,
+  Img,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import Image from "next/image";
 import Fullscreen from "components/Fullscreen";
@@ -30,7 +39,7 @@ const defaultOptions = [
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
     content: "Hello World",
-    imageSrc: "/images/arches.png",
+    imageSrc: "/images/zion.png",
   },
   {
     id: "234",
@@ -44,37 +53,58 @@ const defaultOptions = [
 ];
 
 export const Carousel = ({ options = defaultOptions, filters }: any) => {
+  const [selected, setSelected] = useState("234");
+  const [index, setIndex] = useState(1);
   return (
     <>
-      <Box as={SwipeableViews} position="fixed" w="100%">
+      <Box
+        as={SwipeableViews}
+        position="fixed"
+        w="100vw"
+        h="100vh"
+        index={index}
+        onChange={(i: any) => setIndex(i)}
+      >
         {options.map((option: any, i: number) => {
           const { imageSrc, displayName, tagLine } = option;
           return (
-            <Fullscreen key={i}>
-              <Image
-                height="2000%"
-                width="100px"
+            <Box width="100%" height="var(--100vh)" key={i}>
+              <Img
                 src={imageSrc}
                 alt={`${displayName} ${tagLine}`}
+                key={i}
+                height="100%"
+                width="100%"
+                layout="fixed"
+                position="fixed"
+                objectFit="cover"
               />
-            </Fullscreen>
+            </Box>
           );
         })}
       </Box>
-      <chakra.header h="24" position="relative" zIndex={2}>
-        <asd></asd>
-      </chakra.header>
+      <Flex
+        as="header"
+        h="24"
+        position="relative"
+        zIndex={2}
+        p="10"
+        justify="space-between"
+        color="white"
+      >
+        <Box>LOGO</Box>
+        <Box>MENU</Box>
+      </Flex>
 
       <HStack pl="9" spacing={3}>
         {filters.map((filter: any) => {
           return (
             <Button
+              isSelected={filter.id === selected}
               key={filter.id}
-              // mx={2}
               variant="pill"
-              // px={5}
-              // py={3}
               borderRadius="3rem"
+              onClick={() => setSelected(filter.id)}
             >
               {filter.displayName}
             </Button>
@@ -86,7 +116,3 @@ export const Carousel = ({ options = defaultOptions, filters }: any) => {
 };
 
 export const items = [];
-
-//  // <Box>
-//       {/*  */}
-//     // </Box>

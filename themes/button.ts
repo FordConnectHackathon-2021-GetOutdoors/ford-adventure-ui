@@ -38,7 +38,7 @@ function PillButtonVariant(props: Record<string, any>) {
   return {
     fontFamily: "FontAntennaCond",
     fontWeight: 600,
-    fontSize: "xs",
+    fontSize: "md",
     letterSpacing: "wider",
     bg: mode(
       props.isSelected ? "bg.darknavy" : "bg.white",
@@ -54,19 +54,6 @@ function PillButtonVariant(props: Record<string, any>) {
     px: 8,
     py: 3,
     transition: "all .2s ease-out",
-    // boxShadow: "buttonShadowDefault",
-    _hover: {
-      bg: mode(
-        props.isSelected ? "bg.white" : "bg.darknavy",
-        //TODO
-        props.isSelected ? "bg.darknavy" : "bg.white"
-      )(props),
-      color: mode(
-        props.isSelected ? "text.darknavy" : "text.white",
-        //TODO
-        props.isSelected ? "text.white" : "text.darknavy"
-      )(props),
-    },
   };
 }
 
