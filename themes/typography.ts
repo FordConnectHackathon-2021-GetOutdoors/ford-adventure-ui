@@ -1,5 +1,7 @@
 // https://chakra-ui.com/docs/theming/customize-theme#customizing-component-styles
 
+import { mode } from "@chakra-ui/theme-tools";
+
 export const globalFontSmoothing = {
   fontVariantLigatures: "none",
   WebkitFontVariantLigatures: "none",
@@ -10,6 +12,32 @@ export const globalFontSmoothing = {
   textShadow: "rgba(0, 0, 0, .01) 0 0 1px",
 };
 
+function SummaryTitle(props: Record<string, any>) {
+  const { theme } = props;
+  // const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props);
+
+  return {
+    fontFamily: "FontAntennaCond",
+    fontSize: "2rem",
+    lineHeight: "shorter",
+    fontWeight: 600,
+    color: mode("text.white", "text.white")(props),
+  };
+}
+
+function SummaryTagline(props: Record<string, any>) {
+  const { theme } = props;
+  // const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props);
+  return {
+    fontFamily: "FontAntennaCond",
+    fontSize: "1rem",
+    lineHeight: "shorter",
+    fontWeight: "bold",
+    pt: 1,
+    color: mode("text.white", "text.white")(props),
+  };
+}
+
 export const Heading = {
   baseStyle: {
     fontFamily: "FontAntennaCond",
@@ -17,10 +45,8 @@ export const Heading = {
     fontWeight: 300,
   },
   variants: {
-    nameplate: {
-      fontWeight: 500,
-      fontSize: "4.0625rem",
-    },
+    SummaryTitle,
+    SummaryTagline,
   },
 };
 

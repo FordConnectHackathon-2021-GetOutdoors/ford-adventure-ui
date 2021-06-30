@@ -5,11 +5,17 @@ import {
   filter,
   Flex,
   Grid,
+  Heading,
   HStack,
+  Icon,
   Img,
+  Text,
 } from "@chakra-ui/react";
+import { MotionBox } from "components/motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
+import { displayName } from "react-tinder-card";
 
 export const defaultFilters = [
   {
@@ -23,6 +29,14 @@ export const defaultFilters = [
   },
   {
     id: "453",
+    displayName: "Country",
+  },
+  {
+    id: "678",
+    displayName: "Country",
+  },
+  {
+    id: "890",
     displayName: "Country",
   },
 ];
@@ -39,7 +53,7 @@ export const defaultOptions = [
   },
   {
     id: "234",
-    displayName: "Zion National Park",
+    displayName: "Zion  Park",
     tagLine: "Utah's First National Park",
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
@@ -48,7 +62,7 @@ export const defaultOptions = [
   },
   {
     id: "234",
-    displayName: "Zion National Park",
+    displayName: " National Park",
     tagLine: "Utah's First National Park",
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
@@ -57,7 +71,7 @@ export const defaultOptions = [
   },
   {
     id: "234",
-    displayName: "Zion National Park",
+    displayName: "Zion  ",
     tagLine: "Utah's First National Park",
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
@@ -71,36 +85,110 @@ export const Carousel = ({
   filters = defaultFilters,
 }: any) => {
   const [selected, setSelected] = useState("123");
-  const [index, setIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   return (
     <>
       <Box
-        as={SwipeableViews}
         position="fixed"
         w="100vw"
         h="100vh"
-        index={index}
-        onChange={(i: any) => setIndex(i)}
+        overflow="hidden"
+        // zIndex="-1"
       >
-        {options.map((option: any, i: number) => {
-          const { imageSrc, displayName, tagLine } = option;
-          return (
-            <Box width="100%" height="var(--100vh)" key={i}>
-              <Img
-                src={imageSrc}
-                alt={`${displayName} ${tagLine}`}
-                key={i}
-                height="100%"
-                width="100%"
-                layout="fixed"
-                position="fixed"
-                objectFit="cover"
-              />
-            </Box>
-          );
-        })}
+        <SwipeableViews
+          index={slideIndex}
+          onChangeIndex={(i: any) => {
+            setSlideIndex(i);
+          }}
+        >
+          {options.map((option: any, i: number) => {
+            const { imageSrc, displayName, tagLine } = option;
+            return (
+              <Box width="100%" height="var(--100vh)" key={i}>
+                <Img
+                  src={imageSrc}
+                  alt={`${displayName} ${tagLine}`}
+                  key={i}
+                  height="100%"
+                  width="100%"
+                  layout="fixed"
+                  position="fixed"
+                  objectFit="cover"
+                />
+              </Box>
+            );
+          })}
+        </SwipeableViews>
       </Box>
+
+      <Box position="absolute" bottom="0" h="25%" w="100%">
+        {/* @ts-ignore */}
+        <AnimatePresence>
+          {options.map((option: any, i: number) => {
+            const { displayName, points, distance, tagLine } = option;
+            if (i !== slideIndex) return;
+            return (
+              <MotionBox
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, y: -20 }}
+                layout="position"
+                position="absolute"
+                left={0}
+                right={0}
+                px={10}
+              >
+                <Heading variant="SummaryTitle">{displayName}</Heading>
+                <Flex>
+                  <Flex alignItems="center">
+                    <Icon width="5" height="5" viewBox="0 0 16 16">
+                      <circle
+                        cx="8"
+                        cy="8"
+                        r="7.5"
+                        fill="#F7C30C"
+                        stroke="white"
+                      />
+                      <path
+                        d="M8 3L9.12257 6.45492H12.7553L9.81636 8.59017L10.9389 12.0451L8 9.90983L5.06107 12.0451L6.18364 8.59017L3.24472 6.45492H6.87743L8 3Z"
+                        fill="white"
+                      />
+                    </Icon>
+                    <Text color="white" pl={2}>
+                      {points} Points
+                    </Text>
+                  </Flex>
+                  <Flex alignItems="center" pl={5}>
+                    <Icon width="5" height="5" viewBox="0 0 16 16">
+                      <circle
+                        cx="8"
+                        cy="8"
+                        r="7.5"
+                        stroke="white"
+                        fill="transparent"
+                      />
+                      <path
+                        d="M8 4.5V8.5L10.5 10.5"
+                        stroke="white"
+                        fill="transparent"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </Icon>
+                    <Text color="white" pl={2}>
+                      {distance}
+                    </Text>
+                  </Flex>
+                </Flex>
+                <Heading variant="SummaryTagline">{tagLine}</Heading>
+              </MotionBox>
+            );
+          })}
+        </AnimatePresence>
+      </Box>
+
       <Flex
         as="header"
         h="24"
@@ -114,7 +202,7 @@ export const Carousel = ({
         <Box>MENU</Box>
       </Flex>
 
-      <HStack pl="9" spacing={3}>
+      <HStack px="9" spacing={3} overflow="auto">
         {filters.map((filter: any) => {
           return (
             <Button
