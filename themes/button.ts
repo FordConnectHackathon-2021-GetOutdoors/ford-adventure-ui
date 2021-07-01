@@ -47,9 +47,9 @@ function PillButtonVariant(props: Record<string, any>) {
     )(props),
 
     color: mode(
-      props.isSelected ? "text.white" : "text.darknavy",
+      props.isSelected ? "text.darknavy" : "white",
       //TODO
-      props.isSelected ? "text.darknavy" : "text.white"
+      props.isSelected ? "white" : "text.darknavy"
     )(props),
     px: 8,
     py: 3,

@@ -84,7 +84,7 @@ export const Carousel = ({
   options = defaultOptions,
   filters = defaultFilters,
 }: any) => {
-  const [selected, setSelected] = useState("123");
+  const [selectedFilter, setSelected] = useState("123");
   const [slideIndex, setSlideIndex] = useState(0);
 
   return (
@@ -203,10 +203,10 @@ export const Carousel = ({
       </Flex>
 
       <HStack px="9" spacing={3} overflow="auto">
-        {filters.map((filter: any) => {
+        {filters.map((filter: any, i) => {
           return (
             <Button
-              isSelected={filter.id === selected}
+              isSelected={filter.id === selectedFilter}
               key={filter.id}
               variant="pill"
               borderRadius="3rem"
