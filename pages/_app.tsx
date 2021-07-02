@@ -2,6 +2,7 @@
 import CustomHead from "components/CustomHead";
 import { ThemeProvider } from "components/ThemeProvider";
 // import { ThemeSwitcher } from "components/ThemeSwitcher";
+
 import type { AppProps } from "next/app";
 // import { supabase } from "utils/supabase";
 import "../styles/globals.css";

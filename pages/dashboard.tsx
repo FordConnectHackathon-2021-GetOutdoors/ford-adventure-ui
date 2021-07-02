@@ -1,10 +1,10 @@
-import { Header } from "components/Carousel/Header";
+import { Header } from "../components/Carousel/Header";
 import React from "react";
 // import { Auth } from "@supabase/ui";
 import Fullscreen from "../components/Fullscreen";
 import { useKeenSlider } from "keen-slider/react";
 import { Box, Button, Flex, Grid, HStack } from "@chakra-ui/react";
-import styles from "components/dashboard.modules.scss";
+// import styles from "../components/dashboard.modules.scss";
 
 const dashboardTabs = [
   {
@@ -76,6 +76,7 @@ export default function Dashboard() {
       </Flex>
 
       <div
+        // @ts-ignore
         ref={sliderRef}
         className="keen-slider"
         style={{ display: "flex", flexGrow: 1 }}
