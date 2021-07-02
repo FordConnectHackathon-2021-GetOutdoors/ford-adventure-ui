@@ -5,6 +5,7 @@ const globalStyles = (props: Styles) => ({
   "html, body": {
     fontSize: "100%",
     WebkitTextSizeAdjust: "100%",
+    webkitTapHighlightColor: "transparent",
   },
   body: {
     ...globalFontSmoothing,

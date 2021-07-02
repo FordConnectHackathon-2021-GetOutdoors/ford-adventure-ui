@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { displayName } from "react-tinder-card";
+import { Header } from "./Header";
 
 export const defaultFilters = [
   {
@@ -29,15 +30,15 @@ export const defaultFilters = [
   },
   {
     id: "453",
-    displayName: "Country",
+    displayName: "Mountains",
   },
   {
     id: "678",
-    displayName: "Country",
+    displayName: "Spa",
   },
   {
     id: "890",
-    displayName: "Country",
+    displayName: "Clubbing",
   },
 ];
 
@@ -94,6 +95,7 @@ export const Carousel = ({
         w="100vw"
         h="100vh"
         overflow="hidden"
+
         // zIndex="-1"
       >
         <SwipeableViews
@@ -189,20 +191,16 @@ export const Carousel = ({
         </AnimatePresence>
       </Box>
 
-      <Flex
-        as="header"
-        h="24"
-        position="relative"
-        zIndex={2}
-        p="10"
-        justify="space-between"
-        color="white"
+      <HStack
+        px="9"
+        spacing={3}
+        overflow="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
       >
-        <Box>LOGO</Box>
-        <Box>MENU</Box>
-      </Flex>
-
-      <HStack px="9" spacing={3} overflow="auto">
         {filters.map((filter: any, i) => {
           return (
             <Button

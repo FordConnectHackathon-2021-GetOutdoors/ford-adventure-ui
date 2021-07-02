@@ -47,13 +47,31 @@ function PillButtonVariant(props: Record<string, any>) {
     )(props),
 
     color: mode(
-      props.isSelected ? "text.darknavy" : "white",
-      //TODO
+      props.isSelected ? "white" : "text.darknavy",
       props.isSelected ? "white" : "text.darknavy"
     )(props),
+    // ,
+    //TODO
+    //
     px: 8,
     py: 3,
     transition: "all .2s ease-out",
+  };
+}
+
+function DashboardTabsButtonVariant(props: Record<string, any>) {
+  return {
+    fontFamily: "FontAntenna",
+
+    fontSize: "xs",
+    letterSpacing: "wider",
+    transition: "all .2s ease-out",
+    borderRadius: "none",
+    lineHeight: 1,
+    borderBottom: props.isSelected ? "none" : "2px solid gray",
+    py: 3,
+    m: 0,
+    border: 0,
   };
 }
 
@@ -65,6 +83,10 @@ const defaultProps = {
 
 export const Button = {
   baseStyle: DefaultInput,
-  variants: { tile: TileButtonVariant, pill: PillButtonVariant },
+  variants: {
+    tile: TileButtonVariant,
+    pill: PillButtonVariant,
+    dashboardTabs: DashboardTabsButtonVariant,
+  },
   defaultProps,
 };

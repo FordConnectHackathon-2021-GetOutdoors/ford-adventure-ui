@@ -10,6 +10,7 @@ export default function Fullscreen({ ...props }) {
       }}
       h="var(--100vh)"
       overflow="scroll"
+      alignItems="stretch"
       {...props}
     />
   );

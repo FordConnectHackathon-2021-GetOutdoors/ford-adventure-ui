@@ -1,4 +1,6 @@
+import { Header } from "components/Carousel/Header";
 import Fullscreen from "components/Fullscreen";
+import React from "react";
 import {
   Carousel,
   defaultFilters,
@@ -8,6 +10,7 @@ import {
 export default function Adventures() {
   return (
     <Fullscreen>
+      <Header variant="overlay" />
       {defaultFilters && <Carousel items={items} filters={defaultFilters} />}
     </Fullscreen>
   );
