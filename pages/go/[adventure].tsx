@@ -32,6 +32,7 @@ export default function Adventure() {
           })}
         </div>
       )}
+      {/* @ts-ignore */}
       <div ref={sliderRef} className="keen-slider">
         <div className="keen-slider__slide number-slide1">1</div>
         <div className="keen-slider__slide number-slide2">2</div>
