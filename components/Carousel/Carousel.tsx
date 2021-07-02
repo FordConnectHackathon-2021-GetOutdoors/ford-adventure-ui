@@ -203,7 +203,7 @@ export const Carousel = ({
       </Flex>
 
       <HStack px="9" spacing={3} overflow="auto">
-        {filters.map((filter: any, i) => {
+        {filters.map((filter: any,) => {
           return (
             <Button
               isSelected={filter.id === selectedFilter}
