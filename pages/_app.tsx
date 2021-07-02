@@ -10,16 +10,19 @@ import "../styles/globals.css";
 import "../public/fonts/antenna/atenna-font.css";
 import React from "react";
 import { AuthProvider } from "utils/AuthContext";
+import { DeviceProvider } from "utils/DeviceContext";
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider cookies={pageProps.cookies}>
-      <AuthProvider>
-        <CustomHead {...pageProps} />
-        <Component {...pageProps} />
-        {/* <ThemeSwitcher /> */}
-      </AuthProvider>
-    </ThemeProvider>
+    <DeviceProvider>
+      <ThemeProvider cookies={pageProps.cookies}>
+        <AuthProvider>
+          <CustomHead {...pageProps} />
+          <Component {...pageProps} />
+          {/* <ThemeSwitcher /> */}
+        </AuthProvider>
+      </ThemeProvider>
+    </DeviceProvider>
   );
 }
 

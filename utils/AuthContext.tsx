@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
   // };
 
   const signOut = async () => {
-    const result = await supabase.auth.signOut();
+    await supabase.auth.signOut();
     Router.push("/");
   };
 
