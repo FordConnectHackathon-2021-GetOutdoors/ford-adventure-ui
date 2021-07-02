@@ -214,9 +214,7 @@ const EmailForm = () => {
 
 const SocialForm = () => {
   const { handleSubmit } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-
-  const [social, setSocial] = useState(null);
+  const onSubmit = (data: any, e) => console.log(data, e);
 
   const socialStyles = {
     borderRadius: "10px",
@@ -240,35 +238,37 @@ const SocialForm = () => {
     }
   };
   return <>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl id="google">
+    <form>
+      <FormControl>
         <Button 
-            type="submit"
-            backgroundColor={colors.bg.gBlue} 
-            color={colors.text.white} 
-            borderRadius={socialStyles.borderRadius}
-            focusBorderColor={colors.text.darknavy}
-            height={socialStyles.height}
-            fontSize={socialStyles.fontSize}
-            width="100%"
-            leftIcon={<FcGoogle size="2em" />}
-          >SIGN IN WITH GOOGLE</Button>
+          id="google"
+          onClick={handleSubmit(onSubmit)}
+          backgroundColor={colors.bg.gBlue} 
+          color={colors.text.white} 
+          borderRadius={socialStyles.borderRadius}
+          focusBorderColor={colors.text.darknavy}
+          height={socialStyles.height}
+          fontSize={socialStyles.fontSize}
+          width="100%"
+          leftIcon={<FcGoogle size="2em" />}
+        >SIGN IN WITH GOOGLE</Button>
       </FormControl>
       <FormControl>
         <Box w="100%" h={socialStyles.lineSpacing}></Box>
       </FormControl>
-      <FormControl id="facebook">
+      <FormControl>
         <Button 
-            type="submit"
-            backgroundColor={colors.bg.fbBlue} 
-            color={colors.text.white} 
-            borderRadius={socialStyles.borderRadius}
-            focusBorderColor={colors.text.darknavy}
-            height={socialStyles.height}
-            fontSize={socialStyles.fontSize}
-            width="100%"
-            leftIcon={<FaFacebook size="2em" />}
-          >SIGN IN WITH FACEBOOK</Button>
+          id="facebook"
+          onClick={handleSubmit(onSubmit)}
+          backgroundColor={colors.bg.fbBlue} 
+          color={colors.text.white} 
+          borderRadius={socialStyles.borderRadius}
+          focusBorderColor={colors.text.darknavy}
+          height={socialStyles.height}
+          fontSize={socialStyles.fontSize}
+          width="100%"
+          leftIcon={<FaFacebook size="2em" />}
+        >SIGN IN WITH FACEBOOK</Button>
       </FormControl>
       <FormControl>
         <Box w="100%" h={socialStyles.lineSpacing}></Box>
