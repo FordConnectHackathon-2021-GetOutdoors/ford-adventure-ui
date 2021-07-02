@@ -10,7 +10,7 @@ import { Button } from "./button";
 
 const config: ThemeConfig = {
   cssVarPrefix: "ford",
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: false,
 };
 

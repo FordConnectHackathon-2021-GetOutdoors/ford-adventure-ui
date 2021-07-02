@@ -62,8 +62,8 @@ function PillButtonVariant(props: Record<string, any>) {
 function DashboardTabsButtonVariant(props: Record<string, any>) {
   return {
     fontFamily: "FontAntenna",
-
     fontSize: "xs",
+    color: "text.darknavy",
     letterSpacing: "wider",
     transition: "all .2s ease-out",
     borderRadius: "none",
