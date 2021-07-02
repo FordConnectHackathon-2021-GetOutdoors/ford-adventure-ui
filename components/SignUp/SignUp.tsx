@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Checkbox, Center, HStack } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Checkbox, Center, HStack, Spacer } from "@chakra-ui/react";
 import { useAuth } from "utils/AuthContext";
 import { supabase } from "utils/supabase";
 import { DeviceContext } from "utils/DeviceContext";
@@ -77,7 +79,7 @@ const CustomDivider = ({ isDesktopOrLaptop = false }) => {
   </>
 }
 
-const EmailForm = ({ isDesktopOrLaptop = false }) => {
+const EmailForm = () => {
   const { handleSubmit } = useForm();
   const onSubmit = (data: any) => console.log(data);
 
@@ -210,6 +212,101 @@ const EmailForm = ({ isDesktopOrLaptop = false }) => {
   </>
 }
 
+const SocialForm = () => {
+  const { handleSubmit } = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
+  const [social, setSocial] = useState(null);
+
+  const socialStyles = {
+    borderRadius: "10px",
+    lineSpacing: {
+      base: "1em", 
+      md: "1em", 
+      lg: "1.5em", 
+      xl: "1.5em"
+    },
+    height: {
+      base: "3em", 
+      md: "3em", 
+      lg: "3em", 
+      xl: "3em"
+    },
+    fontSize: {
+      base: "0.9em", 
+      md: "0.9em", 
+      lg: "1em", 
+      xl: "1em"
+    }
+  };
+  return <>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormControl id="google">
+        <Button 
+            type="submit"
+            backgroundColor={colors.bg.gBlue} 
+            color={colors.text.white} 
+            borderRadius={socialStyles.borderRadius}
+            focusBorderColor={colors.text.darknavy}
+            height={socialStyles.height}
+            fontSize={socialStyles.fontSize}
+            width="100%"
+            leftIcon={<FcGoogle size="2em" />}
+          >SIGN IN WITH GOOGLE</Button>
+      </FormControl>
+      <FormControl>
+        <Box w="100%" h={socialStyles.lineSpacing}></Box>
+      </FormControl>
+      <FormControl id="facebook">
+        <Button 
+            type="submit"
+            backgroundColor={colors.bg.fbBlue} 
+            color={colors.text.white} 
+            borderRadius={socialStyles.borderRadius}
+            focusBorderColor={colors.text.darknavy}
+            height={socialStyles.height}
+            fontSize={socialStyles.fontSize}
+            width="100%"
+            leftIcon={<FaFacebook size="2em" />}
+          >SIGN IN WITH FACEBOOK</Button>
+      </FormControl>
+      <FormControl>
+        <Box w="100%" h={socialStyles.lineSpacing}></Box>
+      </FormControl>
+    </form>
+  </>
+}
+
+const PageTitle = () => {
+  return <>
+    <Text 
+      fontSize={{
+        base: "2em", 
+        md: "2em", 
+        lg: "4em", 
+        xl: "4em"
+      }}
+      color={colors.text.darknavy}
+    >SIGN IN</Text>
+    <Text 
+      style={{ marginTop: "0" }}
+      fontSize={{
+        base: "0.7em", 
+        md: "0.7em", 
+        lg: "0.9em", 
+        xl: "0.9em"
+      }}
+      color={colors.text.darknavy}
+    >A NEW ADVENTURE AWAITS</Text>
+    <Spacer minHeight={{
+      base: "1em", 
+      md: "1em", 
+      lg: "2em", 
+      xl: "2em"
+    }} />
+  </>
+}
+
 export default function SignUp() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
   const signupStyles = {
@@ -232,8 +329,10 @@ export default function SignUp() {
         w={signupStyles}
         m="auto"
       >
+        <PageTitle />
+        <SocialForm />
         <CustomDivider isDesktopOrLaptop={isDesktopOrLaptop} />
-        <EmailForm isDesktopOrLaptop={isDesktopOrLaptop} />
+        <EmailForm />
       </Stack>
     </Container>
   );

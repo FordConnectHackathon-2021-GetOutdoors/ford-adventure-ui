@@ -12,6 +12,8 @@ const bg = {
   overlay: "rgba(0,0,0,.0125)",
   lightOverlay: "rgba(255,255,255,.15)",
   darkOverlay: "rgba(0,0,0,.1)",
+  fbBlue: "#5C6FA0",
+  gBlue: "#629BF0"
 };
 
 const text = {
