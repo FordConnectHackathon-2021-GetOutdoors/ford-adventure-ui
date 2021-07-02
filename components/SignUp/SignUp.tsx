@@ -263,7 +263,7 @@ const EmailForm = () => {
 
 const SocialForm = () => {
   const { handleSubmit } = useForm();
-  const onSubmit = (data: any, e) => console.log(data, e);
+  const onSubmit = (data: any, e: any) => console.log(data, e);
 
   const socialStyles = {
     borderRadius: "10px",
