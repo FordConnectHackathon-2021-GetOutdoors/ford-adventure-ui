@@ -84,6 +84,49 @@ const EmailForm = () => {
   const onSubmit = (data: any) => console.log(data);
 
   const [doSignin, setDoSignin] = useState(true);
+  const [doForgotPassword, setDoForgotPassword] = useState(false);
+
+  const getButtonTitle = () => {
+    if (doSignin) {
+      if (doForgotPassword) {
+        return "RESET PASSWORD";
+      } 
+      return "SIGN IN"; 
+    } else {
+      return "SIGN UP";
+    }
+  };
+
+  const getBackDescription = () => {
+    if (doSignin) {
+      if (doForgotPassword) {
+        return "Back to ";
+      }
+      return "New to Ford Adventure? "; 
+    } else {
+      return "Already have an account? ";
+    }
+  };
+
+  const getBackButtonName = () => {
+    if (doSignin) {
+      if (doForgotPassword) {
+        return "SIGN IN";
+      }
+      return "SIGN UP"; 
+    } else {
+      return "SIGN IN";
+    }
+  };
+
+  const toggleValue = () => {
+    if (doForgotPassword) {
+      setDoForgotPassword(false);
+      setDoSignin(true);
+    } else {
+      setDoSignin(!doSignin);
+    }
+  };
 
   const emailStyles = {
     bgColor: colors.bg.light,
@@ -144,39 +187,45 @@ const EmailForm = () => {
       <FormControl>
         <Box w="100%" h={emailStyles.lineSpacing}></Box>
       </FormControl>
-      <FormControl id="password" isRequired>
-        <Input 
-          type="password" 
-          placeholder="PASSWORD" 
-          backgroundColor={emailStyles.bgColor} 
-          color={emailStyles.color} 
-          borderRadius={emailStyles.borderRadius}
-          focusBorderColor={emailStyles.color}
-          height={emailStyles.height}
-          fontSize={emailStyles.fontSize}
-          paddingLeft={emailStyles.padding}
-          paddingRight={emailStyles.padding} />
-      </FormControl>
+      {
+        !doForgotPassword &&
+        <FormControl id="password" isRequired>
+          <Input 
+            type="password" 
+            placeholder="PASSWORD" 
+            backgroundColor={emailStyles.bgColor} 
+            color={emailStyles.color} 
+            borderRadius={emailStyles.borderRadius}
+            focusBorderColor={emailStyles.color}
+            height={emailStyles.height}
+            fontSize={emailStyles.fontSize}
+            paddingLeft={emailStyles.padding}
+            paddingRight={emailStyles.padding} />
+        </FormControl>
+      }
       <FormControl>
         <Box w="100%" h={emailStyles.lineSpacing}></Box>
       </FormControl>
-      <FormControl id="rememberMeAndForgetPasswordFieldSet">
-        <Box height={emailStyles.height}>
-          <Checkbox 
-            float="left" 
-            fontSize={emailStyles.labelFontSize}>Remember Me</Checkbox>
-          {
-            doSignin &&
-            <Button 
-            float="right" 
-            fontSize={emailStyles.labelFontSize} 
-            color={colors.text.link} 
-            variant="link"
-            pt={emailStyles.smallPadding} 
-            onClick={() => console.log('clicked')}>Forgot Password?</Button>
-          }
-        </Box>
-      </FormControl>
+      {
+        !doForgotPassword &&
+        <FormControl id="rememberMeAndForgetPasswordFieldSet">
+          <Box height={emailStyles.height}>
+            <Checkbox 
+              float="left" 
+              fontSize={emailStyles.labelFontSize}>Remember Me</Checkbox>
+            {
+              doSignin &&
+              <Button 
+              float="right" 
+              fontSize={emailStyles.labelFontSize} 
+              color={colors.text.link} 
+              variant="link"
+              pt={emailStyles.smallPadding} 
+              onClick={() => setDoForgotPassword(!doForgotPassword)}>Forgot Password?</Button>
+            }
+          </Box>
+        </FormControl>
+      }
       <FormControl>
         <Box w="100%" h={emailStyles.lineSpacing}></Box>
       </FormControl>
@@ -190,7 +239,7 @@ const EmailForm = () => {
           height={emailStyles.height}
           fontSize={emailStyles.fontSize}
           width="100%"
-        >{ doSignin ? 'SIGN IN' : 'SIGN UP' }</Button>
+        >{ getButtonTitle() }</Button>
       </FormControl>
       <FormControl>
         <Box w="100%" h={emailStyles.lineSpacing}></Box>
@@ -201,12 +250,12 @@ const EmailForm = () => {
     </form>
     <Center>
       <HStack spacing="1em">
-        <Text color={colors.text.darkgrey}>{ doSignin ? "New to Ford Adventure? " : "Already have an account? "}</Text>
+        <Text color={colors.text.darkgrey}>{ getBackDescription() }</Text>
         <Button
           fontSize={emailStyles.labelFontSize} 
           color={colors.text.link} 
           variant="link"
-          onClick={() => setDoSignin(!doSignin)}>{ doSignin ? 'Sign Up' : 'Sign In' }</Button>
+          onClick={() => toggleValue()}>{ getBackButtonName() }</Button>
       </HStack>
     </Center>
   </>
@@ -317,13 +366,6 @@ export default function SignUp() {
   };
   return (
     <Container supabaseClient={supabase}>
-      {/* <Auth
-        supabaseClient={supabase}
-        providers={["google", "facebook"]}
-        // socialLayout="vertical"
-        socialButtonSize="xlarge"
-        socialColors={true}
-      /> */}
       <Stack 
         direction="column" 
         w={signupStyles}
