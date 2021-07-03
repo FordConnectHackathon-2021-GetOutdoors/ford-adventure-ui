@@ -25,6 +25,11 @@ export function AuthProvider({ children }) {
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
 
+    if (user) {
+      Router.push("/dashboard");
+      showSucess(`Welcome back, ${user?.email}`);
+    }
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setSession(session);
@@ -49,7 +54,6 @@ export function AuthProvider({ children }) {
     if (error) {
       showError(error);
     } else {
-      Router.push("/dashboard");
       showSucess(`Welcome, ${user?.email}`);
     }
   };
