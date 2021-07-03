@@ -10,7 +10,7 @@ const globalStyles = (props: Styles) => ({
   body: {
     ...globalFontSmoothing,
     color: mode("gray.800", "whiteAlpha.900")(props),
-    bg: mode("bg.light", "bg.dark")(props),
+    bg: mode("bg.white", "bg.dark")(props),
     overflow: "hidden",
     h: "var(--100vh)",
   },

@@ -12,6 +12,8 @@ const bg = {
   overlay: "rgba(0,0,0,.0125)",
   lightOverlay: "rgba(255,255,255,.15)",
   darkOverlay: "rgba(0,0,0,.1)",
+  fbBlue: "#5C6FA0",
+  gBlue: "#629BF0"
 };
 
 const text = {
@@ -21,8 +23,10 @@ const text = {
   white: "#FFFFFF",
   error: "#D92E14",
   grey: "#4D4D4D",
+  darkgrey: "#797979",
   placeholder: "#BABABA",
   darkPlaceholder: "#2c6fce",
+  link: "#63A7FF",
 };
 
 const colors = {

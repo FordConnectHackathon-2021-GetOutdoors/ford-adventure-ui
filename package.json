@@ -26,13 +26,17 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.9.0",
+    "react-icons": "^4.2.0",
     "react-query": "^3.17.2",
+    "react-responsive": "^8.2.0",
     "react-swipeable-views": "^0.14.0",
-    "react-tinder-card": "^1.4.0"
+    "react-tinder-card": "^1.4.0",
+    "react-toastify": "^7.0.4"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.9",
     "@types/react": "17.0.11",
+    "@types/react-responsive": "^8.0.2",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.0",
     "install-peers": "^1.0.3",

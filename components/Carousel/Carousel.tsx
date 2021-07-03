@@ -201,7 +201,7 @@ export const Carousel = ({
           },
         }}
       >
-        {filters.map((filter: any, i: number) => {
+        {filters.map((filter: any) => {
           return (
             <Button
               isSelected={filter.id === selectedFilter}
