@@ -1,18 +1,18 @@
 // @ts-nocheck
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export const NotificationContext = createContext({
-    showSucess: () => {},
-    showError: () => {},
-    showInfo: () => {},
-    showWarning: () => {},
+    showSucess: a => {},
+    showError: a => {},
+    showInfo: a => {},
+    showWarning: a => {},
+    showCustom: a => {},
 });
 
 export function NotificationProvider({ children }) {
   const showSucess = message => {
-    console.log('hi');
     toast.success(message);
   };
   const showError = error => {
@@ -47,12 +47,4 @@ export function NotificationProvider({ children }) {
       </ToastContainer>
     </NotificationContext.Provider>
   );
-};
-
-export const useNotification: any = () => {
-  const context = useContext(NotificationContext);
-  if (context === undefined) {
-    throw new Error("useNotification must be used within a NotificationContext.Provider");
-  }
-  return context;
 };

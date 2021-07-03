@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { supabase } from "./supabase"
-import { useNotification } from "./NotificationContext";
+import { NotificationContext } from "./NotificationContext";
 import Router from "next/router";
 
 export const AuthContext = createContext({
@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  const { showSucess, showError } = useNotification();
+  const { showSucess, showError } = useContext(NotificationContext);
 
   useEffect(() => {
     const session = supabase.auth.session();
