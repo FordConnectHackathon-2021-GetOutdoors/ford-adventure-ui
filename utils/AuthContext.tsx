@@ -1,16 +1,23 @@
 // @ts-nocheck
-import { useContext } from "react";
 import { createContext, useEffect, useState } from "react";
-import { supabase } from "./supabase";
+import { supabase } from "./supabase"
+import { useNotification } from "./NotificationContext";
 import Router from "next/router";
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext({
+  session: {},
+  signOut: () => {},
+  user: {},
+  userLoaded: false,
+  submitHandler: (a, b) => {},
+  resetPasswordHandler: a => {},
+});
 
 export function AuthProvider({ children }) {
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  // const [userRoles, setUserRoles] = useState([]);
+  const { showSucess, showError } = useNotification();
 
   useEffect(() => {
     const session = supabase.auth.session();
@@ -18,8 +25,8 @@ export function AuthProvider({ children }) {
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
     if (user) {
-      // signIn();
-      // Router.push("/channels/[id]", "/channels/1");
+      Router.push("/dashboard");
+      showSucess(`Welcome back, ${user?.email}`);
     }
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -28,31 +35,36 @@ export function AuthProvider({ children }) {
         const currentUser = session?.user;
         setUser(currentUser ?? null);
         setUserLoaded(!!currentUser);
-
-        // Enable Authenticated SSR by setting a cookie
-        fetch("/api/auth", {
-          method: "POST",
-          headers: new Headers({ "Content-Type": "application/json" }),
-          credentials: "same-origin",
-          body: JSON.stringify({ event, session }),
-        }).then((res) => res.json());
       }
     );
 
     return () => {
       authListener.unsubscribe();
     };
-  }, [user]);
-
-  // const signIn = async () => {
-  //   await fetchUserRoles((userRoles) =>
-  //     setUserRoles(userRoles.map((userRole) => userRole.role))
-  //   );
-  // };
+  }, [showSucess, user]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
     Router.push("/");
+  };
+
+  const submitHandler = async (props, isSignIn) => {
+    const { user, error } = isSignIn ? await supabase.auth.signIn(props) : await supabase.auth.signUp(props);
+    if (error) {
+      showError(error);
+    } else {
+      Router.push("/dashboard");
+      showSucess(`Welcome, ${user?.email}`);
+    }
+  };
+
+  const resetPasswordHandler = async ({ email }) => {
+    const { error } = await supabase.auth.api.resetPasswordForEmail(email)
+    if (error) {
+      showError(error);
+    } else {
+      showSucess(`Reset password instructions sent to ${email}`);
+    }
   };
 
   return (
@@ -62,18 +74,11 @@ export function AuthProvider({ children }) {
         signOut,
         user,
         userLoaded,
-        // userRoles,
+        submitHandler,
+        resetPasswordHandler,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 }
-
-export const useAuth: any = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within a AuthContext.Provider");
-  }
-  return context;
-};

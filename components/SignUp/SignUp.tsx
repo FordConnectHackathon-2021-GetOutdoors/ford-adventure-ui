@@ -2,25 +2,16 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import colors from "themes/colors";
 import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Checkbox, Center, HStack, Spacer } from "@chakra-ui/react";
-import { useAuth } from "utils/AuthContext";
 import { supabase } from "utils/supabase";
 import { DeviceContext } from "utils/DeviceContext";
-import colors from "themes/colors";
+import { AuthContext } from "utils/AuthContext";
 
 const Container = (props: {
-  supabaseClient: { auth: { signOut: () => void } };
+  supabaseClient: any;
   children: any;
 }) => {
-  const { user } = useAuth();
-  if (user)
-    return (
-      <>
-        <Button block onClick={() => props.supabaseClient.auth.signOut()}>
-          Sign out
-        </Button>
-      </>
-    );
   return props.children;
 };
 
@@ -80,11 +71,15 @@ const CustomDivider = ({ isDesktopOrLaptop = false }) => {
 }
 
 const EmailForm = () => {
-  const { handleSubmit } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-
+  const { register, handleSubmit } = useForm();
   const [doSignin, setDoSignin] = useState(true);
   const [doForgotPassword, setDoForgotPassword] = useState(false);
+  const { submitHandler, resetPasswordHandler } = useContext(AuthContext);
+
+  const onEmailSubmit = ({ email = '', password = '' }) => 
+    doForgotPassword ? 
+    resetPasswordHandler({ email }) : 
+    submitHandler({ email, password }, doSignin);
 
   const getButtonTitle = () => {
     if (doSignin) {
@@ -111,11 +106,11 @@ const EmailForm = () => {
   const getBackButtonName = () => {
     if (doSignin) {
       if (doForgotPassword) {
-        return "SIGN IN";
+        return "Sign In";
       }
-      return "SIGN UP"; 
+      return "Sign Up"; 
     } else {
-      return "SIGN IN";
+      return "Sign In";
     }
   };
 
@@ -170,7 +165,7 @@ const EmailForm = () => {
     }
   };
   return <>
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onEmailSubmit)}>
       <FormControl id="email" isRequired>
         <Input 
           type="email" 
@@ -182,7 +177,13 @@ const EmailForm = () => {
           height={emailStyles.height}
           fontSize={emailStyles.fontSize}
           paddingLeft={emailStyles.padding}
-          paddingRight={emailStyles.padding} />
+          paddingRight={emailStyles.padding}
+          {
+            ...register("email", {
+              required: "This is required",
+              pattern: /^\S+@\S+$/i
+            })
+          }/>
       </FormControl>
       <FormControl>
         <Box w="100%" h={emailStyles.lineSpacing}></Box>
@@ -200,7 +201,12 @@ const EmailForm = () => {
             height={emailStyles.height}
             fontSize={emailStyles.fontSize}
             paddingLeft={emailStyles.padding}
-            paddingRight={emailStyles.padding} />
+            paddingRight={emailStyles.padding}
+            {
+              ...register("password", {
+                required: "This is required"
+              })
+            } />
         </FormControl>
       }
       <FormControl>
@@ -216,12 +222,14 @@ const EmailForm = () => {
             {
               doSignin &&
               <Button 
-              float="right" 
-              fontSize={emailStyles.labelFontSize} 
-              color={colors.text.link} 
-              variant="link"
-              pt={emailStyles.smallPadding} 
-              onClick={() => setDoForgotPassword(!doForgotPassword)}>Forgot Password?</Button>
+                float="right" 
+                fontSize={emailStyles.labelFontSize} 
+                color={colors.text.link} 
+                variant="link"
+                pt={emailStyles.smallPadding} 
+                onClick={() => setDoForgotPassword(!doForgotPassword)}
+                textTransform="none"
+              >Forgot Password?</Button>
             }
           </Box>
         </FormControl>
@@ -252,10 +260,12 @@ const EmailForm = () => {
       <HStack spacing="1em">
         <Text color={colors.text.darkgrey}>{ getBackDescription() }</Text>
         <Button
+          textTransform="none"
           fontSize={emailStyles.labelFontSize} 
           color={colors.text.link} 
           variant="link"
-          onClick={() => toggleValue()}>{ getBackButtonName() }</Button>
+          onClick={() => toggleValue()}>{ getBackButtonName() }
+        </Button>
       </HStack>
     </Center>
   </>
@@ -263,7 +273,9 @@ const EmailForm = () => {
 
 const SocialForm = () => {
   const { handleSubmit } = useForm();
-  const onSubmit = (data: any, e: any) => console.log(data, e);
+  const { submitHandler } = useContext(AuthContext);
+  const onGoogleSubmit = () => submitHandler({ provider: 'google' }, true);
+  const onFacebookSubmit = () => submitHandler({ provider: 'facebook' }, true);
 
   const socialStyles = {
     borderRadius: "10px",
@@ -291,7 +303,7 @@ const SocialForm = () => {
       <FormControl>
         <Button 
           id="google"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onGoogleSubmit)}
           backgroundColor={colors.bg.gBlue} 
           color={colors.text.white} 
           borderRadius={socialStyles.borderRadius}
@@ -308,7 +320,7 @@ const SocialForm = () => {
       <FormControl>
         <Button 
           id="facebook"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onFacebookSubmit)}
           backgroundColor={colors.bg.fbBlue} 
           color={colors.text.white} 
           borderRadius={socialStyles.borderRadius}
