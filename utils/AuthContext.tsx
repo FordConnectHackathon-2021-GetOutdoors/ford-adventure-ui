@@ -24,10 +24,6 @@ export function AuthProvider({ children }) {
     setSession(session);
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
-    if (user) {
-      Router.push("/dashboard");
-      showSucess(`Welcome back, ${user?.email}`);
-    }
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
