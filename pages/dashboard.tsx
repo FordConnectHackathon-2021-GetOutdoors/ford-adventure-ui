@@ -157,7 +157,6 @@ export default function Dashboard() {
                   strokeLinejoin="round"
                 />
               </Icon>
-              <IconButton></IconButton>
             </Box>
           </VStack>
         </div>
