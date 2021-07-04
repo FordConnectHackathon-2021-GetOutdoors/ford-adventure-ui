@@ -6,7 +6,7 @@ import type { AppProps } from "next/app";
 // import { supabase } from "utils/supabase";
 
 import "../styles/globals.css";
-import "keen-slider/keen-slider.min.css";
+import "../styles/keen-slider.css";
 
 // TODO - Prune the list of imported fonts
 import "../public/fonts/antenna/atenna-font.css";
@@ -14,8 +14,6 @@ import React from "react";
 import { AuthProvider } from "utils/AuthContext";
 import { DeviceProvider } from "utils/DeviceContext";
 import { NotificationProvider } from "utils/NotificationContext";
-
-import "keen-slider/keen-slider.min.css";
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
