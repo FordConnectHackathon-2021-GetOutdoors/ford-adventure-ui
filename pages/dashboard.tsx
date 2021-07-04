@@ -129,34 +129,60 @@ export default function Dashboard() {
               </Flex>
               <Flex
                 flexDir="column"
+                fontSize="xs"
                 justify="flex-end"
                 ml="auto"
                 textTransform="uppercase"
-                fontSize="xs"
               >
                 2 hours ago
               </Flex>
             </Flex>
             <Box
-              position="relative"
-              width="100%"
-              paddingBottom="60%"
-              bg="blue"
               borderRadius="md"
               overflow="hidden"
+              paddingBottom="68.2%"
+              position="relative"
+              width="100%"
             >
               <Image alt="Utah" src={utah} layout="fill" objectFit="cover" />
             </Box>
             <Box>
-              <Icon width="26" height="26" viewBox="0 0 26 26">
-                <path
-                  d="M6.44 13.8H3C1.89543 13.8 1 14.6954 1 15.8V23C1 24.1046 1.89543 25 3 25H6.44M6.44 13.8L9.19763 2.76948C9.45761 1.72955 10.392 1 11.4639 1V1C12.7541 1 13.8 2.04589 13.8 3.33606V9.32H23.08V9.32C24.1404 9.32 25 10.1796 25 11.24V11.4C25 12.5488 24.0688 13.48 22.92 13.48H22.44H23.1324C24.011 13.48 24.7466 14.1457 24.834 15.0199V15.0199C24.9263 15.9433 24.2654 16.7718 23.3445 16.8869L22.44 17L22.6511 17.0176C23.617 17.0981 24.36 17.9055 24.36 18.8748V18.8748C24.36 19.8147 23.6601 20.6075 22.7275 20.7241L21.8 20.84L22.1094 20.8842C23.1935 21.0391 23.969 22.0121 23.878 23.1035V23.1035C23.7887 24.1754 22.8926 25 21.8169 25H20.52H6.44M6.44 13.8V25"
-                  stroke="ff0"
-                  strokeWidth=".5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </Icon>
+              <HStack spacing="6">
+                <Button>
+                  <Icon
+                    width="26"
+                    height="26"
+                    fill="none"
+                    viewBox="0 0 26 26"
+                    aria-label="Comment"
+                  >
+                    <path
+                      stroke="#102B4E"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6.44 13.8H3a2 2 0 00-2 2V23a2 2 0 002 2h3.44m0-11.2L9.198 2.77A2.336 2.336 0 0111.464 1v0A2.336 2.336 0 0113.8 3.336V9.32h9.28v0c1.06 0 1.92.86 1.92 1.92v.16a2.08 2.08 0 01-2.08 2.08h-.48.692a1.71 1.71 0 011.702 1.54v0a1.71 1.71 0 01-1.49 1.867L22.44 17l.211.018c.966.08 1.709.887 1.709 1.857v0c0 .94-.7 1.733-1.633 1.85l-.927.115.31.044a2.068 2.068 0 011.768 2.22v0A2.068 2.068 0 0121.817 25H6.44m0-11.2V25"
+                    />
+                  </Icon>
+                </Button>
+                <Button>
+                  <Icon
+                    width="26"
+                    height="26"
+                    fill="none"
+                    viewBox="0 0 24 23"
+                    aria-label="Comment"
+                  >
+                    <path
+                      stroke="#102B4E"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 17.26h-5.652v3.566a1 1 0 01-1.651.759l-5.045-4.324H3a2 2 0 01-2-2V3a2 2 0 012-2h18a2 2 0 012 2v12.26a2 2 0 01-2 2z"
+                    />
+                  </Icon>
+                </Button>
+              </HStack>
             </Box>
           </VStack>
         </div>
