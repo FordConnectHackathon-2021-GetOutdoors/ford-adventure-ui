@@ -216,9 +216,9 @@ const EmailForm = () => {
         !doForgotPassword &&
         <FormControl id="rememberMeAndForgetPasswordFieldSet">
           <Box height={emailStyles.height}>
-            <Checkbox 
+            {/* <Checkbox 
               float="left" 
-              fontSize={emailStyles.labelFontSize}>Remember Me</Checkbox>
+              fontSize={emailStyles.labelFontSize}>Remember Me</Checkbox> */}
             {
               doSignin &&
               <Button 
