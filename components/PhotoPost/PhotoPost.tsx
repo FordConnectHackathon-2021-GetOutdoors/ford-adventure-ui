@@ -22,40 +22,7 @@ interface PhotoPostProps extends ChakraProps {
 
 export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
   return (
-    <VStack spacing="4" pt="6" pb="10" w="100%" {...props}>
-      <Flex w="100%">
-        <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
-        <Flex
-          ml="4"
-          flexDir="column"
-          justify="flex-end"
-          alignItems="flex-start"
-          pb="3"
-        >
-          <Text fontWeight="500" mb="2" lineHeight="1">
-            Daytona2021
-          </Text>
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            px="3.5"
-            py=".4rem"
-            fontSize="xs"
-            lineHeight="1"
-          >
-            Mach-E
-          </Button>
-        </Flex>
-        <Flex
-          flexDir="column"
-          fontSize="xs"
-          justify="flex-end"
-          ml="auto"
-          textTransform="uppercase"
-        >
-          2 hours ago
-        </Flex>
-      </Flex>
+    <>
       <Box
         borderRadius="md"
         overflow="hidden"
@@ -91,6 +58,6 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
           </Link>
         </Text>
       </Box>
-    </VStack>
+    </>
   );
 }
