@@ -1,4 +1,4 @@
-import { Header } from "components/Carousel/Header";
+import { Header } from "components/Header/Header";
 import Fullscreen from "components/Fullscreen";
 import React from "react";
 import {

@@ -1,6 +1,5 @@
-import { Header } from "../components/Carousel/Header";
 import React, { useEffect, useRef, useState } from "react";
-import Fullscreen from "../components/Fullscreen";
+import { Header } from "../components/Header/Header";
 import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
 import { PhotoPost } from "../components/PhotoPost/PhotoPost";
 

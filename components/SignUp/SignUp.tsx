@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import colors from "themes/colors";
-import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Checkbox, Center, HStack, Spacer } from "@chakra-ui/react";
+import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Center, HStack, Spacer } from "@chakra-ui/react";
 import { supabase } from "utils/supabase";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
+import { Header } from "components/Header/Header";
 
 const Container = (props: {
   supabaseClient: any;
@@ -340,6 +341,7 @@ const SocialForm = () => {
 
 const PageTitle = () => {
   return <>
+    <Header showMenu={false} skipSidePad={true} />
     <Text 
       fontSize={{
         base: "2em", 
