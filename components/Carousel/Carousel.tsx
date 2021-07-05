@@ -1,10 +1,7 @@
 import {
   Box,
   Button,
-  chakra,
-  filter,
   Flex,
-  Grid,
   Heading,
   HStack,
   Icon,
@@ -14,9 +11,9 @@ import {
 import { MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-import SwipeableViews from "react-swipeable-views";
-import { displayName } from "react-tinder-card";
+
 import { Header } from "../Header/Header";
+import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 
 export const defaultFilters = [
   {
@@ -90,40 +87,44 @@ export const Carousel = ({
 
   return (
     <>
-      <Box
-        position="fixed"
-        w="100vw"
-        h="100vh"
-        overflow="hidden"
-
-        // zIndex="-1"
-      >
-        <SwipeableViews
-          index={slideIndex}
-          onChangeIndex={(i: any) => {
-            setSlideIndex(i);
-          }}
-        >
-          {options.map((option: any, i: number) => {
-            const { imageSrc, displayName, tagLine } = option;
-            return (
-              <Box width="100%" height="var(--100vh)" key={i}>
-                <Img
-                  src={imageSrc}
-                  alt={`${displayName} ${tagLine}`}
-                  key={i}
-                  height="100%"
-                  width="100%"
-                  layout="fixed"
-                  position="fixed"
-                  objectFit="cover"
-                />
-              </Box>
-            );
-          })}
-        </SwipeableViews>
-      </Box>
-
+      <ResponsiveCarousel>
+        {options.map((option: any, i: number) => {
+          const { imageSrc, displayName, tagLine } = option;
+          return (
+            <Box width="100%" height="var(--100vh)" key={i}>
+              <Img
+                src={imageSrc}
+                alt={`${displayName} ${tagLine}`}
+                key={i}
+                // height="100%"
+                // width="100%"
+                // // layout="fixed"
+                // position="fixed"
+                // objectFit="cover"
+              />
+            </Box>
+          );
+        })}
+      </ResponsiveCarousel>
+      {/* <Box position="fixed" w="100vw" h="100vh" overflow="hidden">
+        {options.map((option: any, i: number) => {
+          const { imageSrc, displayName, tagLine } = option;
+          return (
+            <Box width="100%" height="var(--100vh)" key={i}>
+              <Img
+                src={imageSrc}
+                alt={`${displayName} ${tagLine}`}
+                key={i}
+                height="100%"
+                width="100%"
+                layout="fixed"
+                position="fixed"
+                objectFit="cover"
+              />
+            </Box>
+          );
+        })}
+      </Box> */}
       <Box position="absolute" bottom="0" h="25%" w="100%">
         {/* @ts-ignore */}
         <AnimatePresence>
@@ -190,7 +191,6 @@ export const Carousel = ({
           })}
         </AnimatePresence>
       </Box>
-
       <HStack
         px="9"
         spacing={3}

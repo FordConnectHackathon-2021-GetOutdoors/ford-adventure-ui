@@ -1,19 +1,15 @@
-import CustomHead from "components/CustomHead";
-import { ThemeProvider } from "components/ThemeProvider";
-import { ThemeSwitcher } from "components/ThemeSwitcher";
-
-import type { AppProps } from "next/app";
-// import { supabase } from "utils/supabase";
-
-import "../styles/globals.css";
-import "../styles/keen-slider.css";
-
-// TODO - Prune the list of imported fonts
-import "../public/fonts/antenna/atenna-font.css";
-import React from "react";
 import { AuthProvider } from "utils/AuthContext";
 import { DeviceProvider } from "utils/DeviceContext";
 import { NotificationProvider } from "utils/NotificationContext";
+import { ThemeProvider } from "components/ThemeProvider";
+import { ThemeSwitcher } from "components/ThemeSwitcher";
+import CustomHead from "components/CustomHead";
+import type { AppProps } from "next/app";
+
+// TODO - Prune the list of imported fonts
+import "../public/fonts/antenna/atenna-font.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "../styles/globals.css";
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (

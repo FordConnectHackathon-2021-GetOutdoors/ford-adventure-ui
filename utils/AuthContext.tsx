@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { createContext, useEffect, useState, useContext } from "react";
-import { supabase } from "./supabase"
+import { supabase } from "./supabase";
 import { NotificationContext } from "./NotificationContext";
 import Router from "next/router";
 
@@ -10,7 +10,7 @@ export const AuthContext = createContext({
   user: {},
   userLoaded: false,
   submitHandler: (a, b) => {},
-  resetPasswordHandler: a => {},
+  resetPasswordHandler: (a) => {},
 });
 
 export function AuthProvider({ children }) {
@@ -26,7 +26,8 @@ export function AuthProvider({ children }) {
     setUserLoaded(session ? true : false);
 
     if (user) {
-      Router.push("/dashboard");
+      // Commenting this out, as it's redirecting all other traffic
+      // Router.push("/dashboard");
       showSucess(`Welcome back, ${user?.email}`);
     }
 
@@ -50,7 +51,9 @@ export function AuthProvider({ children }) {
   };
 
   const submitHandler = async (props, isSignIn) => {
-    const { user, error } = isSignIn ? await supabase.auth.signIn(props) : await supabase.auth.signUp(props);
+    const { user, error } = isSignIn
+      ? await supabase.auth.signIn(props)
+      : await supabase.auth.signUp(props);
     if (error) {
       showError(error);
     } else {
@@ -59,7 +62,7 @@ export function AuthProvider({ children }) {
   };
 
   const resetPasswordHandler = async ({ email }) => {
-    const { error } = await supabase.auth.api.resetPasswordForEmail(email)
+    const { error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) {
       showError(error);
     } else {
