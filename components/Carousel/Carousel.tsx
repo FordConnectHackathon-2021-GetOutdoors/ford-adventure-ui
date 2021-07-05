@@ -11,7 +11,7 @@ import {
 import { MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-
+import Image from "next/image";
 import { Header } from "../Header/Header";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 
@@ -47,7 +47,7 @@ export const defaultOptions = [
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
     content: "Hello World",
-    imageSrc: "/images/zion.png",
+    imageSrc: "images/zion.png",
   },
   {
     id: "234",
@@ -56,7 +56,7 @@ export const defaultOptions = [
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
     content: "Hello World",
-    imageSrc: "/images/arches.png",
+    imageSrc: "images/arches.png",
   },
   {
     id: "234",
@@ -65,7 +65,7 @@ export const defaultOptions = [
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
     content: "Hello World",
-    imageSrc: "/images/zion.png",
+    imageSrc: "images/zion.png",
   },
   {
     id: "234",
@@ -74,7 +74,7 @@ export const defaultOptions = [
     distance: "4 Hrs 9 Min, 268 Miles",
     points: 225,
     content: "Hello World",
-    imageSrc: "/images/arches.png",
+    imageSrc: "images/arches.png",
   },
 ];
 
@@ -91,18 +91,14 @@ export const Carousel = ({
         {options.map((option: any, i: number) => {
           const { imageSrc, displayName, tagLine } = option;
           return (
-            <Box width="100%" height="var(--100vh)" key={i}>
-              <Img
-                src={imageSrc}
-                alt={`${displayName} ${tagLine}`}
-                key={i}
-                // height="100%"
-                // width="100%"
-                // // layout="fixed"
-                // position="fixed"
-                // objectFit="cover"
-              />
-            </Box>
+            // eslint-ignore=next-line
+            <img
+              src={imageSrc}
+              alt={`${displayName} ${tagLine}`}
+              key={i}
+              height="100%"
+              width="100%"
+            />
           );
         })}
       </ResponsiveCarousel>
@@ -125,8 +121,8 @@ export const Carousel = ({
           );
         })}
       </Box> */}
-      <Box position="absolute" bottom="0" h="25%" w="100%">
-        {/* @ts-ignore */}
+      {/* <Box position="absolute" bottom="0" h="25%" w="100%">
+        
         <AnimatePresence>
           {options.map((option: any, i: number) => {
             const { displayName, points, distance, tagLine } = option;
@@ -190,8 +186,8 @@ export const Carousel = ({
             );
           })}
         </AnimatePresence>
-      </Box>
-      <HStack
+      </Box> */}
+      {/* <HStack
         px="9"
         spacing={3}
         overflow="auto"
@@ -214,7 +210,7 @@ export const Carousel = ({
             </Button>
           );
         })}
-      </HStack>
+      </HStack> */}
     </>
   );
 };
