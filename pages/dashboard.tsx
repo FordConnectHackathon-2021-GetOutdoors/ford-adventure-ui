@@ -1,5 +1,5 @@
 import { Header } from "../components/Carousel/Header";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Fullscreen from "../components/Fullscreen";
 import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
 import { PhotoPost } from "../components/PhotoPost/PhotoPost";
@@ -7,6 +7,9 @@ import { PhotoPost } from "../components/PhotoPost/PhotoPost";
 import utah from "../public/images/utah.png";
 import { addDomEvent } from "@chakra-ui/utils";
 import SwipeableViews from "react-swipeable-views";
+import { DeviceContext } from "utils/DeviceContext";
+import { AnimatePresence } from "framer-motion";
+import { MotionBox } from "components/motion";
 
 const dashboardTabs = [
   {
@@ -43,6 +46,8 @@ export default function Dashboard() {
       setHeight(headerRef?.current?.clientHeight);
     }
   }, [headerRef]);
+
+  const { isDesktopOrLaptop } = useContext(DeviceContext);
 
   return (
     <Flex flexDir="column">
@@ -82,49 +87,31 @@ export default function Dashboard() {
         </Flex>
       </Flex>
 
-      <SwipeableViews
-        index={currentSlide}
-        onChangeIndex={handleChangeIndex}
-        containerStyle={{
+      <Box
+        sx={{
           height: headerHeight
             ? `calc(var(--100vh) - ${headerHeight || 0}px)`
-            : "100px",
+            : "130px",
         }}
       >
-        <Slide headerHeight={headerHeight}>
-          <PhotoPost imgSrc={utah} />
-          <PhotoPost imgSrc={utah} />
-          <PhotoPost imgSrc={utah} />
-        </Slide>
-
-        <Slide headerHeight={headerHeight}>2</Slide>
-
-        <Slide headerHeight={headerHeight}>3</Slide>
-      </SwipeableViews>
+        <AnimatePresence>
+          {currentSlide === 0 ? (
+            <Slide headerHeight={headerHeight}>
+              <PhotoPost imgSrc={utah} />
+              <PhotoPost imgSrc={utah} />
+              <PhotoPost imgSrc={utah} />
+            </Slide>
+          ) : currentSlide === 1 ? (
+            <Slide headerHeight={headerHeight}>2</Slide>
+          ) : currentSlide === 2 ? (
+            <Slide headerHeight={headerHeight}>3</Slide>
+          ) : (
+            <Slide headerHeight={headerHeight}>asdasd</Slide>
+          )}
+        </AnimatePresence>
+      </Box>
     </Flex>
   );
-
-  // return (
-
-  //
-  //     </Flex>
-
-  //     <Box
-  //       // @ts-ignore
-  //       ref={sliderRef}
-  //       className="keen-slider"
-  //     >
-  //       <Slide headerHeight={headerHeight}>
-  //         <PhotoPost imgSrc={utah} />
-  //         <PhotoPost imgSrc={utah} />
-  //         <PhotoPost imgSrc={utah} />
-  //       </Slide>
-  //       <Slide headerHeight={headerHeight}>2</Slide>
-
-  //       <Slide headerHeight={headerHeight}>3</Slide>
-  //     </Box>
-  //   </Flex>
-  // );
 }
 
 interface SlideProps {
@@ -134,13 +121,13 @@ interface SlideProps {
 
 function Slide({ headerHeight, children }: SlideProps) {
   return (
-    <Box
-      className="keen-slider__slide"
+    <MotionBox
       width="100%"
       minHeight={
         headerHeight ? `calc(var(--100vh) - ${headerHeight || 0}px)` : "100px"
       }
       position="relative"
+      overflowY="scroll"
     >
       <VStack spacing="4" px={8} pt="6" pb="10" w="100%" position="absolute">
         <Flex w="100%">
@@ -179,6 +166,6 @@ function Slide({ headerHeight, children }: SlideProps) {
 
         {children}
       </VStack>
-    </Box>
+    </MotionBox>
   );
 }
