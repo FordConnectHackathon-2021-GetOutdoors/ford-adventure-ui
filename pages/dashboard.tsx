@@ -1,12 +1,12 @@
 import { Header } from "../components/Carousel/Header";
 import React, { useEffect, useRef, useState } from "react";
 import Fullscreen from "../components/Fullscreen";
-import { useKeenSlider } from "keen-slider/react";
 import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
 import { PhotoPost } from "../components/PhotoPost/PhotoPost";
 
 import utah from "../public/images/utah.png";
 import { addDomEvent } from "@chakra-ui/utils";
+import SwipeableViews from "react-swipeable-views";
 
 const dashboardTabs = [
   {
@@ -24,15 +24,10 @@ const dashboardTabs = [
 ];
 
 export default function Dashboard() {
-  // const { user } = Auth.useUser();
-
   const [currentSlide, setCurrentSlide] = React.useState(0);
-  const [sliderRef, slider] = useKeenSlider({
-    initial: 0,
-    slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide);
-    },
-  });
+  const handleChangeIndex = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);
@@ -68,7 +63,7 @@ export default function Dashboard() {
                 <Button
                   flexGrow={1}
                   key={tab.id}
-                  onClick={() => slider.moveToSlideRelative(idx)}
+                  onClick={() => handleChangeIndex(idx)}
                   variant="dashboardTabs"
                 >
                   <Box sx={{ opacity: 0, pointerEvents: "none" }}>
@@ -87,22 +82,49 @@ export default function Dashboard() {
         </Flex>
       </Flex>
 
-      <Box
-        // @ts-ignore
-        ref={sliderRef}
-        className="keen-slider"
+      <SwipeableViews
+        index={currentSlide}
+        onChangeIndex={handleChangeIndex}
+        containerStyle={{
+          height: headerHeight
+            ? `calc(var(--100vh) - ${headerHeight || 0}px)`
+            : "100px",
+        }}
       >
         <Slide headerHeight={headerHeight}>
           <PhotoPost imgSrc={utah} />
           <PhotoPost imgSrc={utah} />
           <PhotoPost imgSrc={utah} />
         </Slide>
+
         <Slide headerHeight={headerHeight}>2</Slide>
 
         <Slide headerHeight={headerHeight}>3</Slide>
-      </Box>
+      </SwipeableViews>
     </Flex>
   );
+
+  // return (
+
+  //
+  //     </Flex>
+
+  //     <Box
+  //       // @ts-ignore
+  //       ref={sliderRef}
+  //       className="keen-slider"
+  //     >
+  //       <Slide headerHeight={headerHeight}>
+  //         <PhotoPost imgSrc={utah} />
+  //         <PhotoPost imgSrc={utah} />
+  //         <PhotoPost imgSrc={utah} />
+  //       </Slide>
+  //       <Slide headerHeight={headerHeight}>2</Slide>
+
+  //       <Slide headerHeight={headerHeight}>3</Slide>
+  //     </Box>
+  //   </Flex>
+  // );
 }
 
 interface SlideProps {
@@ -114,12 +136,13 @@ function Slide({ headerHeight, children }: SlideProps) {
   return (
     <Box
       className="keen-slider__slide"
-      height={
+      width="100%"
+      minHeight={
         headerHeight ? `calc(var(--100vh) - ${headerHeight || 0}px)` : "100px"
       }
       position="relative"
     >
-      <VStack spacing="4" px={8} pt="6" pb="10" w="100%">
+      <VStack spacing="4" px={8} pt="6" pb="10" w="100%" position="absolute">
         <Flex w="100%">
           <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
           <Flex
