@@ -70,11 +70,20 @@ export function Carousel() {
       bg={useColorModeValue("gray.200", "gray.600")}
       alignItems="center"
       justifyContent="center"
+      position="fixed"
+      top="0"
+      zIndex={-1}
     >
-      <Flex width="100vw" overflow="hidden" pos="relative">
+      <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
         <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
           {slides.map((slide, sid) => (
-            <Box key={`slide-${sid}`} width="100vw" shadow="md" flex="none">
+            <Box
+              key={`slide-${sid}`}
+              h="var(--100vh)"
+              width="100vw"
+              shadow="md"
+              flex="none"
+            >
               <Text
                 color="white"
                 fontSize="xs"
@@ -87,7 +96,9 @@ export function Carousel() {
               <Image
                 src={slide.img}
                 width="100vw"
-                backgroundSize="cover"
+                h="var(--100vh)"
+                // backgroundSize="cover"
+                objectFit="cover"
                 alt={`${sid}`}
               />
             </Box>
