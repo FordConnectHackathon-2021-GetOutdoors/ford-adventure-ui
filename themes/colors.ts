@@ -1,5 +1,5 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-
+import { getColor, mode } from "@chakra-ui/theme-tools";
 const navy = "#102B4E";
 const darknavy = "#102B4E";
 
@@ -13,7 +13,7 @@ const bg = {
   lightOverlay: "rgba(255,255,255,.15)",
   darkOverlay: "rgba(0,0,0,.1)",
   fbBlue: "#5C6FA0",
-  gBlue: "#629BF0"
+  gBlue: "#629BF0",
 };
 
 const text = {
