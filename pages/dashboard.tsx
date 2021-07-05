@@ -1,12 +1,12 @@
-import { Header } from "../components/Carousel/Header";
+import { Header } from "../components/Header/Header";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Fullscreen from "../components/Fullscreen";
+
 import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
 import { PhotoPost } from "../components/PhotoPost/PhotoPost";
 
 import utah from "../public/images/utah.png";
 import { addDomEvent } from "@chakra-ui/utils";
-import SwipeableViews from "react-swipeable-views";
+
 import { DeviceContext } from "utils/DeviceContext";
 import { AnimatePresence } from "framer-motion";
 import { MotionBox } from "components/motion";

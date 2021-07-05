@@ -16,7 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { displayName } from "react-tinder-card";
-import { Header } from "./Header";
+import { Header } from "../Header/Header";
 
 export const defaultFilters = [
   {

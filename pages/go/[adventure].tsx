@@ -2,7 +2,7 @@ import React from "react";
 import Fullscreen from "components/Fullscreen";
 import { Title } from "components/Title";
 // import { ThemeSwitcher } from "components/ThemeSwitcher";
-import { Header } from "components/Carousel/Header";
+import { Header } from "components/Header/Header";
 import { useKeenSlider } from "keen-slider/react";
 
 export default function Adventure() {
