@@ -11,7 +11,7 @@ import {
 export function Carousel() {
   const arrowStyles = {
     cursor: "pointer",
-    pos: "absolute",
+    // position: "absolute",
     top: "50%",
     w: "auto",
     mt: "-22px",
@@ -21,7 +21,7 @@ export function Carousel() {
     fontSize: "18px",
     transition: "0.6s ease",
     borderRadius: "0 3px 3px 0",
-    userSelect: "none",
+    // userSelect: "none",
     _hover: {
       opacity: 0.8,
       bg: "black",
@@ -56,7 +56,7 @@ export function Carousel() {
   const nextSlide = () => {
     setCurrentSlide((s) => (s === slidesCount - 1 ? 0 : s + 1));
   };
-  const setSlide = (slide) => {
+  const setSlide = (slide: number) => {
     setCurrentSlide(slide);
   };
   const carouselStyle = {
@@ -66,16 +66,15 @@ export function Carousel() {
 
   return (
     <Flex
-      w="full"
+      width="100vw"
       bg={useColorModeValue("gray.200", "gray.600")}
-      p={10}
       alignItems="center"
       justifyContent="center"
     >
-      <Flex w="full" overflow="hidden" pos="relative">
-        <Flex h="400px" w="full" {...carouselStyle}>
+      <Flex width="100vw" overflow="hidden" pos="relative">
+        <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
           {slides.map((slide, sid) => (
-            <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
+            <Box key={`slide-${sid}`} width="100vw" shadow="md" flex="none">
               <Text
                 color="white"
                 fontSize="xs"
@@ -85,22 +84,39 @@ export function Carousel() {
               >
                 {sid + 1} / {slidesCount}
               </Text>
-              <Image src={slide.img} size="full" backgroundSize="cover" />
+              <Image
+                src={slide.img}
+                width="100vw"
+                backgroundSize="cover"
+                alt={`${sid}`}
+              />
             </Box>
           ))}
         </Flex>
-        <Text {...arrowStyles} left="0" onClick={prevSlide}>
+        <Box
+          {...arrowStyles}
+          left="0"
+          onClick={prevSlide}
+          position="absolute"
+          userSelect="none"
+        >
           &#10094;
-        </Text>
-        <Text {...arrowStyles} right="0" onClick={nextSlide}>
+        </Box>
+        <Box
+          {...arrowStyles}
+          right="0"
+          onClick={nextSlide}
+          position="absolute"
+          userSelect="none"
+        >
           &#10095;
-        </Text>
+        </Box>
         <HStack justify="center" pos="absolute" bottom="8px" w="full">
           {Array.from({ length: slidesCount }).map((_, slide) => (
             <Box
               key={`dots-${slide}`}
               cursor="pointer"
-              boxSize={["7px", , "15px"]}
+              size={["7px", , "15px"]}
               m="0 2px"
               bg={currentSlide === slide ? "blackAlpha.800" : "blackAlpha.500"}
               rounded="50%"
