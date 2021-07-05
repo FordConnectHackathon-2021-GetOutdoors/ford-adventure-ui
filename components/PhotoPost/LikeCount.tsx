@@ -8,15 +8,20 @@ interface LikeCountProps extends ChakraProps {
 export function LikeCount({ likeCount, ...props }: LikeCountProps) {
   return (
     <Text
-      fontFamily="FontAntennaCond"
+      fontFamily="FontAntenna"
       fontWeight="600"
       textTransform="uppercase"
-      letterSpacing="wide"
+      // letterSpacing="wide"
       fontSize="sm"
-      mb="1"
+      color="text.darknavy"
+      // mt=".5"
+      alignSelf="center"
+      // lineHeight="1.5"
+      ml="2"
       {...props}
+      // mt="1"
     >
-      {likeCount} Likes
+      {likeCount}
     </Text>
   );
 }

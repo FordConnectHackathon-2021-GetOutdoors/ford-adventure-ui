@@ -1,15 +1,13 @@
-import { Header } from "../components/Header/Header";
-import React, { useContext, useEffect, useRef, useState } from "react";
-
-import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
-import { PhotoPost } from "../components/PhotoPost/PhotoPost";
-
-import utah from "../public/images/utah.png";
 import { addDomEvent } from "@chakra-ui/utils";
-
-import { DeviceContext } from "utils/DeviceContext";
 import { AnimatePresence } from "framer-motion";
+import { Avatar, Box, Button, Text, Flex, VStack } from "@chakra-ui/react";
+import { DeviceContext } from "utils/DeviceContext";
+import { Header } from "../components/Header/Header";
 import { MotionBox } from "components/motion";
+import Image from "next/image";
+import { PhotoPost } from "../components/PhotoPost/PhotoPost";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import utah from "../public/images/utah.png";
 
 const dashboardTabs = [
   {
@@ -47,13 +45,37 @@ export default function Dashboard() {
     }
   }, [headerRef]);
 
-  const { isDesktopOrLaptop } = useContext(DeviceContext);
+  const slides = useMemo(() => {
+    return [
+      <Slide key="photos" headerHeight={headerHeight}>
+        <PhotoPost imgSrc={utah} />
+        <PhotoPost imgSrc={utah} />
+        <PhotoPost imgSrc={utah} />
+      </Slide>,
+
+      <Slide key="leaderboard" headerHeight={headerHeight}>
+        <Box
+          borderRadius="md"
+          overflow="hidden"
+          paddingBottom="68.2%"
+          position="relative"
+          width="100%"
+        >
+          <Image alt="Utah" src={utah} layout="fill" objectFit="cover" />
+        </Box>
+        <Box> asd</Box>
+      </Slide>,
+      <Slide key="badges" headerHeight={headerHeight}>
+        <Box> asd</Box>
+      </Slide>,
+    ];
+  }, [headerHeight]);
 
   return (
     <Flex flexDir="column">
       <Flex flexShrink={1} flexDir="column" ref={headerRef}>
         <Header />
-        <Flex overflow="auto" alignItems="stretch" px="8" pt="1">
+        <Flex overflow="auto" px="8" pt="1">
           {dashboardTabs.map((tab: any, idx: number) => {
             return (
               <Flex
@@ -63,7 +85,7 @@ export default function Dashboard() {
                   borderBottom: (props) =>
                     idx === currentSlide ? "3px solid navy" : "1px solid gray",
                 }}
-                px={4}
+                px={2}
               >
                 <Button
                   flexGrow={1}
@@ -89,26 +111,10 @@ export default function Dashboard() {
 
       <Box
         sx={{
-          height: headerHeight
-            ? `calc(var(--100vh) - ${headerHeight || 0}px)`
-            : "130px",
+          height: `calc(var(--100vh) - ${headerHeight || 0}px)`,
         }}
       >
-        <AnimatePresence>
-          {currentSlide === 0 ? (
-            <Slide headerHeight={headerHeight}>
-              <PhotoPost imgSrc={utah} />
-              <PhotoPost imgSrc={utah} />
-              <PhotoPost imgSrc={utah} />
-            </Slide>
-          ) : currentSlide === 1 ? (
-            <Slide headerHeight={headerHeight}>2</Slide>
-          ) : currentSlide === 2 ? (
-            <Slide headerHeight={headerHeight}>3</Slide>
-          ) : (
-            <Slide headerHeight={headerHeight}>asdasd</Slide>
-          )}
-        </AnimatePresence>
+        <AnimatePresence>{slides[currentSlide]}</AnimatePresence>
       </Box>
     </Flex>
   );
@@ -122,48 +128,14 @@ interface SlideProps {
 function Slide({ headerHeight, children }: SlideProps) {
   return (
     <MotionBox
-      width="100%"
       minHeight={
         headerHeight ? `calc(var(--100vh) - ${headerHeight || 0}px)` : "100px"
       }
-      position="relative"
       overflowY="scroll"
+      position="relative"
+      width="100%"
     >
-      <VStack spacing="4" px={8} pt="6" pb="10" w="100%" position="absolute">
-        <Flex w="100%">
-          <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
-          <Flex
-            ml="4"
-            flexDir="column"
-            justify="flex-end"
-            alignItems="flex-start"
-            pb="3"
-          >
-            <Text fontWeight="500" mb="2" lineHeight="1">
-              Daytona2021
-            </Text>
-            <Button
-              variant="solid"
-              colorScheme="blue"
-              px="3.5"
-              py=".4rem"
-              fontSize="xs"
-              lineHeight="1"
-            >
-              Mach-E
-            </Button>
-          </Flex>
-          <Flex
-            flexDir="column"
-            fontSize="xs"
-            justify="flex-end"
-            ml="auto"
-            textTransform="uppercase"
-          >
-            2 hours ago
-          </Flex>
-        </Flex>
-
+      <VStack spacing="4" px={8} pt="6" pb="20" w="100%" position="absolute">
         {children}
       </VStack>
     </MotionBox>

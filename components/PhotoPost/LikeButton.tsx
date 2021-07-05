@@ -3,7 +3,7 @@ import { Button, Icon } from "@chakra-ui/react";
 
 export function LikeButton({ ...props }) {
   return (
-    <Button {...props}>
+    <Button {...props} position="relative" top="-1">
       <Icon
         width="26"
         height="26"

@@ -1,6 +1,6 @@
 import CustomHead from "components/CustomHead";
 import { ThemeProvider } from "components/ThemeProvider";
-// import { ThemeSwitcher } from "components/ThemeSwitcher";
+import { ThemeSwitcher } from "components/ThemeSwitcher";
 
 import type { AppProps } from "next/app";
 // import { supabase } from "utils/supabase";
@@ -20,6 +20,7 @@ function AppContainer({ Component, pageProps }: AppProps) {
     <DeviceProvider>
       <ThemeProvider cookies={pageProps.cookies}>
         <AuthProvider>
+          <ThemeSwitcher />
           <CustomHead {...pageProps} />
           <Component {...pageProps} />
           <NotificationProvider {...pageProps} />

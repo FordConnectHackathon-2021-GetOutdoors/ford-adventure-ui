@@ -1,15 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import {
-  Avatar,
   Box,
-  Button,
-  Flex,
   Link as ChakraLink,
   HStack,
   Text,
-  VStack,
   ChakraProps,
+  Avatar,
+  Button,
+  Flex,
+  VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { LikeCount } from "./LikeCount";
@@ -22,9 +22,43 @@ interface PhotoPostProps extends ChakraProps {
 
 export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
   return (
-    <>
+    <VStack pb="8">
+      <Flex w="100%" pb={1}>
+        <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
+        <Flex
+          ml="4"
+          flexDir="column"
+          justify="flex-end"
+          alignItems="flex-start"
+          pb="2"
+        >
+          <Text fontWeight="500" mb="2" lineHeight="1">
+            Daytona2021
+          </Text>
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            px="3.5"
+            py=".4rem"
+            fontSize="xs"
+            lineHeight="1"
+          >
+            Mach-E
+          </Button>
+        </Flex>
+        <Flex
+          flexDir="column"
+          fontSize="xs"
+          justify="flex-end"
+          ml="auto"
+          textTransform="uppercase"
+        >
+          2 hours ago
+        </Flex>
+      </Flex>
+
       <Box
-        borderRadius="md"
+        borderRadius="xl"
         overflow="hidden"
         paddingBottom="68.2%"
         position="relative"
@@ -32,12 +66,19 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
       >
         <Image alt="Utah" src={imgSrc} layout="fill" objectFit="cover" />
       </Box>
+
       <Box>
-        <HStack spacing="5" mb="3">
-          <LikeButton />
-          <CommentButton />
+        <HStack spacing="5" pt="2" pb="3">
+          <Flex>
+            <LikeButton />
+            <LikeCount likeCount={100} />
+          </Flex>
+          <Flex>
+            <CommentButton />
+            <LikeCount likeCount={3} />
+          </Flex>
         </HStack>
-        <LikeCount likeCount={99} />
+        {/* <LikeCount likeCount={99} /> */}
         <Text
           fontFamily="FontAntenna"
           color="gray.600"
@@ -58,6 +99,6 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
           </Link>
         </Text>
       </Box>
-    </>
+    </VStack>
   );
 }
