@@ -83,7 +83,9 @@ export default function Dashboard() {
                 flexGrow={1}
                 sx={{
                   borderBottom: (props) =>
-                    idx === currentSlide ? "3px solid navy" : "1px solid gray",
+                    idx === currentSlide ? "3px solid" : "1px solid",
+                  borderColor: (props) =>
+                    idx === currentSlide ? "text.darknavy" : "gray",
                 }}
                 px={2}
               >
