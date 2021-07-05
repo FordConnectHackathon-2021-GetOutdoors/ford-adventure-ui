@@ -16,7 +16,7 @@ function AppContainer({ Component, pageProps }: AppProps) {
     <DeviceProvider>
       <ThemeProvider cookies={pageProps.cookies}>
         <AuthProvider>
-          {/* <ThemeSwitcher /> */}
+          <ThemeSwitcher />
           <CustomHead {...pageProps} />
           <Component {...pageProps} />
           <NotificationProvider {...pageProps} />

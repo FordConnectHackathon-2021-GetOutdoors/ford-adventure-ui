@@ -8,11 +8,16 @@ type HeaderProps = {
   skipSidePad?: boolean;
 };
 
-export function Header({ variant, showMenu = true, skipSidePad = false }: HeaderProps) {
+export function Header({
+  variant,
+  showMenu = true,
+  skipSidePad = false,
+}: HeaderProps) {
   return (
     <Flex
       as="header"
-      position="relative"
+      // position="fixed"
+      w="100%"
       zIndex={2}
       marginLeft={skipSidePad ? "-10" : "0"}
       px="10"
@@ -21,10 +26,7 @@ export function Header({ variant, showMenu = true, skipSidePad = false }: Header
       color={variant === "overlay" ? "white" : "inherit"}
     >
       <Box>LOGO</Box>
-      {
-        showMenu &&
-        <Menu />
-      }
+      {showMenu && <Menu />}
     </Flex>
   );
 }

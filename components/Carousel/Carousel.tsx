@@ -1,218 +1,117 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Img,
-  Text,
-} from "@chakra-ui/react";
-import { MotionBox } from "components/motion";
-import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-import Image from "next/image";
-import { Header } from "../Header/Header";
-import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
+import {
+  Text,
+  Box,
+  Flex,
+  useColorModeValue,
+  Image,
+  HStack,
+} from "@chakra-ui/react";
 
-export const defaultFilters = [
-  {
-    id: "123",
-    displayName: "Desert",
-  },
+export function Carousel() {
+  const arrowStyles = {
+    cursor: "pointer",
+    pos: "absolute",
+    top: "50%",
+    w: "auto",
+    mt: "-22px",
+    p: "16px",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: "18px",
+    transition: "0.6s ease",
+    borderRadius: "0 3px 3px 0",
+    userSelect: "none",
+    _hover: {
+      opacity: 0.8,
+      bg: "black",
+    },
+  };
 
-  {
-    id: "576",
-    displayName: "Beach",
-  },
-  {
-    id: "453",
-    displayName: "Mountains",
-  },
-  {
-    id: "678",
-    displayName: "Spa",
-  },
-  {
-    id: "890",
-    displayName: "Clubbing",
-  },
-];
+  const slides = [
+    {
+      img: "https://images.pexels.com/photos/2599537/pexels-photo-2599537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    },
+    {
+      img: "https://images.pexels.com/photos/2714581/pexels-photo-2714581.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    },
+    {
+      img: "https://images.pexels.com/photos/2878019/pexels-photo-2878019.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    },
+    {
+      img: "https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    },
+    {
+      img: "https://images.pexels.com/photos/3124111/pexels-photo-3124111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    },
+  ];
 
-export const defaultOptions = [
-  {
-    id: "234",
-    displayName: "Zion National Park",
-    tagLine: "Utah's First National Park",
-    distance: "4 Hrs 9 Min, 268 Miles",
-    points: 225,
-    content: "Hello World",
-    imageSrc: "images/zion.png",
-  },
-  {
-    id: "234",
-    displayName: "Zion  Park",
-    tagLine: "Utah's First National Park",
-    distance: "4 Hrs 9 Min, 268 Miles",
-    points: 225,
-    content: "Hello World",
-    imageSrc: "images/arches.png",
-  },
-  {
-    id: "234",
-    displayName: " National Park",
-    tagLine: "Utah's First National Park",
-    distance: "4 Hrs 9 Min, 268 Miles",
-    points: 225,
-    content: "Hello World",
-    imageSrc: "images/zion.png",
-  },
-  {
-    id: "234",
-    displayName: "Zion  ",
-    tagLine: "Utah's First National Park",
-    distance: "4 Hrs 9 Min, 268 Miles",
-    points: 225,
-    content: "Hello World",
-    imageSrc: "images/arches.png",
-  },
-];
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-export const Carousel = ({
-  options = defaultOptions,
-  filters = defaultFilters,
-}: any) => {
-  const [selectedFilter, setSelected] = useState("123");
-  const [slideIndex, setSlideIndex] = useState(0);
+  const slidesCount = slides.length;
+
+  const prevSlide = () => {
+    setCurrentSlide((s) => (s === 0 ? slidesCount - 1 : s - 1));
+  };
+  const nextSlide = () => {
+    setCurrentSlide((s) => (s === slidesCount - 1 ? 0 : s + 1));
+  };
+  const setSlide = (slide) => {
+    setCurrentSlide(slide);
+  };
+  const carouselStyle = {
+    transition: "all .5s",
+    ml: `-${currentSlide * 100}%`,
+  };
 
   return (
-    <>
-      <ResponsiveCarousel>
-        {options.map((option: any, i: number) => {
-          const { imageSrc, displayName, tagLine } = option;
-          return (
-            // eslint-ignore=next-line
-            <img
-              src={imageSrc}
-              alt={`${displayName} ${tagLine}`}
-              key={i}
-              height="100%"
-              width="100%"
-            />
-          );
-        })}
-      </ResponsiveCarousel>
-      {/* <Box position="fixed" w="100vw" h="100vh" overflow="hidden">
-        {options.map((option: any, i: number) => {
-          const { imageSrc, displayName, tagLine } = option;
-          return (
-            <Box width="100%" height="var(--100vh)" key={i}>
-              <Img
-                src={imageSrc}
-                alt={`${displayName} ${tagLine}`}
-                key={i}
-                height="100%"
-                width="100%"
-                layout="fixed"
-                position="fixed"
-                objectFit="cover"
-              />
-            </Box>
-          );
-        })}
-      </Box> */}
-      {/* <Box position="absolute" bottom="0" h="25%" w="100%">
-        
-        <AnimatePresence>
-          {options.map((option: any, i: number) => {
-            const { displayName, points, distance, tagLine } = option;
-            if (i !== slideIndex) return;
-            return (
-              <MotionBox
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, y: -20 }}
-                layout="position"
-                position="absolute"
-                left={0}
-                right={0}
-                px={10}
+    <Flex
+      w="full"
+      bg={useColorModeValue("gray.200", "gray.600")}
+      p={10}
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Flex w="full" overflow="hidden" pos="relative">
+        <Flex h="400px" w="full" {...carouselStyle}>
+          {slides.map((slide, sid) => (
+            <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
+              <Text
+                color="white"
+                fontSize="xs"
+                p="8px 12px"
+                pos="absolute"
+                top="0"
               >
-                <Heading variant="SummaryTitle">{displayName}</Heading>
-                <Flex>
-                  <Flex alignItems="center">
-                    <Icon width="5" height="5" viewBox="0 0 16 16">
-                      <circle
-                        cx="8"
-                        cy="8"
-                        r="7.5"
-                        fill="#F7C30C"
-                        stroke="white"
-                      />
-                      <path
-                        d="M8 3L9.12257 6.45492H12.7553L9.81636 8.59017L10.9389 12.0451L8 9.90983L5.06107 12.0451L6.18364 8.59017L3.24472 6.45492H6.87743L8 3Z"
-                        fill="white"
-                      />
-                    </Icon>
-                    <Text color="white" pl={2}>
-                      {points} Points
-                    </Text>
-                  </Flex>
-                  <Flex alignItems="center" pl={5}>
-                    <Icon width="5" height="5" viewBox="0 0 16 16">
-                      <circle
-                        cx="8"
-                        cy="8"
-                        r="7.5"
-                        stroke="white"
-                        fill="transparent"
-                      />
-                      <path
-                        d="M8 4.5V8.5L10.5 10.5"
-                        stroke="white"
-                        fill="transparent"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </Icon>
-                    <Text color="white" pl={2}>
-                      {distance}
-                    </Text>
-                  </Flex>
-                </Flex>
-                <Heading variant="SummaryTagline">{tagLine}</Heading>
-              </MotionBox>
-            );
-          })}
-        </AnimatePresence>
-      </Box> */}
-      {/* <HStack
-        px="9"
-        spacing={3}
-        overflow="auto"
-        sx={{
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        {filters.map((filter: any) => {
-          return (
-            <Button
-              isSelected={filter.id === selectedFilter}
-              key={filter.id}
-              variant="pill"
-              borderRadius="3rem"
-              onClick={() => setSelected(filter.id)}
-            >
-              {filter.displayName}
-            </Button>
-          );
-        })}
-      </HStack> */}
-    </>
+                {sid + 1} / {slidesCount}
+              </Text>
+              <Image src={slide.img} size="full" backgroundSize="cover" />
+            </Box>
+          ))}
+        </Flex>
+        <Text {...arrowStyles} left="0" onClick={prevSlide}>
+          &#10094;
+        </Text>
+        <Text {...arrowStyles} right="0" onClick={nextSlide}>
+          &#10095;
+        </Text>
+        <HStack justify="center" pos="absolute" bottom="8px" w="full">
+          {Array.from({ length: slidesCount }).map((_, slide) => (
+            <Box
+              key={`dots-${slide}`}
+              cursor="pointer"
+              boxSize={["7px", , "15px"]}
+              m="0 2px"
+              bg={currentSlide === slide ? "blackAlpha.800" : "blackAlpha.500"}
+              rounded="50%"
+              display="inline-block"
+              transition="background-color 0.6s ease"
+              _hover={{ bg: "blackAlpha.800" }}
+              onClick={() => setSlide(slide)}
+            ></Box>
+          ))}
+        </HStack>
+      </Flex>
+    </Flex>
   );
-};
-
-export const items = [];
+}
