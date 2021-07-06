@@ -27,13 +27,12 @@ function SummaryTitle(props: Record<string, any>) {
 
 function SummaryTagline(props: Record<string, any>) {
   const { theme } = props;
-  // const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props);
   return {
-    fontFamily: "FontAntennaCond",
     fontSize: "1rem",
     lineHeight: "shorter",
-    fontWeight: "bold",
-    pt: 1,
+    fontWeight: "500",
+    letterSpacing: "wide",
+    pt: 2,
     color: mode("text.white", "text.white")(props),
   };
 }
