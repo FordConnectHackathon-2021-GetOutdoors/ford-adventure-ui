@@ -9,7 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { SliderButton } from "./SliderButton";
 
-export function Carousel() {
+type CarouselProps = {
+  filterBy: string;
+};
+
+export function Carousel({ ...props }: CarouselProps) {
   const arrowStyles = {
     cursor: "pointer",
     // position: "absolute",
