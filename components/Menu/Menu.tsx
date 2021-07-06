@@ -17,6 +17,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
 import colors from "themes/colors";
+import { Logo } from "components/Logo/Logo";
 
 const MenuItem = ({ children = "", isLast = false, to = "/", ...rest }) => {
     const { signOut } = useContext(AuthContext);
@@ -79,8 +80,8 @@ export default function Menu() {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Logo</DrawerHeader>
+          <DrawerCloseButton mt={{ base: "2em", md: "2em", lg: "2em", xl: "2em" }} />
+          <DrawerHeader pb={[0, 0, 0, 0]}><Logo /></DrawerHeader>
           <DrawerBody>
             <Stack
               spacing={8}
