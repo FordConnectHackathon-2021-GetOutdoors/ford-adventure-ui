@@ -16,12 +16,33 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
+import colors from "themes/colors";
 
 const MenuItem = ({ children = "", isLast = false, to = "/", ...rest }) => {
     const { signOut } = useContext(AuthContext);
     if (isLast) {
         return (
-            <Button variant="link" onClick={signOut}>
+            <Button 
+                variant="link" 
+                onClick={signOut} 
+                bgColor={colors.text.darknavy} 
+                color={colors.text.white}
+                borderRadius="10px"
+                focusBorderColor={colors.text.darknavy}
+                height={{
+                    base: "3em", 
+                    md: "3em", 
+                    lg: "3em", 
+                    xl: "3em"
+                }}
+                fontSize={{
+                    base: "0.9em", 
+                    md: "0.9em",
+                    lg: "1em", 
+                    xl: "1em"
+                }}
+                width="100%"
+                >
                 <Text display="block" {...rest}>
                     {children}
                 </Text>
@@ -63,7 +84,7 @@ export default function Menu() {
           <DrawerBody>
             <Stack
               spacing={8}
-              align="center"
+              align="left"
               justify={["flex-end", "flex-end", "flex-end", "flex-end"]}
               direction={["column", "column", "column", "column"]}
               pt={[4, 4, 0, 0]}
