@@ -1,28 +1,59 @@
 import { Button, HStack } from "@chakra-ui/react";
-import CardRadio from "components/CardRadio";
+import { useRouter } from "next/router";
 import { Carousel } from "components/Carousel/Carousel";
 import { Header } from "components/Header/Header";
-import React from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+type Filter = { key: string; displayName: string };
+
+const filters: Filter[] = [
+  { key: "beach", displayName: "Beach" },
+  { key: "mountains", displayName: "Mountains" },
+  { key: "desert", displayName: "Desert" },
+  { key: "wellness", displayName: "Wellness" },
+  { key: "city", displayName: "City" },
+];
 
 export default function Adventures() {
+  const router = useRouter();
+  const {
+    query: { type: queryType },
+  } = router;
+
+  const [currentFilter, setFilter] = useState("beach");
+  useEffect(
+    () => {
+      !queryType && router.push({ query: { type: "beach" } });
+      queryType && queryType !== currentFilter && setFilter(`${queryType}`);
+    },
+    // eslint-disable-next-line
+    [queryType]
+  );
+
   return (
     <>
       <Header variant="overlay" />
       <HStack
         overflowX="scroll"
-        px={10}
+        px={9}
         position="relative"
         zIndex="2"
-        css={{
-          "::-webkit-scrollbar": { display: "none" },
-        }}
+        css={{ "::-webkit-scrollbar": { display: "none" } }}
       >
-        <Button variant="pill">Beach</Button>
-        <Button variant="pill">Beach</Button>
-        <Button variant="pill">Beach</Button>
-        <Button variant="pill">Beach</Button>
-        <Button variant="pill">Beach</Button>
-        <Button variant="pill">Beach</Button>
+        {filters.map((filter: Filter) => {
+          return (
+            <Link key={filter.key} href={`/go?type=${filter.key}`} passHref>
+              <Button
+                as="a"
+                variant="pill"
+                // @ts-ignore
+                isSelected={currentFilter === filter.key}
+              >
+                {filter.displayName}
+              </Button>
+            </Link>
+          );
+        })}
       </HStack>
       <Carousel />
     </>
