@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import {
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -14,15 +15,26 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
+import { AuthContext } from "utils/AuthContext";
 
-const MenuItem = ({ children = "", to = "/", ...rest }) => {
-  return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
-        {children}
-      </Text>
-    </Link>
-  );
+const MenuItem = ({ children = "", isLast = false, to = "/", ...rest }) => {
+    const { signOut } = useContext(AuthContext);
+    if (isLast) {
+        return (
+            <Button variant="link" onClick={signOut}>
+                <Text display="block" {...rest}>
+                    {children}
+                </Text>
+            </Button>
+        );
+    } 
+    return (
+        <Link href={to}>
+            <Text display="block" {...rest}>
+                {children}
+            </Text>
+        </Link>
+    );
 };
 
 export default function Menu() {
@@ -61,7 +73,7 @@ export default function Menu() {
               <MenuItem to="/">Vehicle Status</MenuItem>
               <MenuItem to="/">Profile</MenuItem>
               <MenuItem to="/">Settings</MenuItem>
-              <MenuItem to="/">Sign Out</MenuItem>
+              <MenuItem isLast={true}>Sign Out</MenuItem>
             </Stack>
           </DrawerBody>
         </DrawerContent>
