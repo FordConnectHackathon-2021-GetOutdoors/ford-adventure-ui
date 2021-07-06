@@ -1,11 +1,11 @@
-import { Button, HStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Carousel } from "components/Carousel/Carousel";
 import { Header } from "components/Header/Header";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-type Filter = { key: string; displayName: string };
 
+type Filter = { key: string; displayName: string };
 const filters: Filter[] = [
   { key: "beach", displayName: "Beach" },
   { key: "mountains", displayName: "Mountains" },
@@ -35,25 +35,27 @@ export default function Adventures() {
       <Header variant="overlay" />
       <HStack
         overflowX="scroll"
-        px={9}
+        pl={9}
         position="relative"
         zIndex="2"
         css={{ "::-webkit-scrollbar": { display: "none" } }}
       >
-        {filters.map((filter: Filter) => {
-          return (
-            <Link key={filter.key} href={`/go?type=${filter.key}`} passHref>
-              <Button
-                as="a"
-                variant="pill"
-                // @ts-ignore
-                isSelected={currentFilter === filter.key}
-              >
-                {filter.displayName}
-              </Button>
-            </Link>
-          );
-        })}
+        <HStack pr="9">
+          {filters.map((filter: Filter, i: number) => {
+            return (
+              <Link key={filter.key} href={`/go?type=${filter.key}`} passHref>
+                <Button
+                  as="a"
+                  variant="pill"
+                  // @ts-ignore
+                  isSelected={currentFilter === filter.key}
+                >
+                  {filter.displayName}
+                </Button>
+              </Link>
+            );
+          })}
+        </HStack>
       </HStack>
       <Carousel />
     </>
