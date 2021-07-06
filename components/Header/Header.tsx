@@ -16,9 +16,9 @@ export function Header({
   return (
     <Flex
       as="header"
-      // position="fixed"
       w="100%"
-      zIndex={2}
+      position="relative"
+      zIndex="2"
       marginLeft={skipSidePad ? "-10" : "0"}
       px="10"
       py="6"

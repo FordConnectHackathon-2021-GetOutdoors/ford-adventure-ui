@@ -45,14 +45,11 @@ function PillButtonVariant(props: Record<string, any>) {
       //TODO
       props.isSelected ? "bg.darknavy" : "bg.white"
     )(props),
-
     color: mode(
       props.isSelected ? "white" : "text.darknavy",
       props.isSelected ? "white" : "text.darknavy"
     )(props),
-    // ,
-    //TODO
-    //
+    borderRadius: "full",
     px: 8,
     py: 3,
     transition: "all .2s ease-out",

@@ -72,7 +72,7 @@ export function Carousel() {
       justifyContent="center"
       position="fixed"
       top="0"
-      zIndex={-1}
+      // zIndex={-1}
     >
       <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
         <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
