@@ -1,5 +1,6 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
+  Box,
   Divider,
   Drawer,
   DrawerBody,
@@ -19,44 +20,31 @@ import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
 import { Logo } from "components/Logo/Logo";
 
-const MenuItem = ({ children = "", isFirst = false, isLast = false, to = "/", ...rest }) => {
-    const { signOut } = useContext(AuthContext);
-    if (isFirst || isLast) {
-        return (
-          <>
-            {
-              isFirst && <Divider marginBottom="4"/>
-            }
-            <Link 
-              href={to} pl={[8, 8, 8, 8]} 
-              pr={[8, 8, 8, 8]}
-              onClick={signOut} 
-            >
-                <Text display="block" {...rest}>
-                    {children}
-                </Text>
-            </Link>
-            {
-              isLast && <Divider marginTop="4"/>
-            }
-          </>
-        );
-    } 
-    return (
-      <>
-        <Link href={to} pl={[8, 8, 8, 8]} pr={[8, 8, 8, 8]}>
-            <Text display="block" {...rest}>
-                {children}
-            </Text>
-        </Link>
-      </>
-    );
-};
-
 export default function Menu() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const { signOut } = useContext(AuthContext);
+  const [menuItems] = useState([{
+    text: 'New Adventure',
+    to: '/'
+  }, {
+    text: 'My Adventures',
+    to: '/'
+  }, {
+    text: 'Vehicle Status',
+    to: '/'
+  }, {
+    text: 'Profile',
+    to: '/'
+  }, {
+    text: 'Settings',
+    to: '/'
+  }, {
+    text: 'Sign Out',
+    to: '/'
+  }]);
+  const [lastIndex] = useState(menuItems.length - 1);
   return (
     <>
       <IconButton
@@ -74,25 +62,20 @@ export default function Menu() {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton mt={{ base: "2em", md: "2em", lg: "2em", xl: "2em" }} />
-          <DrawerHeader pb={[0, 0, 0, 0]}><Logo /></DrawerHeader>
+          <DrawerCloseButton mt="2em" />
+          <DrawerHeader pb="0"><Logo /></DrawerHeader>
           <DrawerBody paddingStart="0" paddingEnd="0">
-            <Stack
-              spacing={4}
-              align="left"
-              justify={["flex-end", "flex-end", "flex-end", "flex-end"]}
-              direction={["column", "column", "column", "column"]}
-              pt="0"
-              pl="0"
-              pr="0"
-              divider={<StackDivider />}
-            >
-              <MenuItem to="/" isFirst={true}>New Adventure</MenuItem>
-              <MenuItem to="/">My Adventures</MenuItem>
-              <MenuItem to="/">Vehicle Status</MenuItem>
-              <MenuItem to="/">Profile</MenuItem>
-              <MenuItem to="/">Settings</MenuItem>
-              <MenuItem isLast={true}>Sign Out</MenuItem>
+            <Divider />
+            <Stack divider={<StackDivider />} spacing="0">
+              {
+                menuItems.map(({ text, to}, index) => (
+                  <Box key={index} pl="8" pr="8" pb="5" pt="5" style={index === lastIndex ? { backgroundColor: "#102B4E", color: "#FFF" } : {}}>
+                    <Link href={to} onClick={() => (index === lastIndex && signOut())}>
+                      <Text display="block">{text}</Text>
+                    </Link>
+                  </Box>
+                ))
+              }
             </Stack>
           </DrawerBody>
         </DrawerContent>
