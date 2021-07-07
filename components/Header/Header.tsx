@@ -1,4 +1,5 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { Logo } from "components/Logo/Logo";
 import Menu from "components/Menu/Menu";
 import React from "react";
 
@@ -25,7 +26,7 @@ export function Header({
       justify="space-between"
       color={variant === "overlay" ? "white" : "inherit"}
     >
-      <Box>LOGO</Box>
+      <Logo />
       {showMenu && <Menu />}
     </Flex>
   );

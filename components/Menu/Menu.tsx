@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import {
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -14,15 +15,48 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
+import { AuthContext } from "utils/AuthContext";
+import colors from "themes/colors";
+import { Logo } from "components/Logo/Logo";
 
-const MenuItem = ({ children = "", to = "/", ...rest }) => {
-  return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
-        {children}
-      </Text>
-    </Link>
-  );
+const MenuItem = ({ children = "", isLast = false, to = "/", ...rest }) => {
+    const { signOut } = useContext(AuthContext);
+    if (isLast) {
+        return (
+            <Button 
+                variant="link" 
+                onClick={signOut} 
+                bgColor={colors.text.darknavy} 
+                color={colors.text.white}
+                borderRadius="10px"
+                focusBorderColor={colors.text.darknavy}
+                height={{
+                    base: "3em", 
+                    md: "3em", 
+                    lg: "3em", 
+                    xl: "3em"
+                }}
+                fontSize={{
+                    base: "0.9em", 
+                    md: "0.9em",
+                    lg: "1em", 
+                    xl: "1em"
+                }}
+                width="100%"
+                >
+                <Text display="block" {...rest}>
+                    {children}
+                </Text>
+            </Button>
+        );
+    } 
+    return (
+        <Link href={to}>
+            <Text display="block" {...rest}>
+                {children}
+            </Text>
+        </Link>
+    );
 };
 
 export default function Menu() {
@@ -46,12 +80,12 @@ export default function Menu() {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Logo</DrawerHeader>
+          <DrawerCloseButton mt={{ base: "2em", md: "2em", lg: "2em", xl: "2em" }} />
+          <DrawerHeader pb={[0, 0, 0, 0]}><Logo /></DrawerHeader>
           <DrawerBody>
             <Stack
               spacing={8}
-              align="center"
+              align="left"
               justify={["flex-end", "flex-end", "flex-end", "flex-end"]}
               direction={["column", "column", "column", "column"]}
               pt={[4, 4, 0, 0]}
@@ -61,7 +95,7 @@ export default function Menu() {
               <MenuItem to="/">Vehicle Status</MenuItem>
               <MenuItem to="/">Profile</MenuItem>
               <MenuItem to="/">Settings</MenuItem>
-              <MenuItem to="/">Sign Out</MenuItem>
+              <MenuItem isLast={true}>Sign Out</MenuItem>
             </Stack>
           </DrawerBody>
         </DrawerContent>
