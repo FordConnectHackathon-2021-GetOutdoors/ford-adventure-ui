@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import {
-  Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -10,52 +10,46 @@ import {
   IconButton,
   Link,
   Stack,
+  StackDivider,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
-import colors from "themes/colors";
 import { Logo } from "components/Logo/Logo";
 
-const MenuItem = ({ children = "", isLast = false, to = "/", ...rest }) => {
+const MenuItem = ({ children = "", isFirst = false, isLast = false, to = "/", ...rest }) => {
     const { signOut } = useContext(AuthContext);
-    if (isLast) {
+    if (isFirst || isLast) {
         return (
-            <Button 
-                variant="link" 
-                onClick={signOut} 
-                bgColor={colors.text.darknavy} 
-                color={colors.text.white}
-                borderRadius="10px"
-                focusBorderColor={colors.text.darknavy}
-                height={{
-                    base: "3em", 
-                    md: "3em", 
-                    lg: "3em", 
-                    xl: "3em"
-                }}
-                fontSize={{
-                    base: "0.9em", 
-                    md: "0.9em",
-                    lg: "1em", 
-                    xl: "1em"
-                }}
-                width="100%"
-                >
+          <>
+            {
+              isFirst && <Divider marginBottom="4"/>
+            }
+            <Link 
+              href={to} pl={[8, 8, 8, 8]} 
+              pr={[8, 8, 8, 8]}
+              onClick={signOut} 
+            >
                 <Text display="block" {...rest}>
                     {children}
                 </Text>
-            </Button>
+            </Link>
+            {
+              isLast && <Divider marginTop="4"/>
+            }
+          </>
         );
     } 
     return (
-        <Link href={to}>
+      <>
+        <Link href={to} pl={[8, 8, 8, 8]} pr={[8, 8, 8, 8]}>
             <Text display="block" {...rest}>
                 {children}
             </Text>
         </Link>
+      </>
     );
 };
 
@@ -82,15 +76,18 @@ export default function Menu() {
         <DrawerContent>
           <DrawerCloseButton mt={{ base: "2em", md: "2em", lg: "2em", xl: "2em" }} />
           <DrawerHeader pb={[0, 0, 0, 0]}><Logo /></DrawerHeader>
-          <DrawerBody>
+          <DrawerBody paddingStart="0" paddingEnd="0">
             <Stack
-              spacing={8}
+              spacing={4}
               align="left"
               justify={["flex-end", "flex-end", "flex-end", "flex-end"]}
               direction={["column", "column", "column", "column"]}
-              pt={[4, 4, 0, 0]}
+              pt="0"
+              pl="0"
+              pr="0"
+              divider={<StackDivider />}
             >
-              <MenuItem to="/">New Adventure</MenuItem>
+              <MenuItem to="/" isFirst={true}>New Adventure</MenuItem>
               <MenuItem to="/">My Adventures</MenuItem>
               <MenuItem to="/">Vehicle Status</MenuItem>
               <MenuItem to="/">Profile</MenuItem>
