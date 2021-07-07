@@ -148,6 +148,7 @@ export function Carousel({ ...props }: CarouselProps) {
                     left={0}
                     right={0}
                     px={10}
+                    pb={10}
                   >
                     <Heading variant="SummaryTitle" mb="4">
                       {slide.tagLine}
@@ -161,8 +162,8 @@ export function Carousel({ ...props }: CarouselProps) {
                     <Flex fontSize={["1rem", "xl", "5xl"]}>
                       <Flex alignItems="center">
                         <Icon
-                          width={["6", "7", "8"]}
-                          height={["6", "7", "8"]}
+                          width={["5", "7", "8"]}
+                          height={["5", "7", "8"]}
                           viewBox="0 0 16 16"
                         >
                           <circle
@@ -189,8 +190,8 @@ export function Carousel({ ...props }: CarouselProps) {
                       </Flex>
                       <Flex alignItems="center" pl={5}>
                         <Icon
-                          width={["6", "7", "8"]}
-                          height={["6", "7", "8"]}
+                          width={["5", "7", "8"]}
+                          height={["5", "7", "8"]}
                           viewBox="0 0 16 16"
                         >
                           <circle
