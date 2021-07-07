@@ -13,6 +13,7 @@ import { SliderButton } from "./SliderButton";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
 import { displayName } from "react-tinder-card";
+import { FaHourglassStart } from "react-icons/fa";
 
 type CarouselProps = {
   filterBy: string;
@@ -42,22 +43,42 @@ export function Carousel({ ...props }: CarouselProps) {
     {
       id: "123123123",
       img: "https://images.pexels.com/photos/2599537/pexels-photo-2599537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      displayName: "Zion National Park",
+      points: 23,
+      distance: "120 miles, 4.2 hours",
+      tagLine: "The best place on planet earth",
     },
     {
       id: "123123123",
       img: "https://images.pexels.com/photos/2714581/pexels-photo-2714581.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      displayName: "Zion National Park",
+      points: 23,
+      distance: "120 miles, 4.2 hours",
+      tagLine: "The best place on planet earth",
     },
     {
       id: "1276783123123",
       img: "https://images.pexels.com/photos/2878019/pexels-photo-2878019.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      displayName: "Zion National Park",
+      points: 23,
+      distance: "120 miles, 4.2 hours",
+      tagLine: "The best place on planet earth",
     },
     {
       id: "123434534123123",
       img: "https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      displayName: "Zion National Park",
+      points: 23,
+      distance: "120 miles, 4.2 hours",
+      tagLine: "The best place on planet earth",
     },
     {
       id: "123123456123",
       img: "https://images.pexels.com/photos/3124111/pexels-photo-3124111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      displayName: "Zion National Park",
+      points: 23,
+      distance: "120 miles, 4.2 hours",
+      tagLine: "The best place on planet earth",
     },
   ];
 
@@ -112,16 +133,18 @@ export function Carousel({ ...props }: CarouselProps) {
                 {/* @ts-ignore */}
                 <AnimatePresence>
                   <MotionBox
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ y: 20 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, y: -20 }}
+                    // exit={{ opacity: 0, y: -20 }}
                     layout="position"
                     position="absolute"
                     left={0}
                     right={0}
                     px={10}
                   >
-                    <Heading variant="SummaryTitle">{displayName}</Heading>
+                    <Heading variant="SummaryTitle">
+                      {slide.displayName}
+                    </Heading>
                     <Flex>
                       <Flex alignItems="center">
                         <Icon width="5" height="5" viewBox="0 0 16 16">
@@ -137,10 +160,10 @@ export function Carousel({ ...props }: CarouselProps) {
                             fill="white"
                           />
                         </Icon>
-                        <Text color="white" pl={2}>
-                          {/* {points} */}
-                          Points
-                        </Text>
+                        <Flex color="white" pl={2}>
+                          <Text>{slide.points}</Text>
+                          <Text pl={1}>Points</Text>
+                        </Flex>
                       </Flex>
                       <Flex alignItems="center" pl={5}>
                         <Icon width="5" height="5" viewBox="0 0 16 16">
@@ -159,16 +182,12 @@ export function Carousel({ ...props }: CarouselProps) {
                             strokeLinejoin="round"
                           />
                         </Icon>
-                        <Text color="white" pl={2}>
-                          {/* {distance} */}
-                          distance
-                        </Text>
+                        <Flex color="white" pl={2}>
+                          <Text>{slide.distance || "Who cares!"}</Text>
+                        </Flex>
                       </Flex>
                     </Flex>
-                    <Heading variant="SummaryTagline">
-                      {/* {tagLine} */}
-                      tagline
-                    </Heading>
+                    <Heading variant="SummaryTagline">{slide.tagLine}</Heading>
                   </MotionBox>
                 </AnimatePresence>
               </Box>
