@@ -56,7 +56,7 @@ function PillButtonVariant(props: Record<string, any>) {
   };
 }
 
-function DashboardTabsButtonVariant(props: Record<string, any>) {
+function TabsButtonVariant(props: Record<string, any>) {
   return {
     fontFamily: "FontAntenna",
     fontSize: "xs",
@@ -83,7 +83,7 @@ export const Button = {
   variants: {
     tile: TileButtonVariant,
     pill: PillButtonVariant,
-    dashboardTabs: DashboardTabsButtonVariant,
+    tabs: TabsButtonVariant,
   },
   defaultProps,
 };

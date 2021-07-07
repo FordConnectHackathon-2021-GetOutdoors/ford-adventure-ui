@@ -1,11 +1,27 @@
 import Fullscreen from "components/Fullscreen";
 import { Title } from "components/Title";
 import { Header } from "components/Header/Header";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
-import { Box, Heading, Flex, Text } from "@chakra-ui/react";
+import { Box, Heading, Flex, Text, Button } from "@chakra-ui/react";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
+import { addDomEvent } from "@chakra-ui/utils";
+
+const adventureTabs = [
+  {
+    id: "about",
+    displayName: "About",
+  },
+  {
+    id: "activities",
+    displayName: "Activities",
+  },
+  {
+    id: "map",
+    displayName: "Map",
+  },
+];
 
 export const defaultAdventure = {
   id: "234",
@@ -26,13 +42,48 @@ export default function Adventure({
   adventure = defaultAdventure,
   ...props
 }: AdventureProps) {
-  // @ts-ignore
-  const { displayName, id, points, distance, tagLine } = adventure;
-  return (
-    <Fullscreen bg="white">
-      <Header />
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const handleChangeIndex = (index: number) => {
+    setCurrentSlide(index);
+  };
 
-      <Box position="absolute" bottom="0" h="25%" w="100%">
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);
+  useEffect(
+    () =>
+      addDomEvent(window, "resize", () =>
+        setHeight(headerRef?.current?.clientHeight)
+      ),
+    []
+  );
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeight(headerRef?.current?.clientHeight);
+    }
+  }, [headerRef]);
+
+  // @ts-ignore
+  const {
+    displayName,
+    id,
+    points,
+    distance,
+    // tagLine,
+    imageSrc,
+  } = adventure;
+  return (
+    <>
+      <Header variant="overlay" />
+
+      <Box
+        position="absolute"
+        top="0"
+        h="32.8%"
+        w="100%"
+        bgImg={imageSrc}
+        backgroundSize="cover"
+        backgroundPosition="center"
+      >
         {/* @ts-ignore */}
         <AnimatePresence>
           <MotionBox
@@ -45,8 +96,22 @@ export default function Adventure({
             left={0}
             right={0}
             px={10}
+            bottom={12}
+            display="flex"
+            flexDir="column"
+            alignContent="flex-start"
+            justifyContent="flex-end"
+            h="100%"
+            // alignItems="flex-end"
           >
-            <Heading variant="SummaryTitle">{displayName}</Heading>
+            <Heading
+              variant="SummaryTitle"
+              // @ts-ignore
+              fontSize={["4vh", "8vh", "10vh", , "12vh"]}
+              mb={2}
+            >
+              {displayName}
+            </Heading>
             <Flex>
               <Flex alignItems="center">
                 <Icon width="5" height="5" viewBox="0 0 16 16">
@@ -82,10 +147,46 @@ export default function Adventure({
                 </Text>
               </Flex>
             </Flex>
-            <Heading variant="SummaryTagline">{tagLine}</Heading>
+            {/* <Heading variant="SummaryTagline">{tagLine}</Heading> */}
           </MotionBox>
         </AnimatePresence>
       </Box>
-    </Fullscreen>
+      <Box mt="32.8%">
+        <Flex overflow="auto" px="8" pt="6">
+          {adventureTabs.map((tab: any, idx: number) => {
+            return (
+              <Flex
+                key={idx}
+                flexGrow={1}
+                sx={{
+                  borderBottom: (props) =>
+                    idx === currentSlide ? "3px solid" : "1px solid",
+                  borderColor: (props) =>
+                    idx === currentSlide ? "text.darknavy" : "gray",
+                }}
+                px={2}
+              >
+                <Button
+                  flexGrow={1}
+                  key={tab.id}
+                  onClick={() => handleChangeIndex(idx)}
+                  variant="tabs"
+                >
+                  <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                    {tab.displayName}
+                  </Box>
+                  <Box
+                    position="absolute"
+                    sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                  >
+                    {tab.displayName}
+                  </Box>
+                </Button>
+              </Flex>
+            );
+          })}
+        </Flex>
+      </Box>
+    </>
   );
 }

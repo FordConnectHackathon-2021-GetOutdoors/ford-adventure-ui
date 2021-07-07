@@ -93,7 +93,7 @@ export default function Dashboard() {
                   flexGrow={1}
                   key={tab.id}
                   onClick={() => handleChangeIndex(idx)}
-                  variant="dashboardTabs"
+                  variant="tabs"
                 >
                   <Box sx={{ opacity: 0, pointerEvents: "none" }}>
                     {tab.displayName}
@@ -127,7 +127,7 @@ interface SlideProps {
   children: React.ReactNode;
 }
 
-function Slide({ headerHeight, children }: SlideProps) {
+export function Slide({ headerHeight, children }: SlideProps) {
   return (
     <MotionBox
       minHeight={
