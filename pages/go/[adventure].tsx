@@ -3,10 +3,9 @@ import { Title } from "components/Title";
 import { Header } from "components/Header/Header";
 import React from "react";
 import { Icon } from "@chakra-ui/icons";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Heading, Flex, Text } from "@chakra-ui/react";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
-import { Heading } from "themes/typography";
 
 export const defaultAdventure = {
   id: "234",
@@ -27,7 +26,8 @@ export default function Adventure({
   adventure = defaultAdventure,
   ...props
 }: AdventureProps) {
-  const { displayName, points, distance, tagLine } = adventure;
+  // @ts-ignore
+  const { displayName, id, points, distance, tagLine } = adventure;
   return (
     <Fullscreen bg="white">
       <Header />
@@ -36,7 +36,7 @@ export default function Adventure({
         {/* @ts-ignore */}
         <AnimatePresence>
           <MotionBox
-            key={i}
+            key={id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -20 }}

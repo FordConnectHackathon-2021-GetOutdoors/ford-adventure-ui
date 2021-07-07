@@ -161,8 +161,8 @@ export function Carousel({ ...props }: CarouselProps) {
                     <Flex fontSize={["1rem", "xl", "5xl"]}>
                       <Flex alignItems="center">
                         <Icon
-                          width={["5", "8", "14"]}
-                          height={["5", "8", "14"]}
+                          width={["6", "7", "8"]}
+                          height={["6", "7", "8"]}
                           viewBox="0 0 16 16"
                         >
                           <circle
@@ -177,15 +177,20 @@ export function Carousel({ ...props }: CarouselProps) {
                             fill="white"
                           />
                         </Icon>
-                        <Flex color="white" pl={2} lineHeight={1}>
+                        <Flex
+                          color="white"
+                          pl={2}
+                          lineHeight={1}
+                          fontSize={["2vh", "4vh", "5vh"]}
+                        >
                           <Text>{slide.points}</Text>
                           <Text pl={1}>Points</Text>
                         </Flex>
                       </Flex>
                       <Flex alignItems="center" pl={5}>
                         <Icon
-                          width={["5", "8", "14"]}
-                          height={["5", "8", "14"]}
+                          width={["6", "7", "8"]}
+                          height={["6", "7", "8"]}
                           viewBox="0 0 16 16"
                         >
                           <circle
@@ -203,7 +208,12 @@ export function Carousel({ ...props }: CarouselProps) {
                             strokeLinejoin="round"
                           />
                         </Icon>
-                        <Flex color="white" pl={2} lineHeight={1}>
+                        <Flex
+                          color="white"
+                          pl={2}
+                          lineHeight={1}
+                          fontSize={["2vh", "4vh", "5vh"]}
+                        >
                           <Text>{slide.distance || "Who cares!"}</Text>
                         </Flex>
                       </Flex>
