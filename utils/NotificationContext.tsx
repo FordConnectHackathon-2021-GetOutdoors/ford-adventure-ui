@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { createContext } from "react";
-import { ToastContainer, toast, Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import { toast } from 'react-toastify';
 
 export const NotificationContext = createContext({
     showSucess: a => {},
@@ -13,6 +12,7 @@ export const NotificationContext = createContext({
 
 export function NotificationProvider({ children }) {
   const showSucess = message => {
+    console.log(`hi`);
     toast.success(message);
   };
   const showError = error => {
@@ -37,14 +37,7 @@ export function NotificationProvider({ children }) {
         showCustom,
       }}
     >
-      <ToastContainer
-        position={toast.POSITION.BOTTOM_CENTER}
-        transition={Flip}
-        autoClose={8000}
-        draggablePercent={50}
-      >
-        {children}
-      </ToastContainer>
+      {children}
     </NotificationContext.Provider>
   );
 };
