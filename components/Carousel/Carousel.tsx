@@ -129,7 +129,14 @@ export function Carousel({ ...props }: CarouselProps) {
                 width="100vw"
               />
 
-              <Box position="absolute" bottom="0" h="25%" w="100%">
+              <Flex
+                position="absolute"
+                h="100%"
+                w="100%"
+                bottom="10"
+                justify="center"
+                alignItems="flex-end"
+              >
                 {/* @ts-ignore */}
                 <AnimatePresence>
                   <MotionBox
@@ -142,12 +149,22 @@ export function Carousel({ ...props }: CarouselProps) {
                     right={0}
                     px={10}
                   >
-                    <Heading variant="SummaryTitle">
-                      {slide.displayName}
+                    <Heading variant="SummaryTitle" mb="4">
+                      {slide.tagLine}
                     </Heading>
-                    <Flex>
+                    {/* <Heading
+                      variant="SummaryTitle"
+                      fontSize={["1rem", "clamp(4rem, 20vh, 20rem)"]}
+                    >
+                      {slide.displayName}
+                    </Heading> */}
+                    <Flex fontSize={["1rem", "xl", "5xl"]}>
                       <Flex alignItems="center">
-                        <Icon width="5" height="5" viewBox="0 0 16 16">
+                        <Icon
+                          width={["5", "8", "14"]}
+                          height={["5", "8", "14"]}
+                          viewBox="0 0 16 16"
+                        >
                           <circle
                             cx="8"
                             cy="8"
@@ -160,13 +177,17 @@ export function Carousel({ ...props }: CarouselProps) {
                             fill="white"
                           />
                         </Icon>
-                        <Flex color="white" pl={2}>
+                        <Flex color="white" pl={2} lineHeight={1}>
                           <Text>{slide.points}</Text>
                           <Text pl={1}>Points</Text>
                         </Flex>
                       </Flex>
                       <Flex alignItems="center" pl={5}>
-                        <Icon width="5" height="5" viewBox="0 0 16 16">
+                        <Icon
+                          width={["5", "8", "14"]}
+                          height={["5", "8", "14"]}
+                          viewBox="0 0 16 16"
+                        >
                           <circle
                             cx="8"
                             cy="8"
@@ -182,15 +203,17 @@ export function Carousel({ ...props }: CarouselProps) {
                             strokeLinejoin="round"
                           />
                         </Icon>
-                        <Flex color="white" pl={2}>
+                        <Flex color="white" pl={2} lineHeight={1}>
                           <Text>{slide.distance || "Who cares!"}</Text>
                         </Flex>
                       </Flex>
                     </Flex>
-                    <Heading variant="SummaryTagline">{slide.tagLine}</Heading>
+                    <Heading variant="SummaryTagline" mt="2">
+                      {slide.tagLine}
+                    </Heading>
                   </MotionBox>
                 </AnimatePresence>
-              </Box>
+              </Flex>
             </Box>
           ))}
         </Flex>

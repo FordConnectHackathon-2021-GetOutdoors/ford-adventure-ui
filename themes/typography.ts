@@ -1,5 +1,6 @@
 // https://chakra-ui.com/docs/theming/customize-theme#customizing-component-styles
 
+import { color } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
 export const globalFontSmoothing = {
@@ -18,18 +19,19 @@ function SummaryTitle(props: Record<string, any>) {
 
   return {
     fontFamily: "FontAntennaCond",
-    fontSize: "2rem",
-    lineHeight: "shorter",
+    fontSize: ["10vh", "12vh", "16vh", , "20vh"],
+    lineHeight: ".8",
     fontWeight: 600,
     color: mode("text.white", "text.white")(props),
+    pt: 2,
   };
 }
 
 function SummaryTagline(props: Record<string, any>) {
   const { theme } = props;
   return {
-    fontSize: "1rem",
-    lineHeight: "shorter",
+    fontSize: ["4vh", "5vh"],
+    lineHeight: "1",
     fontWeight: "500",
     letterSpacing: "wide",
     pt: 2,
