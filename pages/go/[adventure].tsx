@@ -167,40 +167,50 @@ export default function Adventure({
         </AnimatePresence>
       </Box>
 
-      <Flex mt="38.2%" overflow="auto" px="10" pt="8">
+      <Flex mt="38.2%" overflow="auto" px="10" pt="10">
         {adventureTabs.map((tab: any, idx: number) => {
           return (
-            <Flex
-              key={idx}
-              flexGrow={1}
-              sx={{
-                borderBottom: (props) =>
-                  idx === currentSlide ? "3px solid" : "1px solid",
-                borderColor: (props) =>
-                  idx === currentSlide ? "text.darknavy" : "gray",
-              }}
-              px={2}
-            >
-              <Button
+            <>
+              <Flex
+                key={idx}
                 flexGrow={1}
-                key={tab.id}
-                onClick={() => handleChangeIndex(idx)}
-                variant="tabs"
+                sx={{
+                  borderBottom: (props) =>
+                    idx === currentSlide ? "3px solid" : "1px solid",
+                  borderColor: (props) =>
+                    idx === currentSlide ? "text.darknavy" : "gray",
+                }}
+                px={2}
               >
-                <Box sx={{ opacity: 0, pointerEvents: "none" }}>
-                  {tab.displayName}
-                </Box>
-                <Box
-                  position="absolute"
-                  sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                <Button
+                  flexGrow={1}
+                  key={tab.id}
+                  onClick={() => handleChangeIndex(idx)}
+                  variant="tabs"
                 >
-                  {tab.displayName}
-                </Box>
-              </Button>
-            </Flex>
+                  <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                    {tab.displayName}
+                  </Box>
+                  <Box
+                    position="absolute"
+                    sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                  >
+                    {tab.displayName}
+                  </Box>
+                </Button>
+              </Flex>
+            </>
           );
         })}
       </Flex>
+      <Box px={10} pt={5}>
+        <AnimatePresence>
+          {adventureTabs.map((tab: any, idx: number) => {
+            if (idx !== currentSlide) return;
+            return <h2>{idx}</h2>;
+          })}
+        </AnimatePresence>
+      </Box>
     </>
   );
 }
