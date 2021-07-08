@@ -8,6 +8,7 @@ import Image from "next/image";
 import { PhotoPost } from "../components/PhotoPost/PhotoPost";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import utah from "../public/images/utah.png";
+import { PhotoUpload } from "components/PhotoUpload/PhotoUpload";
 
 const dashboardTabs = [
   {
@@ -72,53 +73,56 @@ export default function Dashboard() {
   }, [headerHeight]);
 
   return (
-    <Flex flexDir="column">
-      <Flex flexShrink={1} flexDir="column" ref={headerRef}>
-        <Header />
-        <Flex overflow="auto" px="8" pt="1">
-          {dashboardTabs.map((tab: any, idx: number) => {
-            return (
-              <Flex
-                key={idx}
-                flexGrow={1}
-                sx={{
-                  borderBottom: (props) =>
-                    idx === currentSlide ? "3px solid" : "1px solid",
-                  borderColor: (props) =>
-                    idx === currentSlide ? "text.darknavy" : "gray",
-                }}
-                px={2}
-              >
-                <Button
+    <>
+      <PhotoUpload />
+      <Flex flexDir="column">
+        <Flex flexShrink={1} flexDir="column" ref={headerRef}>
+          <Header />
+          <Flex overflow="auto" px="8" pt="1">
+            {dashboardTabs.map((tab: any, idx: number) => {
+              return (
+                <Flex
+                  key={idx}
                   flexGrow={1}
-                  key={tab.id}
-                  onClick={() => handleChangeIndex(idx)}
-                  variant="tabs"
+                  sx={{
+                    borderBottom: (props) =>
+                      idx === currentSlide ? "3px solid" : "1px solid",
+                    borderColor: (props) =>
+                      idx === currentSlide ? "text.darknavy" : "gray",
+                  }}
+                  px={2}
                 >
-                  <Box sx={{ opacity: 0, pointerEvents: "none" }}>
-                    {tab.displayName}
-                  </Box>
-                  <Box
-                    position="absolute"
-                    sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                  <Button
+                    flexGrow={1}
+                    key={tab.id}
+                    onClick={() => handleChangeIndex(idx)}
+                    variant="tabs"
                   >
-                    {tab.displayName}
-                  </Box>
-                </Button>
-              </Flex>
-            );
-          })}
+                    <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                      {tab.displayName}
+                    </Box>
+                    <Box
+                      position="absolute"
+                      sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                    >
+                      {tab.displayName}
+                    </Box>
+                  </Button>
+                </Flex>
+              );
+            })}
+          </Flex>
         </Flex>
-      </Flex>
 
-      <Box
-        sx={{
-          height: `calc(var(--100vh) - ${headerHeight || 0}px)`,
-        }}
-      >
-        <AnimatePresence>{slides[currentSlide]}</AnimatePresence>
-      </Box>
-    </Flex>
+        <Box
+          sx={{
+            height: `calc(var(--100vh) - ${headerHeight || 0}px)`,
+          }}
+        >
+          <AnimatePresence>{slides[currentSlide]}</AnimatePresence>
+        </Box>
+      </Flex>
+    </>
   );
 }
 

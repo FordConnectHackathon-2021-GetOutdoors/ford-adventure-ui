@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { supabase } from "./supabase";
 import Router from "next/router";
-import { toast } from 'react-toastify';
+import { NotificationContext } from "./NotificationContext";
 
 export const AuthContext = createContext({
   session: {},
@@ -14,6 +14,7 @@ export const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
+  const { showError } = useContext(NotificationContext);
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
@@ -53,14 +54,14 @@ export function AuthProvider({ children }) {
       ? await supabase.auth.signIn(props)
       : await supabase.auth.signUp(props);
     if (error) {
-      toast.error(error);
+      showError(error);
     }
   };
 
   const resetPasswordHandler = async ({ email }) => {
     const { error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) {
-      toast.error(error);
+      showError(error);
     }
   };
 

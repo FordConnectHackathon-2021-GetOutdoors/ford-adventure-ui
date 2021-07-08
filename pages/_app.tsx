@@ -12,24 +12,28 @@ import "../public/fonts/antenna/atenna-font.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ImageProvider } from "utils/ImageContext";
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
     <DeviceProvider>
       <ThemeProvider cookies={pageProps.cookies}>
-        <AuthProvider>
-          {/* <ThemeSwitcher /> */}
-          <CustomHead {...pageProps} />
-          <Component {...pageProps} />
-          <ToastContainer
-            position={toast.POSITION.BOTTOM_CENTER}
-            transition={Flip}
-            autoClose={8000}
-            draggablePercent={50}
-            hideProgressBar={true}
-          / >
-          <NotificationProvider {...pageProps} />
-        </AuthProvider>
+        <NotificationProvider {...pageProps}>
+          <AuthProvider>
+            {/* <ThemeSwitcher /> */}
+            <ImageProvider>
+              <CustomHead {...pageProps} />
+              <Component {...pageProps} />
+              <ToastContainer
+                position={toast.POSITION.BOTTOM_CENTER}
+                transition={Flip}
+                autoClose={8000}
+                draggablePercent={50}
+                hideProgressBar={true}
+              / >
+            </ImageProvider>
+          </AuthProvider>
+        </NotificationProvider>
       </ThemeProvider>
     </DeviceProvider>
   );

@@ -12,7 +12,6 @@ export const NotificationContext = createContext({
 
 export function NotificationProvider({ children }) {
   const showSucess = message => {
-    console.log(`hi`);
     toast.success(message);
   };
   const showError = error => {
