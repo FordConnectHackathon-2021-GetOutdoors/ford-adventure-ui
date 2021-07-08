@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     
     if (user) {
       // Commenting this out, as it's redirecting all other traffic
-      //Router.push("/dashboard");
+      Router.push("/dashboard");
     }
 
     const { data: authListener } = supabase.auth.onAuthStateChange(

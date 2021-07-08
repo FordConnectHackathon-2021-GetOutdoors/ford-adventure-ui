@@ -25,6 +25,7 @@ const text = {
   error: "#D92E14",
   grey: "#4D4D4D",
   darkgrey: "#797979",
+  lightGrey: "#E5E5E5",
   placeholder: "#BABABA",
   darkPlaceholder: "#2c6fce",
   link: "#63A7FF",
