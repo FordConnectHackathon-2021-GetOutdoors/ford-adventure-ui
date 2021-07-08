@@ -7,6 +7,7 @@ import { Box, Heading, Flex, Text, Button } from "@chakra-ui/react";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
 import { addDomEvent } from "@chakra-ui/utils";
+import { useRouter } from "next/router";
 
 const adventureTabs = [
   {
@@ -18,19 +19,19 @@ const adventureTabs = [
     displayName: "Activities",
   },
   {
-    id: "map",
-    displayName: "Map",
+    id: "badges",
+    displayName: "Badges",
   },
 ];
 
 export const defaultAdventure = {
   id: "234",
-  displayName: "Zion  ",
+  displayName: "Zion National Park",
   tagLine: "Utah's First National Park",
   distance: "4 Hrs 9 Min, 268 Miles",
   points: 225,
   content: "Hello World",
-  imageSrc: "/images/arches.png",
+  imageSrc: "/images/zion.png",
 };
 
 interface AdventureProps {
@@ -62,6 +63,21 @@ export default function Adventure({
     }
   }, [headerRef]);
 
+  const router = useRouter();
+  const {
+    query: { type: queryType },
+  } = router;
+
+  const [currentFilter, setFilter] = useState("about");
+  useEffect(
+    () => {
+      // !queryType && router.push({ query: { type: "about" } });
+      queryType && queryType !== currentFilter && setFilter(`${queryType}`);
+    },
+    // eslint-disable-next-line
+    [queryType]
+  );
+
   // @ts-ignore
   const {
     displayName,
@@ -70,7 +86,7 @@ export default function Adventure({
     distance,
     // tagLine,
     imageSrc,
-  } = adventure;
+  }: any = adventure;
   return (
     <>
       <Header variant="overlay" />
@@ -78,10 +94,10 @@ export default function Adventure({
       <Box
         position="absolute"
         top="0"
-        h="32.8%"
+        h="38.2%"
         w="100%"
         bgImg={imageSrc}
-        backgroundSize="cover"
+        backgroundSize="100vw"
         backgroundPosition="center"
       >
         {/* @ts-ignore */}
@@ -147,45 +163,50 @@ export default function Adventure({
                 </Text>
               </Flex>
             </Flex>
-            {/* <Heading variant="SummaryTagline">{tagLine}</Heading> */}
           </MotionBox>
         </AnimatePresence>
       </Box>
       <Box mt="32.8%">
-        <Flex overflow="auto" px="8" pt="6">
-          {adventureTabs.map((tab: any, idx: number) => {
-            return (
-              <Flex
-                key={idx}
-                flexGrow={1}
-                sx={{
-                  borderBottom: (props) =>
-                    idx === currentSlide ? "3px solid" : "1px solid",
-                  borderColor: (props) =>
-                    idx === currentSlide ? "text.darknavy" : "gray",
-                }}
-                px={2}
-              >
-                <Button
+        <h1>asd</h1>
+        <Box>
+          <Flex overflow="auto" px="10" pt="8">
+            {adventureTabs.map((tab: any, idx: number) => {
+              return (
+                <Flex
+                  key={idx}
                   flexGrow={1}
-                  key={tab.id}
-                  onClick={() => handleChangeIndex(idx)}
-                  variant="tabs"
+                  sx={{
+                    borderBottom: (props) =>
+                      idx === currentSlide ? "3px solid" : "1px solid",
+                    borderColor: (props) =>
+                      idx === currentSlide ? "text.darknavy" : "gray",
+                  }}
+                  px={2}
                 >
-                  <Box sx={{ opacity: 0, pointerEvents: "none" }}>
-                    {tab.displayName}
-                  </Box>
-                  <Box
-                    position="absolute"
-                    sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                  <Button
+                    flexGrow={1}
+                    key={tab.id}
+                    onClick={() => handleChangeIndex(idx)}
+                    variant="tabs"
                   >
-                    {tab.displayName}
-                  </Box>
-                </Button>
-              </Flex>
-            );
-          })}
-        </Flex>
+                    <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                      {tab.displayName}
+                    </Box>
+                    <Box
+                      position="absolute"
+                      sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
+                    >
+                      {tab.displayName}
+                    </Box>
+                  </Button>
+                </Flex>
+              );
+            })}
+          </Flex>
+          <Flex px="10" py="4">
+            <AnimatePresence>{}</AnimatePresence>
+          </Flex>
+        </Box>
       </Box>
     </>
   );
