@@ -11,11 +11,11 @@ import { useRouter } from "next/router";
 
 const adventureTabs = [
   {
-    id: "about",
+    id: "photos",
     displayName: "About",
   },
   {
-    id: "activities",
+    id: "leaderboard",
     displayName: "Activities",
   },
   {
@@ -68,15 +68,15 @@ export default function Adventure({
     query: { type: queryType },
   } = router;
 
-  const [currentFilter, setFilter] = useState("about");
-  useEffect(
-    () => {
-      // !queryType && router.push({ query: { type: "about" } });
-      queryType && queryType !== currentFilter && setFilter(`${queryType}`);
-    },
-    // eslint-disable-next-line
-    [queryType]
-  );
+  // const [currentFilter, setFilter] = useState("beach");
+  // useEffect(
+  //   () => {
+  //     !queryType && router.push({ query: { type: "beach" } });
+  //     queryType && queryType !== currentFilter && setFilter(`${queryType}`);
+  //   },
+  //   // eslint-disable-next-line
+  //   [queryType]
+  // );
 
   // @ts-ignore
   const {
@@ -166,48 +166,41 @@ export default function Adventure({
           </MotionBox>
         </AnimatePresence>
       </Box>
-      <Box mt="32.8%">
-        <h1>asd</h1>
-        <Box>
-          <Flex overflow="auto" px="10" pt="8">
-            {adventureTabs.map((tab: any, idx: number) => {
-              return (
-                <Flex
-                  key={idx}
-                  flexGrow={1}
-                  sx={{
-                    borderBottom: (props) =>
-                      idx === currentSlide ? "3px solid" : "1px solid",
-                    borderColor: (props) =>
-                      idx === currentSlide ? "text.darknavy" : "gray",
-                  }}
-                  px={2}
+
+      <Flex mt="38.2%" overflow="auto" px="10" pt="8">
+        {adventureTabs.map((tab: any, idx: number) => {
+          return (
+            <Flex
+              key={idx}
+              flexGrow={1}
+              sx={{
+                borderBottom: (props) =>
+                  idx === currentSlide ? "3px solid" : "1px solid",
+                borderColor: (props) =>
+                  idx === currentSlide ? "text.darknavy" : "gray",
+              }}
+              px={2}
+            >
+              <Button
+                flexGrow={1}
+                key={tab.id}
+                onClick={() => handleChangeIndex(idx)}
+                variant="tabs"
+              >
+                <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                  {tab.displayName}
+                </Box>
+                <Box
+                  position="absolute"
+                  sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
                 >
-                  <Button
-                    flexGrow={1}
-                    key={tab.id}
-                    onClick={() => handleChangeIndex(idx)}
-                    variant="tabs"
-                  >
-                    <Box sx={{ opacity: 0, pointerEvents: "none" }}>
-                      {tab.displayName}
-                    </Box>
-                    <Box
-                      position="absolute"
-                      sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
-                    >
-                      {tab.displayName}
-                    </Box>
-                  </Button>
-                </Flex>
-              );
-            })}
-          </Flex>
-          <Flex px="10" py="4">
-            <AnimatePresence>{}</AnimatePresence>
-          </Flex>
-        </Box>
-      </Box>
+                  {tab.displayName}
+                </Box>
+              </Button>
+            </Flex>
+          );
+        })}
+      </Flex>
     </>
   );
 }
