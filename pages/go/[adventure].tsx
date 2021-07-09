@@ -241,7 +241,7 @@ export default function Adventure({
             w="20rem"
             borderRadius="md"
           >
-            Let's Go!
+            Let&apos;s Go!
           </Box>
         </Button>
         <Box bg="white" px={10} pt={5} flexGrow={1} overflow="scroll">
