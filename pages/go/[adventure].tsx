@@ -328,6 +328,71 @@ export default function Adventure({
                   </MotionBox>
                 );
               }
+              if (idx === 1) {
+                return (
+                  <MotionBox
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 1 }}
+                    key={idx}
+                    my="5"
+                  >
+                    <Stack>
+                      <Box>
+                        <Heading variant="SectionHeading">Best for</Heading>
+                        <Grid templateColumns="repeat(4,1fr)">
+                          {[
+                            "BACKPACKING",
+                            "CAMPING",
+                            "CYCLING",
+                            "KAYAKING",
+                            "ROCK CLIMBING",
+                            "STARGAZING",
+                            "SUNSETS",
+                            "WILDLIFE",
+                          ].map((tag: any, idx: number) => (
+                            <GridItem
+                              key={idx}
+                              justify="center"
+                              textAlign="center"
+                              py="5"
+                            >
+                              <Icon></Icon>
+                              <Box
+                                fontSize=".7rem"
+                                fontWeight="500"
+                                lineHeight="1"
+                                pt="2"
+                              >
+                                {tag}
+                              </Box>
+                            </GridItem>
+                          ))}
+                        </Grid>
+                      </Box>
+                      <Box pt="10" pb="40">
+                        <Heading variant="SectionHeading">Explore</Heading>
+                        <Box overflow="hidden" py="10">
+                          <Box
+                            borderRadius="lg"
+                            position="relative"
+                            w="100%"
+                            pt="62.8%"
+                            overflow="hidden"
+                          >
+                            <Image
+                              src="/images/zion.png"
+                              alt="post image"
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Stack>
+                  </MotionBox>
+                );
+              }
               return <h2 key={idx}>{idx}</h2>;
             })}
           </AnimatePresence>
