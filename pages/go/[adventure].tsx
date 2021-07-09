@@ -303,7 +303,7 @@ export default function Adventure({
                   </MotionBox>
                 );
               }
-              return <h2>{idx}</h2>;
+              return <h2 key={idx}>{idx}</h2>;
             })}
           </AnimatePresence>
         </Box>
