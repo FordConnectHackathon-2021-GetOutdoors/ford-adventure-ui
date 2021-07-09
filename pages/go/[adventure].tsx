@@ -240,7 +240,12 @@ export default function Adventure({
                     <Stack spacing={8}>
                       <Box pt="5">
                         <Heading variant="SectionHeading">Hours</Heading>
-                        <Grid as="dl" templateColumns="repeat(2,1fr)" pt={2}>
+                        <Grid
+                          as="dl"
+                          templateColumns="repeat(2,1fr)"
+                          pt={2}
+                          gap="6"
+                        >
                           <GridItem as="dt">
                             <Box>Visitor Center</Box>
                           </GridItem>
