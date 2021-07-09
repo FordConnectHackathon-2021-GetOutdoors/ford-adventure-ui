@@ -39,6 +39,17 @@ function SummaryTagline(props: Record<string, any>) {
   };
 }
 
+function SectionHeading(props: Record<string, any>) {
+  const { theme } = props;
+  return {
+    fontFamily: "FontAntennaCond",
+    textTransform: "uppercase",
+    fontWeight: 600,
+    fontSize: ["lg"],
+    lineHeight: 1,
+  };
+}
+
 export const Heading = {
   baseStyle: {
     fontFamily: "FontAntennaCond",
@@ -48,6 +59,7 @@ export const Heading = {
   variants: {
     SummaryTitle,
     SummaryTagline,
+    SectionHeading,
   },
 };
 
