@@ -29,7 +29,7 @@ export function PhotoUpload() {
         openHandler: (size: string) => {}
     });
     const { showError } = useContext(NotificationContext);
-    const { isBigScreen } = useContext(DeviceContext);
+    const { isBigScreen, isDesktopOrLaptop } = useContext(DeviceContext);
 
     return (
         <> 
@@ -56,8 +56,8 @@ export function PhotoUpload() {
                                 imageBase64: reader.result 
                             } as FileProps);
 
-                            if (isBigScreen) {
-                                childRef.current.openHandler("lg");
+                            if (isBigScreen || isDesktopOrLaptop) {
+                                childRef.current.openHandler("xl");
                             } else {
                                 childRef.current.openHandler("md");
                             }
