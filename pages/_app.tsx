@@ -1,18 +1,23 @@
+import type { AppProps } from "next/app";
 import { AuthProvider } from "utils/AuthContext";
+
 import { DeviceProvider } from "utils/DeviceContext";
 import { NotificationProvider } from "utils/NotificationContext";
 import { ThemeProvider } from "components/ThemeProvider";
-import { ThemeSwitcher } from "components/ThemeSwitcher";
+// import { ThemeSwitcher } from "components/ThemeSwitcher";
 import CustomHead from "components/CustomHead";
-import type { AppProps } from "next/app";
-import { ToastContainer, toast, Flip } from 'react-toastify';
+import { ToastContainer, toast, Flip } from "react-toastify";
+import { ImageProvider } from "utils/ImageContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // TODO - Prune the list of imported fonts
 import "../public/fonts/antenna/atenna-font.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ImageProvider } from "utils/ImageContext";
+import React from "react";
+
+const queryClient = new QueryClient();
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
@@ -21,17 +26,19 @@ function AppContainer({ Component, pageProps }: AppProps) {
         <NotificationProvider {...pageProps}>
           <AuthProvider>
             {/* <ThemeSwitcher /> */}
-            <ImageProvider>
-              <CustomHead {...pageProps} />
-              <Component {...pageProps} />
-              <ToastContainer
-                position={toast.POSITION.BOTTOM_CENTER}
-                transition={Flip}
-                autoClose={8000}
-                draggablePercent={50}
-                hideProgressBar={true}
-              / >
-            </ImageProvider>
+            <QueryClientProvider client={queryClient}>
+              <ImageProvider>
+                <CustomHead {...pageProps} />
+                <Component {...pageProps} />
+                <ToastContainer
+                  position={toast.POSITION.BOTTOM_CENTER}
+                  transition={Flip}
+                  autoClose={8000}
+                  draggablePercent={50}
+                  hideProgressBar={true}
+                />
+              </ImageProvider>
+            </QueryClientProvider>
           </AuthProvider>
         </NotificationProvider>
       </ThemeProvider>

@@ -10,8 +10,8 @@ import {
   Stack,
   Grid,
   GridItem,
-  Link,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
 import { addDomEvent } from "@chakra-ui/utils";
@@ -20,6 +20,7 @@ import Image from "next/image";
 
 import thumb1 from "../../public/images/thumb1.jpg";
 import thumb2 from "../../public/images/thumb2.jpg";
+import { useFetchVehicleStatus } from "utils/useFetchVehicleStatus";
 
 const adventureTabs = [
   {
@@ -89,6 +90,8 @@ export default function Adventure({
   //   // eslint-disable-next-line
   //   [queryType]
   // );
+
+  const { handleFetchVehicleStatus } = useFetchVehicleStatus();
 
   // @ts-ignore
   const {
@@ -188,43 +191,40 @@ export default function Adventure({
 
       <Box h="var(--100vh)" overflow="scroll" pos="relative" zIndex="2">
         <Flex px="10" bg="white" mt="38.2vh" flexGrow={0}>
-          {adventureTabs.map((tab: any, idx: number) => {
-            return (
-              <>
-                <Flex
-                  key={idx}
-                  flexGrow={1}
-                  sx={{
-                    borderBottom: (props) =>
-                      idx === currentSlide ? "3px solid" : "1px solid",
-                    borderColor: (props) =>
-                      idx === currentSlide ? "text.darknavy" : "gray",
-                  }}
-                  px={2}
+          {adventureTabs.map((tab: any, idx: number) => (
+            <Flex
+              key={tab.id}
+              flexGrow={1}
+              sx={{
+                borderBottom: (props) =>
+                  idx === currentSlide ? "3px solid" : "1px solid",
+                borderColor: (props) =>
+                  idx === currentSlide ? "text.darknavy" : "gray",
+              }}
+              px={2}
+            >
+              <Button
+                flexGrow={1}
+                key={tab.id}
+                onClick={() => handleChangeIndex(idx)}
+                variant="tabs"
+                pt={8}
+              >
+                <Box sx={{ opacity: 0, pointerEvents: "none" }}>
+                  {tab.displayName}
+                </Box>
+                <Box
+                  position="absolute"
+                  sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
                 >
-                  <Button
-                    flexGrow={1}
-                    key={tab.id}
-                    onClick={() => handleChangeIndex(idx)}
-                    variant="tabs"
-                    pt={8}
-                  >
-                    <Box sx={{ opacity: 0, pointerEvents: "none" }}>
-                      {tab.displayName}
-                    </Box>
-                    <Box
-                      position="absolute"
-                      sx={{ fontWeight: idx === currentSlide ? 600 : 400 }}
-                    >
-                      {tab.displayName}
-                    </Box>
-                  </Button>
-                </Flex>
-              </>
-            );
-          })}
+                  {tab.displayName}
+                </Box>
+              </Button>
+            </Flex>
+          ))}
         </Flex>
         <Button
+          onClick={handleFetchVehicleStatus}
           bg="transparent"
           p="5"
           pos="fixed"
@@ -371,6 +371,7 @@ export default function Adventure({
                         </Grid>
                       </Box>
                       <Box pt="10" pb="40">
+                        git
                         <Heading variant="SectionHeading">Explore</Heading>
                         <Box overflow="hidden" py="10">
                           <Box
