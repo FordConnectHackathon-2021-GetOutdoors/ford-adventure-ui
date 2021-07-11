@@ -3,73 +3,85 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import colors from "themes/colors";
-import { FormControl, Input, Button, Stack, Divider, Text, Flex, Box, Center, HStack, Spacer } from "@chakra-ui/react";
+import {
+  FormControl,
+  Input,
+  Button,
+  Stack,
+  Divider,
+  Text,
+  Flex,
+  Box,
+  Center,
+  HStack,
+  Spacer,
+} from "@chakra-ui/react";
 import { supabase } from "utils/supabase";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
 import { Header } from "components/Header/Header";
 
-const Container = (props: {
-  supabaseClient: any;
-  children: any;
-}) => {
+const Container = (props: { supabaseClient: any; children: any }) => {
   return props.children;
 };
 
 const CustomDivider = ({ isDesktopOrLaptop = false }) => {
   const dividerStyles = {
-    lineMarginTop: { 
-      base: "5px", 
-      md: "7px", 
-      lg: "10px", 
-      xl: "10px" 
+    lineMarginTop: {
+      base: "5px",
+      md: "7px",
+      lg: "10px",
+      xl: "10px",
     },
     color: colors.text.darknavy,
     lineHeight: "3px",
-    fontSize: { 
-      base: "0.75em", 
-      md: "1em", 
-      lg: "1.5em", 
-      xl: "1em" 
+    fontSize: {
+      base: "0.75em",
+      md: "1em",
+      lg: "1.5em",
+      xl: "1em",
     },
-    width: { 
-      base: "5em", 
-      md: isDesktopOrLaptop ? "10em" : "7.5em", 
-      lg: "7.5em", 
-      xl: "18em" 
+    width: {
+      base: "5em",
+      md: isDesktopOrLaptop ? "10em" : "7.5em",
+      lg: "7.5em",
+      xl: "18em",
     },
-    widthx2: { 
-      base: "10em", 
-      md: isDesktopOrLaptop ? "20em" : "15em", 
-      lg: "15em", 
-      xl: "26em" 
+    widthx2: {
+      base: "10em",
+      md: isDesktopOrLaptop ? "20em" : "15em",
+      lg: "15em",
+      xl: "26em",
     },
   };
-  return <>
-    <Flex pt={4} pb={4} flexDirection="row" color={dividerStyles.color}>
-      <Box w={dividerStyles.width}>
-        <Divider 
-          orientation="horizontal" 
-          backgroundColor={dividerStyles.color} 
-          h={dividerStyles.lineHeight} 
-          mt={dividerStyles.lineMarginTop} />
-      </Box>
-      <Box w={dividerStyles.widthx2}>
-        <Text 
-          fontSize={dividerStyles.fontSize} 
-          textAlign="center"
-        >OR CONTINUE WITH</Text>
-      </Box>
-      <Box w={dividerStyles.width}>
-        <Divider 
-          orientation="horizontal" 
-          backgroundColor={dividerStyles.color} 
-          h={dividerStyles.lineHeight} 
-          mt={dividerStyles.lineMarginTop} />
-      </Box>
-    </Flex>
-  </>
-}
+  return (
+    <>
+      <Flex pt={4} pb={4} flexDirection="row" color={dividerStyles.color}>
+        <Box w={dividerStyles.width}>
+          <Divider
+            orientation="horizontal"
+            backgroundColor={dividerStyles.color}
+            h={dividerStyles.lineHeight}
+            mt={dividerStyles.lineMarginTop}
+          />
+        </Box>
+        <Box w={dividerStyles.widthx2}>
+          <Text fontSize={dividerStyles.fontSize} textAlign="center">
+            OR CONTINUE WITH
+          </Text>
+        </Box>
+        <Box w={dividerStyles.width}>
+          <Divider
+            orientation="horizontal"
+            backgroundColor={dividerStyles.color}
+            h={dividerStyles.lineHeight}
+            mt={dividerStyles.lineMarginTop}
+          />
+        </Box>
+      </Flex>
+    </>
+  );
+};
 
 const EmailForm = () => {
   const { register, handleSubmit } = useForm();
@@ -77,17 +89,17 @@ const EmailForm = () => {
   const [doForgotPassword, setDoForgotPassword] = useState(false);
   const { submitHandler, resetPasswordHandler } = useContext(AuthContext);
 
-  const onEmailSubmit = ({ email = '', password = '' }) => 
-    doForgotPassword ? 
-    resetPasswordHandler({ email }) : 
-    submitHandler({ email, password }, doSignin);
+  const onEmailSubmit = ({ email = "", password = "" }) =>
+    doForgotPassword
+      ? resetPasswordHandler({ email })
+      : submitHandler({ email, password }, doSignin);
 
   const getButtonTitle = () => {
     if (doSignin) {
       if (doForgotPassword) {
         return "RESET PASSWORD";
-      } 
-      return "SIGN IN"; 
+      }
+      return "SIGN IN";
     } else {
       return "SIGN UP";
     }
@@ -98,7 +110,7 @@ const EmailForm = () => {
       if (doForgotPassword) {
         return "Back to ";
       }
-      return "New to Ford Adventure? "; 
+      return "New to Ford Adventure? ";
     } else {
       return "Already have an account? ";
     }
@@ -109,7 +121,7 @@ const EmailForm = () => {
       if (doForgotPassword) {
         return "Sign In";
       }
-      return "Sign Up"; 
+      return "Sign Up";
     } else {
       return "Sign In";
     }
@@ -129,262 +141,275 @@ const EmailForm = () => {
     color: colors.text.darkgrey,
     borderRadius: "10px",
     lineSpacing: {
-      base: "1em", 
-      md: "1em", 
-      lg: "1.5em", 
-      xl: "1.5em"
+      base: "1em",
+      md: "1em",
+      lg: "1.5em",
+      xl: "1.5em",
     },
     height: {
-      base: "3em", 
-      md: "3em", 
-      lg: "3em", 
-      xl: "3em"
+      base: "3em",
+      md: "3em",
+      lg: "3em",
+      xl: "3em",
     },
     fontSize: {
-      base: "0.9em", 
-      md: "0.9em", 
-      lg: "1em", 
-      xl: "1em"
+      base: "0.9em",
+      md: "0.9em",
+      lg: "1em",
+      xl: "1em",
     },
     padding: {
-      base: "1.5em", 
-      md: "1.5em", 
-      lg: "2em", 
-      xl: "2em"
+      base: "1.5em",
+      md: "1.5em",
+      lg: "2em",
+      xl: "2em",
     },
     smallPadding: {
-      base: "0.25em", 
-      md: "0.25em", 
-      lg: "0.35em", 
-      xl: "0.35em"
+      base: "0.25em",
+      md: "0.25em",
+      lg: "0.35em",
+      xl: "0.35em",
     },
     labelFontSize: {
-      base: "0.9em", 
-      md: "0.9em", 
-      lg: "1em", 
-      xl: "1em"
-    }
+      base: "0.9em",
+      md: "0.9em",
+      lg: "1em",
+      xl: "1em",
+    },
   };
-  return <>
-    <form onSubmit={handleSubmit(onEmailSubmit)}>
-      <FormControl id="email" isRequired>
-        <Input 
-          type="email" 
-          placeholder="EMAIL" 
-          backgroundColor={emailStyles.bgColor} 
-          color={emailStyles.color} 
-          borderRadius={emailStyles.borderRadius}
-          focusBorderColor={emailStyles.color}
-          height={emailStyles.height}
-          fontSize={emailStyles.fontSize}
-          paddingLeft={emailStyles.padding}
-          paddingRight={emailStyles.padding}
-          {
-            ...register("email", {
-              required: "This is required",
-              pattern: /^\S+@\S+$/i
-            })
-          }/>
-      </FormControl>
-      <FormControl>
-        <Box w="100%" h={emailStyles.lineSpacing}></Box>
-      </FormControl>
-      {
-        !doForgotPassword &&
-        <FormControl id="password" isRequired>
-          <Input 
-            type="password" 
-            placeholder="PASSWORD" 
-            backgroundColor={emailStyles.bgColor} 
-            color={emailStyles.color} 
+  return (
+    <>
+      <form onSubmit={handleSubmit(onEmailSubmit)}>
+        <FormControl id="email" isRequired>
+          <Input
+            type="email"
+            placeholder="EMAIL"
+            backgroundColor={emailStyles.bgColor}
+            color={emailStyles.color}
             borderRadius={emailStyles.borderRadius}
             focusBorderColor={emailStyles.color}
             height={emailStyles.height}
             fontSize={emailStyles.fontSize}
             paddingLeft={emailStyles.padding}
             paddingRight={emailStyles.padding}
-            {
-              ...register("password", {
-                required: "This is required"
-              })
-            } />
+            {...register("email", {
+              required: "This is required",
+              pattern: /^\S+@\S+$/i,
+            })}
+          />
         </FormControl>
-      }
-      <FormControl>
-        <Box w="100%" h={emailStyles.lineSpacing}></Box>
-      </FormControl>
-      {
-        !doForgotPassword &&
-        <FormControl id="rememberMeAndForgetPasswordFieldSet">
-          <Box height={emailStyles.height}>
-            {/* <Checkbox 
+        <FormControl>
+          <Box w="100%" h={emailStyles.lineSpacing}></Box>
+        </FormControl>
+        {!doForgotPassword && (
+          <FormControl id="password" isRequired>
+            <Input
+              type="password"
+              placeholder="PASSWORD"
+              backgroundColor={emailStyles.bgColor}
+              color={emailStyles.color}
+              borderRadius={emailStyles.borderRadius}
+              focusBorderColor={emailStyles.color}
+              height={emailStyles.height}
+              fontSize={emailStyles.fontSize}
+              paddingLeft={emailStyles.padding}
+              paddingRight={emailStyles.padding}
+              {...register("password", {
+                required: "This is required",
+              })}
+            />
+          </FormControl>
+        )}
+        <FormControl>
+          <Box w="100%" h={emailStyles.lineSpacing}></Box>
+        </FormControl>
+        {!doForgotPassword && (
+          <FormControl id="rememberMeAndForgetPasswordFieldSet">
+            <Box height={emailStyles.height}>
+              {/* <Checkbox 
               float="left" 
               fontSize={emailStyles.labelFontSize}>Remember Me</Checkbox> */}
-            {
-              doSignin &&
-              <Button 
-                float="right" 
-                fontSize={emailStyles.labelFontSize} 
-                color={colors.text.link} 
-                variant="link"
-                pt={emailStyles.smallPadding} 
-                onClick={() => setDoForgotPassword(!doForgotPassword)}
-                textTransform="none"
-              >Forgot Password?</Button>
-            }
-          </Box>
+              {doSignin && (
+                <Button
+                  float="right"
+                  fontSize={emailStyles.labelFontSize}
+                  color={colors.text.link}
+                  variant="link"
+                  pt={emailStyles.smallPadding}
+                  onClick={() => setDoForgotPassword(!doForgotPassword)}
+                  textTransform="none"
+                >
+                  Forgot Password?
+                </Button>
+              )}
+            </Box>
+          </FormControl>
+        )}
+        <FormControl>
+          <Box w="100%" h={emailStyles.lineSpacing}></Box>
         </FormControl>
-      }
-      <FormControl>
-        <Box w="100%" h={emailStyles.lineSpacing}></Box>
-      </FormControl>
-      <FormControl id="submit">
-        <Button 
-          type="submit"
-          backgroundColor={colors.text.darknavy} 
-          color={colors.text.white} 
-          borderRadius={emailStyles.borderRadius}
-          focusBorderColor={colors.text.darknavy}
-          height={emailStyles.height}
-          fontSize={emailStyles.fontSize}
-          width="100%"
-        >{ getButtonTitle() }</Button>
-      </FormControl>
-      <FormControl>
-        <Box w="100%" h={emailStyles.lineSpacing}></Box>
-      </FormControl>
-      <FormControl>
-        <Box w="100%" h={emailStyles.lineSpacing}></Box>
-      </FormControl>
-    </form>
-    <Center>
-      <HStack spacing="1em">
-        <Text color={colors.text.darkgrey}>{ getBackDescription() }</Text>
-        <Button
-          textTransform="none"
-          fontSize={emailStyles.labelFontSize} 
-          color={colors.text.link} 
-          variant="link"
-          onClick={() => toggleValue()}>{ getBackButtonName() }
-        </Button>
-      </HStack>
-    </Center>
-  </>
-}
+        <FormControl id="submit">
+          <Button
+            type="submit"
+            backgroundColor={colors.text.darknavy}
+            color={colors.text.white}
+            borderRadius={emailStyles.borderRadius}
+            focusBorderColor={colors.text.darknavy}
+            height={emailStyles.height}
+            fontSize={emailStyles.fontSize}
+            width="100%"
+          >
+            {getButtonTitle()}
+          </Button>
+        </FormControl>
+        <FormControl>
+          <Box w="100%" h={emailStyles.lineSpacing}></Box>
+        </FormControl>
+        <FormControl>
+          <Box w="100%" h={emailStyles.lineSpacing}></Box>
+        </FormControl>
+      </form>
+      <Center>
+        <HStack spacing="1em">
+          <Text color={colors.text.darkgrey}>{getBackDescription()}</Text>
+          <Button
+            textTransform="none"
+            fontSize={emailStyles.labelFontSize}
+            color={colors.text.link}
+            variant="link"
+            onClick={() => toggleValue()}
+          >
+            {getBackButtonName()}
+          </Button>
+        </HStack>
+      </Center>
+    </>
+  );
+};
 
 const SocialForm = () => {
   const { handleSubmit } = useForm();
   const { submitHandler } = useContext(AuthContext);
-  const onGoogleSubmit = () => submitHandler({ provider: 'google' }, true);
-  const onFacebookSubmit = () => submitHandler({ provider: 'facebook' }, true);
+  const onGoogleSubmit = () => submitHandler({ provider: "google" }, true);
+  const onFacebookSubmit = () => submitHandler({ provider: "facebook" }, true);
 
   const socialStyles = {
     borderRadius: "10px",
     lineSpacing: {
-      base: "1em", 
-      md: "1em", 
-      lg: "1.5em", 
-      xl: "1.5em"
+      base: "1em",
+      md: "1em",
+      lg: "1.5em",
+      xl: "1.5em",
     },
     height: {
-      base: "3em", 
-      md: "3em", 
-      lg: "3em", 
-      xl: "3em"
+      base: "3em",
+      md: "3em",
+      lg: "3em",
+      xl: "3em",
     },
     fontSize: {
-      base: "0.9em", 
-      md: "0.9em", 
-      lg: "1em", 
-      xl: "1em"
-    }
+      base: "0.9em",
+      md: "0.9em",
+      lg: "1em",
+      xl: "1em",
+    },
   };
-  return <>
-    <form>
-      <FormControl>
-        <Button 
-          id="google"
-          onClick={handleSubmit(onGoogleSubmit)}
-          backgroundColor={colors.bg.gBlue} 
-          color={colors.text.white} 
-          borderRadius={socialStyles.borderRadius}
-          focusBorderColor={colors.text.darknavy}
-          height={socialStyles.height}
-          fontSize={socialStyles.fontSize}
-          width="100%"
-          leftIcon={<FcGoogle size="2em" />}
-        >SIGN IN WITH GOOGLE</Button>
-      </FormControl>
-      <FormControl>
-        <Box w="100%" h={socialStyles.lineSpacing}></Box>
-      </FormControl>
-      <FormControl>
-        <Button 
-          id="facebook"
-          onClick={handleSubmit(onFacebookSubmit)}
-          backgroundColor={colors.bg.fbBlue} 
-          color={colors.text.white} 
-          borderRadius={socialStyles.borderRadius}
-          focusBorderColor={colors.text.darknavy}
-          height={socialStyles.height}
-          fontSize={socialStyles.fontSize}
-          width="100%"
-          leftIcon={<FaFacebook size="2em" />}
-        >SIGN IN WITH FACEBOOK</Button>
-      </FormControl>
-      <FormControl>
-        <Box w="100%" h={socialStyles.lineSpacing}></Box>
-      </FormControl>
-    </form>
-  </>
-}
+  return (
+    <>
+      <form>
+        <FormControl>
+          <Button
+            id="google"
+            onClick={handleSubmit(onGoogleSubmit)}
+            backgroundColor={colors.bg.gBlue}
+            color={colors.text.white}
+            borderRadius={socialStyles.borderRadius}
+            focusBorderColor={colors.text.darknavy}
+            height={socialStyles.height}
+            fontSize={socialStyles.fontSize}
+            width="100%"
+            leftIcon={<FcGoogle size="2em" />}
+          >
+            SIGN IN WITH GOOGLE
+          </Button>
+        </FormControl>
+        <FormControl>
+          <Box w="100%" h={socialStyles.lineSpacing}></Box>
+        </FormControl>
+        <FormControl>
+          <Button
+            id="facebook"
+            onClick={handleSubmit(onFacebookSubmit)}
+            backgroundColor={colors.bg.fbBlue}
+            color={colors.text.white}
+            borderRadius={socialStyles.borderRadius}
+            focusBorderColor={colors.text.darknavy}
+            height={socialStyles.height}
+            fontSize={socialStyles.fontSize}
+            width="100%"
+            leftIcon={<FaFacebook size="2em" />}
+          >
+            SIGN IN WITH FACEBOOK
+          </Button>
+        </FormControl>
+        <FormControl>
+          <Box w="100%" h={socialStyles.lineSpacing}></Box>
+        </FormControl>
+      </form>
+    </>
+  );
+};
 
 const PageTitle = () => {
-  return <>
-    <Header showMenu={false} skipSidePad={true} />
-    <Text 
-      fontSize={{
-        base: "2em", 
-        md: "2em", 
-        lg: "4em", 
-        xl: "4em"
-      }}
-      color={colors.text.darknavy}
-    >SIGN IN</Text>
-    <Text 
-      style={{ marginTop: "0" }}
-      fontSize={{
-        base: "0.7em", 
-        md: "0.7em", 
-        lg: "0.9em", 
-        xl: "0.9em"
-      }}
-      color={colors.text.darknavy}
-    >A NEW ADVENTURE AWAITS</Text>
-    <Spacer minHeight={{
-      base: "1em", 
-      md: "1em", 
-      lg: "2em", 
-      xl: "2em"
-    }} />
-  </>
-}
+  return (
+    <>
+      <Header showMenu={false} skipSidePad={true} />
+      <Text
+        fontSize={{
+          base: "2em",
+          md: "2em",
+          lg: "4em",
+          xl: "4em",
+        }}
+        color={colors.text.darknavy}
+      >
+        SIGN IN
+      </Text>
+      <Text
+        style={{ marginTop: "0" }}
+        fontSize={{
+          base: "0.7em",
+          md: "0.7em",
+          lg: "0.9em",
+          xl: "0.9em",
+        }}
+        color={colors.text.darknavy}
+      >
+        A NEW ADVENTURE AWAITS
+      </Text>
+      <Spacer
+        minHeight={{
+          base: "1em",
+          md: "1em",
+          lg: "2em",
+          xl: "2em",
+        }}
+      />
+    </>
+  );
+};
 
 export default function SignUp() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
   const signupStyles = {
-    base: "20em", 
-    md: isDesktopOrLaptop ? "40em" : "30em", 
-    lg: "30em", 
-    xl: "30em"
+    base: "20em",
+    md: isDesktopOrLaptop ? "40em" : "30em",
+    lg: "30em",
+    xl: "30em",
   };
   return (
     <Container supabaseClient={supabase}>
-      <Stack 
-        direction="column" 
-        w={signupStyles}
-        m="auto"
-      >
+      <Stack direction="column" w={signupStyles} m="auto">
         <PageTitle />
         <SocialForm />
         <CustomDivider isDesktopOrLaptop={isDesktopOrLaptop} />

@@ -23,7 +23,12 @@ export default function SupabaseLogin() {
     try {
       const { error, user } =
         type === "LOGIN"
-          ? await supabase.auth.signIn({ email })
+          ? await supabase.auth.signIn(
+              { email },
+              {
+                redirectTo: "https://google.com",
+              }
+            )
           : await supabase.auth.signUp({ email });
       if (error) {
         toast({

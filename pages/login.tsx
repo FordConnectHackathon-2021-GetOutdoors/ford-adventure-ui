@@ -1,9 +1,13 @@
-import { Box, Container, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import SupabaseLogin from "components/SupabaseLogin";
-import Landing from "components/Landing/Landing";
 
-const Login = () => <Landing />;
+import SignUp from "components/SignUp/SignUp";
+
+const Login = () => (
+  <Box p="4" w="100%" h="100%">
+    <SignUp />
+  </Box>
+);
 
 export default Login;
 

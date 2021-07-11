@@ -25,11 +25,6 @@ export function AuthProvider({ children }) {
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
 
-    if (!session) {
-      // Commenting this out, as it's redirecting all other traffic
-      Router.push("/login");
-    }
-
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setSession(session);
@@ -50,11 +45,14 @@ export function AuthProvider({ children }) {
   };
 
   const submitHandler = async (props, isSignIn) => {
-    const { error } = isSignIn
+    const { error, user } = isSignIn
       ? await supabase.auth.signIn(props)
       : await supabase.auth.signUp(props);
     if (error) {
       showError(error);
+    }
+    if (user) {
+      Router.push("/");
     }
   };
 
