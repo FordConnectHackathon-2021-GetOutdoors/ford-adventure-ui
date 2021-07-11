@@ -28,23 +28,19 @@ export default function Menu() {
   const [menuItems] = useState([
     {
       text: "New Adventure",
+      to: "/go",
+    },
+    {
+      text: "Dashboard",
       to: "/",
     },
     {
-      text: "My Adventures",
-      to: "/",
-    },
-    {
-      text: "Vehicle Status",
-      to: "/",
+      text: "My Vehicle",
+      to: "/vehicle",
     },
     {
       text: "Profile",
-      to: "/",
-    },
-    {
-      text: "Settings",
-      to: "/",
+      to: "/profile",
     },
     {
       text: "Sign Out",
