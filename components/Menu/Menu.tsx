@@ -122,7 +122,7 @@ export default function Menu() {
                       }
                       fontFamily="FontAntenna"
                     >
-                      {id === "connect" && !isFordLoggedIn
+                      {id === "connect" && isFordLoggedIn
                         ? "Disconnect Vehicle"
                         : text}
                     </Box>
