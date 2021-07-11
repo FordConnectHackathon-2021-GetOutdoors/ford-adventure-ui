@@ -16,6 +16,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { destroyCookie } from "nookies";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
@@ -23,6 +24,10 @@ import { Logo } from "components/Logo/Logo";
 import useFordUser from "utils/useFordUser";
 import { getCode } from "utils/endpoints";
 import Link from "next/link";
+import Adventure from "pages/go/[adventure]";
+import Profile from "pages/profile";
+import New from "pages/sandbox/new";
+import Vehicle from "pages/sandbox/vehicle";
 
 export default function Menu() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
@@ -35,23 +40,26 @@ export default function Menu() {
       to: "/go",
     },
     {
-      id: "vehicle",
-      text: "My Vehicle",
+      text: "My Adventures",
+      to: "/",
+    },
+    {
+      text: "Vehicle Status",
       to: "/vehicle",
     },
     {
-      text: "Leaderboard",
-      to: "/?tab=Leaderboard",
+      id: "connect",
+      text: "Connect Vehicle",
+      to: "/connect",
     },
     {
-      text: "Photos",
-      to: "/",
+      text: "Profile",
+      to: "/#",
     },
-
-    // {
-    //   text: "Profile",
-    //   to: "/profile",
-    // },
+    {
+      text: "Settings",
+      to: "/#",
+    },
     {
       text: "Sign Out",
       to: "/",
@@ -60,6 +68,9 @@ export default function Menu() {
   const [lastIndex] = useState(menuItems.length - 1);
 
   const { isFordLoggedIn } = useFordUser();
+  const handleVehicleDisconnect = () => {
+    destroyCookie(null, "fordToken");
+  };
 
   return (
     <>
@@ -92,7 +103,6 @@ export default function Menu() {
                   pr="8"
                   pb="5"
                   pt="5"
-                  bg={id === "vehicle" && !isFordLoggedIn ? "gray.100" : ""}
                   style={
                     index === lastIndex
                       ? { backgroundColor: "#102B4E", color: "#FFF" }
@@ -100,38 +110,21 @@ export default function Menu() {
                   }
                 >
                   <Link
-                    href={id === "vehicle" && !isFordLoggedIn ? getCode : to}
+                    href={id === "connect" && !isFordLoggedIn ? getCode : to}
                     passHref
                   >
                     <Box
                       as="a"
-                      onClick={() => index === lastIndex && signOut()}
+                      onClick={
+                        id === "connect" && !isFordLoggedIn
+                          ? () => handleVehicleDisconnect()
+                          : () => index === lastIndex && signOut()
+                      }
                       fontFamily="FontAntenna"
                     >
-                      {text}
-                      {id === "vehicle" ? (
-                        !isFordLoggedIn ? (
-                          <Badge
-                            colorScheme="red"
-                            ml={4}
-                            variant="outline"
-                            px="2"
-                            borderRadius="lg"
-                          >
-                            Click to Connect
-                          </Badge>
-                        ) : (
-                          <Badge
-                            colorScheme="green"
-                            ml={4}
-                            variant="outline"
-                            px="2"
-                            borderRadius="lg"
-                          >
-                            Connected
-                          </Badge>
-                        )
-                      ) : null}
+                      {id === "connect" && !isFordLoggedIn
+                        ? "Disconnect Vehicle"
+                        : text}
                     </Box>
                   </Link>
                 </Box>
