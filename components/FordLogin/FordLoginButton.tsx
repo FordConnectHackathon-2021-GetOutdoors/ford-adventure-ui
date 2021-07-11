@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, chakra } from "@chakra-ui/react";
-import { getCode } from "endpoints";
+import { getCode } from "utils/endpoints";
 
 export function FordLoginButton() {
   return (
