@@ -3,13 +3,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { addDomEvent } from "@chakra-ui/utils";
 import { AnimatePresence } from "framer-motion";
 import { Box, Button, chakra, Flex, VStack } from "@chakra-ui/react";
-import { Header } from "../components/Header/Header";
+import { Header } from "components/Header/Header";
 import { MotionBox } from "components/motion";
-import { PhotoPost } from "../components/PhotoPost/PhotoPost";
+import { PhotoPost } from "components/PhotoPost/PhotoPost";
 import { PhotoUpload } from "components/PhotoUpload/PhotoUpload";
+import fetcher from "utils/fetcher";
+import useFordUser from "utils/useFordUser";
 import Image from "next/image";
 
 import utah from "../public/images/utah.png";
+import fordUser from "./api/fordUser";
 
 const isTokenRequest = (ctx: any) =>
   ctx.query.code &&
@@ -27,7 +30,7 @@ const dashboardTabs = [
   { id: "badges", displayName: "Badges" },
 ];
 
-export default function Dashboard({ code }) {
+export default function Dashboard({ code }: any) {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const handleChangeIndex = (index: number) => {
     setCurrentSlide(index);
@@ -69,36 +72,62 @@ export default function Dashboard({ code }) {
         <Box> asd</Box>
       </Slide>,
       <Slide key="badges" headerHeight={headerHeight}>
-        <Box> asd</Box>
+        <Box>asd</Box>
       </Slide>,
     ];
   }, [headerHeight]);
 
+  // Save code to session fo
+  const { mutateUser } = useFordUser();
+  const [errorMsg, setErrorMsg] = useState("");
+  useEffect(() => {
+    const saveCodeToSession = async () => {
+      try {
+        mutateUser(
+          await fetcher("/api/fordLogin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code }),
+          })
+        );
+      } catch (error) {
+        console.error("An unexpected error happened:", error);
+        setErrorMsg(error.data.message);
+      }
+    };
+
+    if (code) {
+      saveCodeToSession();
+    }
+  }, [code, setErrorMsg, mutateUser]);
+
   return (
     <>
       <PhotoUpload />
-      <chakra.a
-        href="https://fordconnect.cv.ford.com/common/login/?make=F&application_id=afdc085b-377a-4351-b23e-5e1d35fb3700&client_id=30990062-9618-40e1-a27b-7c6bcb23658a&response_type=code&state=123&redirect_uri=https%3A%2F%2Flocalhost%3A3000&scope=access"
-        bg="transparent"
-        target="_blank"
-        p="5"
-        pos="fixed"
-        bottom="0"
-        zIndex="4"
-        w="100%"
-      >
-        <Box
-          bg="bg.darknavy"
-          color="white"
-          fontFamily="FontAntenna"
-          px="4"
-          py="4"
-          w="20rem"
-          borderRadius="md"
+      {errorMsg && errorMsg}
+      {!fordUser && (
+        <chakra.a
+          href="https://fordconnect.cv.ford.com/common/login/?make=F&application_id=afdc085b-377a-4351-b23e-5e1d35fb3700&client_id=30990062-9618-40e1-a27b-7c6bcb23658a&response_type=code&state=123&redirect_uri=https%3A%2F%2Flocalhost%3A3000&scope=access"
+          bg="transparent"
+          p="5"
+          pos="fixed"
+          bottom="0"
+          zIndex="4"
+          w="100%"
         >
-          Connect
-        </Box>
-      </chakra.a>
+          <Box
+            bg="bg.darknavy"
+            color="white"
+            fontFamily="FontAntenna"
+            px="4"
+            py="4"
+            w="20rem"
+            borderRadius="md"
+          >
+            Connect
+          </Box>
+        </chakra.a>
+      )}
       <Flex flexDir="column">
         <Flex flexShrink={1} flexDir="column" ref={headerRef}>
           <Header />

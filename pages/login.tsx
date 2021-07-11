@@ -5,6 +5,8 @@ import Landing from "components/Landing/Landing";
 
 const Login = () => <Landing />;
 
+export default Login;
+
 // export async function getServerSideProps({ req }: any) {
 //   const { user } = await supabase.auth.api.getUserByCookie(req);
 
@@ -16,4 +18,3 @@ const Login = () => <Landing />;
 //   // If there is a user, return it.
 //   return { props: { user } };
 // }
-export default Login;
