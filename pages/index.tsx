@@ -1,24 +1,18 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { PhotoUpload } from "components/PhotoUpload/PhotoUpload";
 import { useMobileTabsContent } from "components/DynamicHeightTabs/useMobileTabsContent";
 import { DynamicHeightTabs } from "components/DynamicHeightTabs/DynamicHeightTabs";
 import { setCookie } from "nookies";
-import { FordLoginButton } from "../components/FordLogin/FordLoginButton";
 import fetcher from "utils/fetcher";
 import useFordUser from "utils/useFordUser";
 import { mutate } from "swr";
-
-const mutateUser = (newUser: any) => mutate("/api/fordUser", newUser);
 
 export const dashboardTabs = [
   { id: "photos", displayName: "Photos" },
   { id: "leaderboard", displayName: "Leaderboard" },
   { id: "badges", displayName: "Badges" },
 ];
-
-const complex =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) Ap…ML, like Gecko) Chrome/87.0.4280.88 Safari/537.36";
 
 const isTokenRequest = (context: any) =>
   context.query.code &&
@@ -39,9 +33,9 @@ interface DashboardProps {
   [key: string]: any;
 }
 
-export default function Dashboard({ code = null, ...props }: DashboardProps) {
+export default function Dashboard({ code = null }: DashboardProps) {
   const { isFordLoggedIn } = useFordUser();
-  const [errorMsg, setErrorMsg] = useState("");
+
   useEffect(() => {
     const saveCodeToSession = async () => {
       const authedUser = await fetcher("/api/code", {
@@ -55,13 +49,14 @@ export default function Dashboard({ code = null, ...props }: DashboardProps) {
           maxAge: authedUser.expires_in,
         });
       }
+      mutate("/api/fordUser");
     };
 
     if (code && !isFordLoggedIn) {
       saveCodeToSession();
     }
     // eslint-disable-next-line
-  }, [code, setErrorMsg]);
+  }, [code]);
 
   const {
     currentTabContent,
@@ -74,8 +69,6 @@ export default function Dashboard({ code = null, ...props }: DashboardProps) {
   return (
     <>
       <PhotoUpload />
-      {errorMsg && errorMsg}
-      {!isFordLoggedIn && <FordLoginButton />}
       <DynamicHeightTabs
         headerRef={headerRef}
         currentTabContent={currentTabContent}

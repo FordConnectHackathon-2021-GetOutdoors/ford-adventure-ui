@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import {
+  Badge,
   Box,
   Divider,
   Drawer,
@@ -8,8 +9,8 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   IconButton,
-  Link,
   Stack,
   StackDivider,
   Text,
@@ -19,6 +20,9 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { DeviceContext } from "utils/DeviceContext";
 import { AuthContext } from "utils/AuthContext";
 import { Logo } from "components/Logo/Logo";
+import useFordUser from "utils/useFordUser";
+import { getCode } from "utils/endpoints";
+import Link from "next/link";
 
 export default function Menu() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
@@ -35,6 +39,7 @@ export default function Menu() {
       to: "/",
     },
     {
+      id: "vehicle",
       text: "My Vehicle",
       to: "/vehicle",
     },
@@ -48,6 +53,9 @@ export default function Menu() {
     },
   ]);
   const [lastIndex] = useState(menuItems.length - 1);
+
+  const { isFordLoggedIn } = useFordUser();
+
   return (
     <>
       <IconButton
@@ -72,13 +80,14 @@ export default function Menu() {
           <DrawerBody paddingStart="0" paddingEnd="0">
             <Divider />
             <Stack divider={<StackDivider />} spacing="0">
-              {menuItems.map(({ text, to }, index) => (
+              {menuItems.map(({ text, to, id }, index) => (
                 <Box
                   key={index}
                   pl="8"
                   pr="8"
                   pb="5"
                   pt="5"
+                  bg={id === "vehicle" && !isFordLoggedIn ? "gray.100" : ""}
                   style={
                     index === lastIndex
                       ? { backgroundColor: "#102B4E", color: "#FFF" }
@@ -86,10 +95,27 @@ export default function Menu() {
                   }
                 >
                   <Link
-                    href={to}
-                    onClick={() => index === lastIndex && signOut()}
+                    href={id === "vehicle" && !isFordLoggedIn ? getCode : to}
+                    passHref
                   >
-                    <Text display="block">{text}</Text>
+                    <Box
+                      as="a"
+                      onClick={() => index === lastIndex && signOut()}
+                      fontFamily="FontAntenna"
+                    >
+                      {text}
+                      {id === "vehicle" && !isFordLoggedIn && (
+                        <Badge
+                          colorScheme="green"
+                          ml={4}
+                          variant="outline"
+                          px="2"
+                          borderRadius="lg"
+                        >
+                          Click to Connect
+                        </Badge>
+                      )}
+                    </Box>
                   </Link>
                 </Box>
               ))}
