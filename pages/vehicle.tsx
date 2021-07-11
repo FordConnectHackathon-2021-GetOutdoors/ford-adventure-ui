@@ -1,8 +1,13 @@
 import { supabase } from "utils/supabase";
 import { Box, Button, Text } from "@chakra-ui/react";
 import React from "react";
+import useSWR from "swr";
+import useFordUser from "utils/useFordUser";
 
 export default function Profile({ user }: any) {
+  const { mutateUser, user: fordUser } = useFordUser();
+  console.log("🚀 ~ file: vehicle.tsx ~ line 9 ~ Profile ~ fordUser", fordUser);
+
   return (
     <Box>
       <h2>Vehicle Status</h2>

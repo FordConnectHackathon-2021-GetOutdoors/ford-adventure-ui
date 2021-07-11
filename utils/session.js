@@ -5,10 +5,10 @@ export default function withSession(handler) {
   return withIronSession(handler, {
     password: process.env.NEXT_PUBLIC_FORD_PASSWORD,
     cookieName: "next.js/ford/connect",
-    cookieOptions: {
-      // the next line allows to use the session in non-https environments like
-      // Next.js dev mode (http://localhost:3000)
-      secure: process.env.NODE_ENV === "production" ? true : false,
-    },
+    // cookieOptions: {
+    //   // the next line allows to use the session in non-https environments like
+    //   // Next.js dev mode (http://localhost:3000)
+    //   secure: process.env.NODE_ENV === "production" ? true : false,
+    // },
   });
 }

@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import Router from "next/router";
 import useSWR from "swr";
+import fetcher from "./fetcher";
 
 export default function useUser({
   redirectTo = false,
   redirectIfFound = false,
 } = {}) {
-  const { data: user, mutate: mutateUser } = useSWR("/api/fordUser");
+  const { data } = useSWR("/api/fordUser", fetcher);
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -21,7 +22,8 @@ export default function useUser({
     ) {
       Router.push(redirectTo);
     }
-  }, [user, redirectIfFound, redirectTo]);
+    // eslint-disable-next-line
+  }, [redirectIfFound, redirectTo]);
 
-  return { user, mutateUser };
+  return { data };
 }

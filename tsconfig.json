@@ -21,6 +21,12 @@
       "utils/": ["utils/"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "themes/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "themes/*.ts",
+    "pages/api/fordUser.js"
+  ],
   "exclude": ["node_modules"]
 }

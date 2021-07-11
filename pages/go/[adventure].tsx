@@ -12,6 +12,7 @@ import {
   GridItem,
   chakra,
 } from "@chakra-ui/react";
+import useFordUser from "utils/useFordUser";
 import Link from "next/link";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
@@ -21,7 +22,7 @@ import Image from "next/image";
 
 import thumb1 from "../../public/images/thumb1.jpg";
 import thumb2 from "../../public/images/thumb2.jpg";
-import { useFetchVehicleStatus } from "utils/useFetchVehicleStatus";
+// import { useFetchVehicleStatus } from "utils/useFetchVehicleStatus";
 
 const adventureTabs = [
   {
@@ -81,6 +82,9 @@ export default function Adventure({
   const {
     query: { type: queryType },
   } = router;
+
+  const ford = useFordUser();
+  console.log("🚀 ~ file: [adventure].tsx ~ line 87 ~ ford", ford);
 
   // const [currentFilter, setFilter] = useState("beach");
   // useEffect(

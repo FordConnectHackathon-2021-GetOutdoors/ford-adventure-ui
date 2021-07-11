@@ -5,6 +5,9 @@ import { Header } from "components/Header/Header";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import nookies from "nookies";
+import useFordUser from "utils/useFordUser";
+
 type Filter = { key: string; displayName: string };
 const filters: Filter[] = [
   { key: "beach", displayName: "Beach" },
@@ -14,7 +17,17 @@ const filters: Filter[] = [
   { key: "city", displayName: "City" },
 ];
 
-export default function Adventures() {
+export async function getServerSideProps(context) {
+  let cookies = nookies.get(context);
+  return {
+    props: {
+      server: true,
+      cookies,
+    },
+  };
+}
+
+export default function Adventures({ ...props }) {
   const router = useRouter();
   const {
     query: { type: queryType },
@@ -29,10 +42,24 @@ export default function Adventures() {
     // eslint-disable-next-line
     [queryType]
   );
+  const { data } = useFordUser();
+  data?.isFordLoggedIn &&
+    console.log("🚀 ~ file: index.tsx ~ line 47 ~ Adventures ~ data", data);
 
   return (
     <>
       <Header variant="overlay" />
+      {/* <Box> */}
+      {/* <h3>Cookies</h3>
+        <ul>
+          {Object.keys(cookies).map((name) => (
+            <li key={name}>
+              {name} : {cookies[name]}
+            </li>
+          ))}
+        </ul>
+
+      </Box> */}
       <HStack
         overflowX="scroll"
         pl={9}
