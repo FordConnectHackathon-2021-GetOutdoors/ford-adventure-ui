@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     "themes/*.ts",
-    "pages/api/fordUser.js"
+    "pages/api/fordGetUser.js"
   ],
   "exclude": ["node_modules"]
 }

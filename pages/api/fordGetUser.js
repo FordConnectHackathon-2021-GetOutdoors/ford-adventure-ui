@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import { parseCookies, setCookie } from "nookies";
+import { parseCookies } from "nookies";
 
 const handler = nc().get((req, res) => {
   const { fordToken } = parseCookies({ req });

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect } from "react";
 import { PhotoUpload } from "components/PhotoUpload/PhotoUpload";
 import { useMobileTabsContent } from "components/DynamicHeightTabs/useMobileTabsContent";
@@ -6,7 +5,6 @@ import { DynamicHeightTabs } from "components/DynamicHeightTabs/DynamicHeightTab
 import { setCookie } from "nookies";
 import fetcher from "utils/fetcher";
 import useFordUser from "utils/useFordUser";
-import { mutate } from "swr";
 
 export const dashboardTabs = [
   { id: "photos", displayName: "Photos" },
@@ -18,16 +16,12 @@ const isTokenRequest = (context: any) =>
   context.query.code &&
   context.req.headers.referer === "https://fordconnect.cv.ford.com/";
 
-export async function getServerSideProps(context) {
-  if (!isTokenRequest(context)) return { props: { server: true } };
+export const getServerSideProps = async (context: any) => ({
+  props: isTokenRequest(context)
+    ? { server: true, code: context.query.code }
+    : { server: true },
+});
 
-  return {
-    props: {
-      server: true,
-      code: context.query.code,
-    },
-  };
-}
 interface DashboardProps {
   code: string | null;
   [key: string]: any;
@@ -38,18 +32,19 @@ export default function Dashboard({ code = null }: DashboardProps) {
 
   useEffect(() => {
     const saveCodeToSession = async () => {
-      const authedUser = await fetcher("/api/code", {
+      const fordAuth = await fetcher("/api/fordAuth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
       });
-
-      if (authedUser?.access_token) {
-        setCookie(null, "fordToken", authedUser.access_token, {
-          maxAge: authedUser.expires_in,
+      if (fordAuth?.session) {
+        setCookie(null, "fordToken", fordAuth.session.access_token, {
+          maxAge: fordAuth.session.expires_in,
+        });
+        setCookie(null, "vehicleId", fordAuth.vehicle.vehicleId, {
+          maxAge: fordAuth.session.expires_in,
         });
       }
-      mutate("/api/fordUser");
     };
 
     if (code && !isFordLoggedIn) {

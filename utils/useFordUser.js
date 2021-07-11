@@ -7,7 +7,7 @@ export default function useUser({
   redirectTo = false,
   redirectIfFound = false,
 } = {}) {
-  const { data } = useSWR("/api/fordUser", fetcher);
+  const { data, mutate: mutateFordUser } = useSWR("/api/fordGetUser", fetcher);
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -25,5 +25,5 @@ export default function useUser({
     // eslint-disable-next-line
   }, [redirectIfFound, redirectTo]);
 
-  return { ...data };
+  return { ...data, mutateFordUser };
 }

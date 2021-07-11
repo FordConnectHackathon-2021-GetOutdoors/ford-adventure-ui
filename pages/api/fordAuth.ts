@@ -1,4 +1,4 @@
-import { getToken } from "utils/endpoints";
+import { getToken, getVehicleListURL } from "utils/endpoints";
 import nextConnect from "next-connect";
 
 const postFormData = async (url, data) =>
@@ -8,6 +8,20 @@ const postFormData = async (url, data) =>
     headers: new Headers({
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     }),
+  })
+    .then((response) => response && response.json())
+    .catch((err) => console.error(err));
+
+const getVehicleList = async (url, token) =>
+  fetch(url, {
+    // @ts-ignore
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "api-version": "2020-06-01",
+      "Application-Id": process.env.NEXT_PUBLIC_FORD_APPLICATION_ID,
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then((response) => response && response.json())
     .catch((err) => console.error(err));
@@ -25,8 +39,12 @@ handler.post(async (req, res) => {
   const { code } = await req.body;
   const formData = makeFormData(code);
   try {
-    const fordAuthResponse = await postFormData(getToken, formData);
-    res.json(fordAuthResponse);
+    const session: any = await postFormData(getToken, formData);
+    const { access_token } = session;
+    const vehicleList = await getVehicleList(getVehicleListURL, access_token);
+    const { vehicles } = await vehicleList;
+    const vehicle = vehicles[0];
+    res.json({ session, vehicle });
   } catch (e) {
     res.send("there was an error");
   }

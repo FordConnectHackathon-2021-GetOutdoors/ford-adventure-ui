@@ -50,7 +50,7 @@ export default function Menu() {
     {
       id: "connect",
       text: "Connect Vehicle",
-      to: "/connect",
+      to: "/#",
     },
     {
       text: "Profile",
@@ -67,9 +67,13 @@ export default function Menu() {
   ]);
   const [lastIndex] = useState(menuItems.length - 1);
 
-  const { isFordLoggedIn } = useFordUser();
+  const { isFordLoggedIn, mutateFordUser } = useFordUser();
   const handleVehicleDisconnect = () => {
-    destroyCookie(null, "fordToken");
+    if (confirm("Are you sure you'd like to disconnect your vehicle?")) {
+      destroyCookie(null, "fordToken");
+      mutateFordUser();
+      onClose();
+    }
   };
 
   return (
@@ -97,37 +101,40 @@ export default function Menu() {
             <Divider />
             <Stack divider={<StackDivider />} spacing="0">
               {menuItems.map(({ text, to, id }, index) => (
-                <Box
+                <Link
+                  href={id === "connect" && !isFordLoggedIn ? getCode : to}
+                  passHref
                   key={index}
-                  pl="8"
-                  pr="8"
-                  pb="5"
-                  pt="5"
-                  style={
-                    index === lastIndex
-                      ? { backgroundColor: "#102B4E", color: "#FFF" }
-                      : {}
-                  }
                 >
-                  <Link
-                    href={id === "connect" && !isFordLoggedIn ? getCode : to}
-                    passHref
+                  <Box
+                    as="a"
+                    // @ts-ignore
+                    onClick={
+                      id === "connect" && isFordLoggedIn
+                        ? () => handleVehicleDisconnect()
+                        : index === lastIndex
+                        ? () => signOut()
+                        : null
+                    }
+                    fontFamily="FontAntenna"
                   >
                     <Box
-                      as="a"
-                      onClick={
-                        id === "connect" && !isFordLoggedIn
-                          ? () => handleVehicleDisconnect()
-                          : () => index === lastIndex && signOut()
+                      pl="8"
+                      pr="8"
+                      pb="5"
+                      pt="5"
+                      style={
+                        index === lastIndex
+                          ? { backgroundColor: "#102B4E", color: "#FFF" }
+                          : {}
                       }
-                      fontFamily="FontAntenna"
                     >
                       {id === "connect" && isFordLoggedIn
                         ? "Disconnect Vehicle"
                         : text}
                     </Box>
-                  </Link>
-                </Box>
+                  </Box>
+                </Link>
               ))}
             </Stack>
           </DrawerBody>

@@ -7,7 +7,7 @@ import { dashboardTabs } from "../../pages/index";
 interface TabsProps {
   currentTabContent: number;
   handleChangeIndex: (index: number) => void;
-  headerHeight: string;
+  headerHeight: number | undefined;
   headerRef: React.RefObject<HTMLDivElement>;
   TabsContent: JSX.Element[];
 }
