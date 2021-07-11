@@ -40,19 +40,28 @@ function PillButtonVariant(props: Record<string, any>) {
     fontWeight: 600,
     fontSize: "md",
     letterSpacing: "wider",
-    bg: mode(
-      props.isSelected ? "bg.darknavy" : "bg.white",
-      //TODO
-      props.isSelected ? "bg.darknavy" : "bg.white"
-    )(props),
-    color: mode(
-      props.isSelected ? "white" : "text.darknavy",
-      props.isSelected ? "white" : "text.darknavy"
-    )(props),
     borderRadius: "full",
     px: 8,
     py: 3,
     transition: "all .2s ease-out",
+
+    bg: mode("bg.white", "bg.white")(props),
+    color: mode("text.darknavy", "text.darknavy")(props),
+  };
+}
+
+function PillSelectedButtonVariant(props: Record<string, any>) {
+  return {
+    fontFamily: "FontAntennaCond",
+    fontWeight: 600,
+    fontSize: "md",
+    letterSpacing: "wider",
+    borderRadius: "full",
+    px: 8,
+    py: 3,
+    transition: "all .2s ease-out",
+    bg: mode("bg.darknavy", "bg.darknavy")(props),
+    color: mode("white", "white")(props),
   };
 }
 
@@ -83,6 +92,7 @@ export const Button = {
   variants: {
     tile: TileButtonVariant,
     pill: PillButtonVariant,
+    pillSelected: PillSelectedButtonVariant,
     tabs: TabsButtonVariant,
   },
   defaultProps,

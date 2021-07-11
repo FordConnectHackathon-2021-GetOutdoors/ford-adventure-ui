@@ -46,9 +46,9 @@ export default function Adventures() {
               <Link key={filter.key} href={`/go?type=${filter.key}`} passHref>
                 <Button
                   as="a"
-                  variant="pill"
-                  // @ts-ignore
-                  isSelected={currentFilter === filter.key}
+                  variant={
+                    currentFilter === filter.key ? "pill" : "pillSelected"
+                  }
                 >
                   {filter.displayName}
                 </Button>
