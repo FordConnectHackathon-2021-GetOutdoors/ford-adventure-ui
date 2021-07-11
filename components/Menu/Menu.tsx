@@ -35,7 +35,7 @@ export default function Menu() {
       to: "/go",
     },
     {
-      text: "Dashboard",
+      text: "Past Adventures",
       to: "/",
     },
     {
@@ -43,10 +43,11 @@ export default function Menu() {
       text: "My Vehicle",
       to: "/vehicle",
     },
-    {
-      text: "Profile",
-      to: "/profile",
-    },
+
+    // {
+    //   text: "Profile",
+    //   to: "/profile",
+    // },
     {
       text: "Sign Out",
       to: "/",
@@ -104,17 +105,29 @@ export default function Menu() {
                       fontFamily="FontAntenna"
                     >
                       {text}
-                      {id === "vehicle" && !isFordLoggedIn && (
-                        <Badge
-                          colorScheme="green"
-                          ml={4}
-                          variant="outline"
-                          px="2"
-                          borderRadius="lg"
-                        >
-                          Click to Connect
-                        </Badge>
-                      )}
+                      {id === "vehicle" ? (
+                        !isFordLoggedIn ? (
+                          <Badge
+                            colorScheme="red"
+                            ml={4}
+                            variant="outline"
+                            px="2"
+                            borderRadius="lg"
+                          >
+                            Click to Connect
+                          </Badge>
+                        ) : (
+                          <Badge
+                            colorScheme="green"
+                            ml={4}
+                            variant="outline"
+                            px="2"
+                            borderRadius="lg"
+                          >
+                            Connected
+                          </Badge>
+                        )
+                      ) : null}
                     </Box>
                   </Link>
                 </Box>
