@@ -26,3 +26,14 @@ You'll need to be added to the org:
 1. Paste URL and KEY from to `.env.local`
 
 ![Url and Key](/public/keyURL.png?raw=true)
+
+\*\*\*\*You'll need to create Certificates. On MacOSX, run the following in the command line
+
+```
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+    -newkey rsa:2048 -nodes -sha256 \
+    -subj '/CN=localhost' -extensions EXT -config <( \
+    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+
+Generate the certificates, authorize them, and add them to the `./certificates`
