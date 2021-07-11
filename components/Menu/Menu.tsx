@@ -35,13 +35,17 @@ export default function Menu() {
       to: "/go",
     },
     {
-      text: "Past Adventures",
-      to: "/",
-    },
-    {
       id: "vehicle",
       text: "My Vehicle",
       to: "/vehicle",
+    },
+    {
+      text: "Leaderboard",
+      to: "/?tab=Leaderboard",
+    },
+    {
+      text: "Photos",
+      to: "/",
     },
 
     // {
