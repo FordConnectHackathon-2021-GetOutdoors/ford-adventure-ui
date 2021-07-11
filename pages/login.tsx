@@ -1,18 +1,9 @@
 import { Box, Container, Text } from "@chakra-ui/react";
 import React from "react";
 import SupabaseLogin from "components/SupabaseLogin";
+import Landing from "components/Landing/Landing";
 
-export default function Profile({ user }: any) {
-  return (
-    <Container>
-      <SupabaseLogin />
-      {/* <Text strong>{user.email}</Text>
-      <Text>
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      </Text> */}
-    </Container>
-  );
-}
+const Login = () => <Landing />;
 
 // export async function getServerSideProps({ req }: any) {
 //   const { user } = await supabase.auth.api.getUserByCookie(req);
@@ -25,3 +16,4 @@ export default function Profile({ user }: any) {
 //   // If there is a user, return it.
 //   return { props: { user } };
 // }
+export default Login;

@@ -10,6 +10,7 @@ import {
   Stack,
   Grid,
   GridItem,
+  chakra,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { MotionBox } from "components/motion";
@@ -90,8 +91,6 @@ export default function Adventure({
   //   // eslint-disable-next-line
   //   [queryType]
   // );
-
-  const { handleFetchVehicleStatus } = useFetchVehicleStatus();
 
   // @ts-ignore
   const {
@@ -223,7 +222,7 @@ export default function Adventure({
             </Flex>
           ))}
         </Flex>
-        <Button
+        {/* <Button
           onClick={handleFetchVehicleStatus}
           bg="transparent"
           p="5"
@@ -243,7 +242,29 @@ export default function Adventure({
           >
             Let&apos;s Go!
           </Box>
-        </Button>
+        </Button> */}
+        <chakra.a
+          href="https://fordconnect.cv.ford.com/common/login/?make=F&application_id=afdc085b-377a-4351-b23e-5e1d35fb3700&client_id=30990062-9618-40e1-a27b-7c6bcb23658a&response_type=code&state=123&redirect_uri=https%3A%2F%2Flocalhost%3A3000&scope=access"
+          bg="transparent"
+          target="_blank"
+          p="5"
+          pos="fixed"
+          bottom="0"
+          zIndex="4"
+          w="100%"
+        >
+          <Box
+            bg="bg.darknavy"
+            color="white"
+            fontFamily="FontAntenna"
+            px="4"
+            py="4"
+            w="20rem"
+            borderRadius="md"
+          >
+            Connect
+          </Box>
+        </chakra.a>
         <Box bg="white" px={10} pt={5} flexGrow={1} overflow="scroll">
           <AnimatePresence>
             {adventureTabs.map((tab: any, idx: number) => {

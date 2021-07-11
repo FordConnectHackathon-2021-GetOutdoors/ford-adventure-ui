@@ -18,16 +18,16 @@ export function AuthProvider({ children }) {
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  
+
   useEffect(() => {
     const session = supabase.auth.session();
     setSession(session);
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
-    
-    if (user) {
+
+    if (!session) {
       // Commenting this out, as it's redirecting all other traffic
-      //Router.push("/dashboard");
+      Router.push("/login");
     }
 
     const { data: authListener } = supabase.auth.onAuthStateChange(

@@ -25,25 +25,32 @@ export default function Menu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { signOut } = useContext(AuthContext);
-  const [menuItems] = useState([{
-    text: 'New Adventure',
-    to: '/'
-  }, {
-    text: 'My Adventures',
-    to: '/'
-  }, {
-    text: 'Vehicle Status',
-    to: '/'
-  }, {
-    text: 'Profile',
-    to: '/'
-  }, {
-    text: 'Settings',
-    to: '/'
-  }, {
-    text: 'Sign Out',
-    to: '/'
-  }]);
+  const [menuItems] = useState([
+    {
+      text: "New Adventure",
+      to: "/",
+    },
+    {
+      text: "My Adventures",
+      to: "/",
+    },
+    {
+      text: "Vehicle Status",
+      to: "/",
+    },
+    {
+      text: "Profile",
+      to: "/",
+    },
+    {
+      text: "Settings",
+      to: "/",
+    },
+    {
+      text: "Sign Out",
+      to: "/",
+    },
+  ]);
   const [lastIndex] = useState(menuItems.length - 1);
   return (
     <>
@@ -63,19 +70,33 @@ export default function Menu() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton mt="2em" />
-          <DrawerHeader pb="0"><Logo /></DrawerHeader>
+          <DrawerHeader pb="0">
+            <Logo />
+          </DrawerHeader>
           <DrawerBody paddingStart="0" paddingEnd="0">
             <Divider />
             <Stack divider={<StackDivider />} spacing="0">
-              {
-                menuItems.map(({ text, to}, index) => (
-                  <Box key={index} pl="8" pr="8" pb="5" pt="5" style={index === lastIndex ? { backgroundColor: "#102B4E", color: "#FFF" } : {}}>
-                    <Link href={to} onClick={() => (index === lastIndex && signOut())}>
-                      <Text display="block">{text}</Text>
-                    </Link>
-                  </Box>
-                ))
-              }
+              {menuItems.map(({ text, to }, index) => (
+                <Box
+                  key={index}
+                  pl="8"
+                  pr="8"
+                  pb="5"
+                  pt="5"
+                  style={
+                    index === lastIndex
+                      ? { backgroundColor: "#102B4E", color: "#FFF" }
+                      : {}
+                  }
+                >
+                  <Link
+                    href={to}
+                    onClick={() => index === lastIndex && signOut()}
+                  >
+                    <Text display="block">{text}</Text>
+                  </Link>
+                </Box>
+              ))}
             </Stack>
           </DrawerBody>
         </DrawerContent>
