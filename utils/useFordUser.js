@@ -25,5 +25,5 @@ export default function useUser({
     // eslint-disable-next-line
   }, [redirectIfFound, redirectTo]);
 
-  return { data };
+  return { ...data };
 }

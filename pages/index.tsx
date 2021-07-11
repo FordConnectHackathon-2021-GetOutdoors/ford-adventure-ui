@@ -40,20 +40,8 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ code = null, ...props }: DashboardProps) {
-  const { user } = useFordUser();
-
+  const { isFordLoggedIn } = useFordUser();
   const [errorMsg, setErrorMsg] = useState("");
-
-  const {
-    currentTabContent,
-    handleChangeIndex,
-    headerHeight,
-    headerRef,
-    TabsContent,
-  } = useMobileTabsContent();
-
-  const shouldFetchToken = !user || !user.isFordLoggedIn;
-
   useEffect(() => {
     const saveCodeToSession = async () => {
       const authedUser = await fetcher("/api/code", {
@@ -69,18 +57,25 @@ export default function Dashboard({ code = null, ...props }: DashboardProps) {
       }
     };
 
-    if (code && shouldFetchToken) {
+    if (code && !isFordLoggedIn) {
       saveCodeToSession();
     }
     // eslint-disable-next-line
   }, [code, setErrorMsg]);
 
+  const {
+    currentTabContent,
+    handleChangeIndex,
+    headerHeight,
+    headerRef,
+    TabsContent,
+  } = useMobileTabsContent();
+
   return (
     <>
       <PhotoUpload />
       {errorMsg && errorMsg}
-      {/* <Button>Add to Cookie from API Route</Button> */}
-      <FordLoginButton />
+      {!isFordLoggedIn && <FordLoginButton />}
       <DynamicHeightTabs
         headerRef={headerRef}
         currentTabContent={currentTabContent}
