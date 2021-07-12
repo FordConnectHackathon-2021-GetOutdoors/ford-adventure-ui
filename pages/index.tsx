@@ -6,7 +6,6 @@ import { setCookie } from "nookies";
 import fetcher from "utils/fetcher";
 import useFordUser from "utils/useFordUser";
 import { useRouter } from "next/router";
-import { Box } from "@chakra-ui/react";
 import { Loading } from "components/Loading";
 
 export const dashboardTabs = [

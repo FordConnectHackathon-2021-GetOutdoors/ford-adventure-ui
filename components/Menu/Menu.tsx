@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import {
-  Badge,
   Box,
   Divider,
   Drawer,
@@ -9,12 +8,11 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
   IconButton,
   Stack,
   StackDivider,
-  Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { destroyCookie } from "nookies";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -44,6 +42,7 @@ export default function Menu() {
       to: "/",
     },
     {
+      id: "vehicle",
       text: "Vehicle Status",
       to: "/vehicle",
     },
@@ -76,6 +75,8 @@ export default function Menu() {
       onClose();
     }
   };
+
+  const toast = useToast();
 
   return (
     <>
@@ -115,6 +116,14 @@ export default function Menu() {
                         ? () => handleVehicleDisconnect()
                         : index === lastIndex
                         ? () => signOut()
+                        : id === "vehicle" && !isFordLoggedIn
+                        ? (e: any) => {
+                            e.preventDefault();
+                            toast({
+                              title: "Connect Vehicle to view status",
+                              status: "info",
+                            });
+                          }
                         : null
                     }
                     fontFamily="FontAntenna"
