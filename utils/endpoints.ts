@@ -7,4 +7,16 @@ const getCode =
 const getVehicleListURL =
   "https://api.mps.ford.com/api/fordconnect/vehicles/v1";
 
-export { getToken, getCode, getVehicleListURL };
+const postVehicleStatus = (vehicleId: string) =>
+  `https://api.mps.ford.com/api/fordconnect/vehicles/v1/${vehicleId}/status`;
+
+const getVehicleStatus = (vehicleId: string) =>
+  `https://api.mps.ford.com/api/fordconnect/vehicles/v1/${vehicleId}`;
+
+export {
+  getToken,
+  getCode,
+  getVehicleListURL,
+  getVehicleStatus,
+  postVehicleStatus,
+};

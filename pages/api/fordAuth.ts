@@ -35,19 +35,16 @@ const makeFormData = (code) => ({
 });
 
 const handler: any = nextConnect();
-handler.post(async (req, res) => {
+export default handler.post(async (req, res) => {
   const { code } = await req.body;
   const formData = makeFormData(code);
   try {
     const session: any = await postFormData(getToken, formData);
     const { access_token } = session;
     const vehicleList = await getVehicleList(getVehicleListURL, access_token);
-    const { vehicles } = await vehicleList;
-    const vehicle = vehicles[0];
+    const vehicle = vehicleList.vehicles[0];
     res.json({ session, vehicle });
   } catch (e) {
     res.send("there was an error");
   }
 });
-
-export default handler;

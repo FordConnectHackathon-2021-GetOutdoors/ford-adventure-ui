@@ -5,15 +5,12 @@ import {
   Flex,
   useColorModeValue,
   Image,
-  HStack,
   Heading,
   Icon,
 } from "@chakra-ui/react";
 import { SliderButton } from "./SliderButton";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
-import { displayName } from "react-tinder-card";
-import { FaHourglassStart } from "react-icons/fa";
 
 type CarouselProps = {
   filterBy: string;

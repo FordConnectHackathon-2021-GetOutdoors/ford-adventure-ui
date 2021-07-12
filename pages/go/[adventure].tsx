@@ -19,10 +19,35 @@ import { AnimatePresence } from "framer-motion";
 import { addDomEvent } from "@chakra-ui/utils";
 import { useRouter } from "next/router";
 import Image from "next/image";
-
 import thumb1 from "../../public/images/thumb1.jpg";
 import thumb2 from "../../public/images/thumb2.jpg";
-// import { useFetchVehicleStatus } from "utils/useFetchVehicleStatus";
+import { supabase } from "utils/supabase";
+
+const ContinueButton = ({ adventure }: any) => (
+  <Link href={`/vehicle?adventure=${adventure.slug}`} passHref>
+    <Button
+      as="a"
+      bg="transparent"
+      p="5"
+      aria-label={`Visit ${adventure!.displayName}`}
+      bottom="0"
+      zIndex="4"
+      w="100%"
+    >
+      <Box
+        bg="bg.darknavy"
+        color="white"
+        fontFamily="FontAntenna"
+        px="4"
+        py="4"
+        w="20rem"
+        borderRadius="md"
+      >
+        Continue
+      </Box>
+    </Button>
+  </Link>
+);
 
 const adventureTabs = [
   {
@@ -49,6 +74,26 @@ export const defaultAdventure = {
   imageSrc: "/images/zion.png",
 };
 
+export const getServerSideProps = async (context: any) => {
+  if (!context?.params?.adventure) {
+    return { props: { server: true } };
+  }
+
+  const { data, error } = await supabase
+    .from("adventures")
+    .select()
+    .eq("slug", context?.params?.adventure);
+
+  const adventure = data && {
+    ...data[0],
+    points: 225,
+    distance: "4 Hrs 9 Min, 268 Miles",
+    imageSrc: "/images/zion.png",
+  };
+
+  return { props: { adventure, server: true } };
+};
+
 interface AdventureProps {
   adventure: object;
   children: React.ReactNode;
@@ -58,6 +103,7 @@ export default function Adventure({
   adventure = defaultAdventure,
   ...props
 }: AdventureProps) {
+  console.log("🚀 ~ file: [adventure].tsx ~ line 107 ~ adventure", adventure);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const handleChangeIndex = (index: number) => {
     setCurrentSlide(index);
@@ -84,7 +130,6 @@ export default function Adventure({
   } = router;
 
   const ford = useFordUser();
-  console.log("🚀 ~ file: [adventure].tsx ~ line 87 ~ ford", ford);
 
   // const [currentFilter, setFilter] = useState("beach");
   // useEffect(
@@ -97,14 +142,8 @@ export default function Adventure({
   // );
 
   // @ts-ignore
-  const {
-    displayName,
-    id,
-    points,
-    distance,
-    // tagLine,
-    imageSrc,
-  }: any = adventure;
+  const { displayName, id, points, distance, tagLine, imageSrc }: any =
+    adventure;
   return (
     <>
       <Box
@@ -143,7 +182,6 @@ export default function Adventure({
             alignContent="flex-start"
             justifyContent="flex-end"
             h="100%"
-            // alignItems="flex-end"
           >
             <Heading
               variant="SummaryTitle"
@@ -152,6 +190,9 @@ export default function Adventure({
               mb={2}
             >
               {displayName}
+            </Heading>
+            <Heading variant="SummaryTagline" mb={4}>
+              {tagLine}
             </Heading>
             <Flex>
               <Flex alignItems="center">
@@ -226,48 +267,7 @@ export default function Adventure({
             </Flex>
           ))}
         </Flex>
-        {/* <Button
-          onClick={handleFetchVehicleStatus}
-          bg="transparent"
-          p="5"
-          pos="fixed"
-          bottom="0"
-          zIndex="4"
-          w="100%"
-        >
-          <Box
-            bg="bg.darknavy"
-            color="white"
-            fontFamily="FontAntenna"
-            px="4"
-            py="4"
-            w="20rem"
-            borderRadius="md"
-          >
-            Let&apos;s Go!
-          </Box>
-        </Button> */}
-        <chakra.a
-          href="https://fordconnect.cv.ford.com/common/login/?make=F&application_id=afdc085b-377a-4351-b23e-5e1d35fb3700&client_id=30990062-9618-40e1-a27b-7c6bcb23658a&response_type=code&state=123&redirect_uri=https%3A%2F%2Flocalhost%3A3000&scope=access"
-          bg="transparent"
-          p="5"
-          pos="fixed"
-          bottom="0"
-          zIndex="4"
-          w="100%"
-        >
-          <Box
-            bg="bg.darknavy"
-            color="white"
-            fontFamily="FontAntenna"
-            px="4"
-            py="4"
-            w="20rem"
-            borderRadius="md"
-          >
-            Connect
-          </Box>
-        </chakra.a>
+
         <Box bg="white" px={10} pt={5} flexGrow={1} overflow="scroll">
           <AnimatePresence>
             {adventureTabs.map((tab: any, idx: number) => {
@@ -348,6 +348,7 @@ export default function Adventure({
                           </Text>
                         </Box>
                       </Box>
+                      {adventure && <ContinueButton adventure={adventure} />}
                     </Stack>
                   </MotionBox>
                 );

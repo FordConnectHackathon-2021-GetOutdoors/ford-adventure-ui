@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PhotoUpload } from "components/PhotoUpload/PhotoUpload";
 import { useMobileTabsContent } from "components/DynamicHeightTabs/useMobileTabsContent";
 import { DynamicHeightTabs } from "components/DynamicHeightTabs/DynamicHeightTabs";
 import { setCookie } from "nookies";
 import fetcher from "utils/fetcher";
 import useFordUser from "utils/useFordUser";
+import { useRouter } from "next/router";
+import { Box } from "@chakra-ui/react";
+import { Loading } from "components/Loading";
 
 export const dashboardTabs = [
   { id: "photos", displayName: "Photos" },
@@ -29,7 +32,8 @@ interface DashboardProps {
 
 export default function Dashboard({ code = null }: DashboardProps) {
   const { isFordLoggedIn } = useFordUser();
-
+  const router = useRouter();
+  const [isReady, setReady] = useState(code ? false : true);
   useEffect(() => {
     const saveCodeToSession = async () => {
       const fordAuth = await fetcher("/api/fordAuth", {
@@ -47,8 +51,13 @@ export default function Dashboard({ code = null }: DashboardProps) {
       }
     };
 
+    const Login = async () => {
+      await saveCodeToSession();
+      router.push("/vehicle");
+    };
+
     if (code && !isFordLoggedIn) {
-      saveCodeToSession();
+      Login();
     }
     // eslint-disable-next-line
   }, [code]);
@@ -60,6 +69,10 @@ export default function Dashboard({ code = null }: DashboardProps) {
     headerRef,
     TabsContent,
   } = useMobileTabsContent();
+
+  if (!isReady) {
+    return <Loading />;
+  }
 
   return (
     <>

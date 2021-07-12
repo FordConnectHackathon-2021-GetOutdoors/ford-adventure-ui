@@ -50,15 +50,15 @@ export default function Menu() {
     {
       id: "connect",
       text: "Connect Vehicle",
-      to: "/#",
+      to: "/",
     },
     {
       text: "Profile",
-      to: "/#",
+      to: "/",
     },
     {
       text: "Settings",
-      to: "/#",
+      to: "/",
     },
     {
       text: "Sign Out",
@@ -71,6 +71,7 @@ export default function Menu() {
   const handleVehicleDisconnect = () => {
     if (confirm("Are you sure you'd like to disconnect your vehicle?")) {
       destroyCookie(null, "fordToken");
+      destroyCookie(null, "vehicleId");
       mutateFordUser();
       onClose();
     }

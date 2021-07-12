@@ -15,9 +15,14 @@ import "../public/fonts/antenna/atenna-font.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import React from "react";
+import React, { Component } from "react";
+import { SWRConfig } from "swr";
+import fetcher from "utils/fetcher";
 
+// React Query
 const queryClient = new QueryClient();
+
+// SWR
 
 function AppContainer({ Component, pageProps }: AppProps) {
   return (
@@ -28,15 +33,22 @@ function AppContainer({ Component, pageProps }: AppProps) {
             {/* <ThemeSwitcher /> */}
             <QueryClientProvider client={queryClient}>
               <ImageProvider>
-                <CustomHead {...pageProps} />
-                <Component {...pageProps} />
-                <ToastContainer
-                  position={toast.POSITION.BOTTOM_CENTER}
-                  transition={Flip}
-                  autoClose={8000}
-                  draggablePercent={50}
-                  hideProgressBar={true}
-                />
+                <SWRConfig
+                  value={{
+                    refreshInterval: 5000,
+                    fetcher,
+                  }}
+                >
+                  <CustomHead {...pageProps} />
+                  <Component {...pageProps} />
+                  <ToastContainer
+                    position={toast.POSITION.BOTTOM_CENTER}
+                    transition={Flip}
+                    autoClose={8000}
+                    draggablePercent={50}
+                    hideProgressBar={true}
+                  />
+                </SWRConfig>
               </ImageProvider>
             </QueryClientProvider>
           </AuthProvider>
