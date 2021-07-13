@@ -21,6 +21,12 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const session = supabase.auth.session();
+
+    if (!session) {
+      Router.push("/login");
+      return;
+    }
+
     setSession(session);
     setUser(session?.user ?? null);
     setUserLoaded(session ? true : false);
@@ -41,17 +47,19 @@ export function AuthProvider({ children }) {
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    Router.push("/");
+    Router.push("/login");
   };
 
   const submitHandler = async (props, isSignIn) => {
-    const { error, user } = isSignIn
+    const { error, user, session } = isSignIn
       ? await supabase.auth.signIn(props)
       : await supabase.auth.signUp(props);
     if (error) {
       showError(error);
     }
     if (user) {
+      setUser(user);
+      setUserLoaded(session);
       Router.push("/");
     }
   };
