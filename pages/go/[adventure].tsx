@@ -22,32 +22,7 @@ import Image from "next/image";
 import thumb1 from "../../public/images/thumb1.jpg";
 import thumb2 from "../../public/images/thumb2.jpg";
 import { supabase } from "utils/supabase";
-
-const ContinueButton = ({ adventure }: any) => (
-  <Link href={`/vehicle?adventure=${adventure.slug}`} passHref>
-    <Button
-      as="a"
-      bg="transparent"
-      p="5"
-      aria-label={`Visit ${adventure!.displayName}`}
-      bottom="0"
-      zIndex="4"
-      w="100%"
-    >
-      <Box
-        bg="bg.darknavy"
-        color="white"
-        fontFamily="FontAntenna"
-        px="4"
-        py="4"
-        w="20rem"
-        borderRadius="md"
-      >
-        Continue
-      </Box>
-    </Button>
-  </Link>
-);
+import { ContinueButton } from "../../components/ContinueButton";
 
 const adventureTabs = [
   {
@@ -95,7 +70,7 @@ export const getServerSideProps = async (context: any) => {
 };
 
 interface AdventureProps {
-  adventure: object;
+  adventure: Record<string, any>;
   children: React.ReactNode;
 }
 
@@ -348,7 +323,12 @@ export default function Adventure({
                           </Text>
                         </Box>
                       </Box>
-                      {adventure && <ContinueButton adventure={adventure} />}
+                      {adventure && (
+                        <ContinueButton
+                          adventure={adventure}
+                          href={`/vehicle?adventure=${adventure.slug}`}
+                        />
+                      )}
                     </Stack>
                   </MotionBox>
                 );
