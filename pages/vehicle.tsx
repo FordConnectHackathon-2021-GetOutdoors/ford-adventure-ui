@@ -9,7 +9,7 @@ import { Header } from "components/Header/Header";
 import { MotionBox } from "components/motion";
 import { motion } from "framer-motion";
 import { addDomEvent } from "@chakra-ui/utils";
-
+import mockVehicleData from "utils/mockVehicleData";
 import { supabase } from "utils/supabase";
 
 export const getServerSideProps = async (context: any) => {
@@ -82,7 +82,9 @@ const list = {
 };
 
 export default function Vehicle({ destination }: any) {
-  const { data } = useVehicleData();
+  // const { data } = useVehicleData();
+  // console.log("🚀 ~ file: vehicle.tsx ~ line 86 ~ Vehicle ~ data", data);
+  const data = mockVehicleData;
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);

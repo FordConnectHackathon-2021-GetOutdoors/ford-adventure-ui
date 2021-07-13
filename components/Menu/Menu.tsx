@@ -22,10 +22,6 @@ import { Logo } from "components/Logo/Logo";
 import useFordUser from "utils/useFordUser";
 import { getCode } from "utils/endpoints";
 import Link from "next/link";
-import Adventure from "pages/go/[adventure]";
-import Profile from "pages/profile";
-import New from "pages/sandbox/new";
-import Vehicle from "pages/sandbox/vehicle";
 
 export default function Menu() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);

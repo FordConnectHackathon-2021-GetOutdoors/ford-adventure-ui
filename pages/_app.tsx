@@ -35,7 +35,7 @@ function AppContainer({ Component, pageProps }: AppProps) {
               <ImageProvider>
                 <SWRConfig
                   value={{
-                    refreshInterval: 5000,
+                    refreshInterval: 50000,
                     fetcher,
                   }}
                 >
