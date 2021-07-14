@@ -1,12 +1,12 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import { Header } from "components/Header/Header";
-import { MotionBox } from "components/motion";
+import { MotionBox, MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "utils/supabase";
 import { addDomEvent } from "@chakra-ui/utils";
 import { item } from "utils/animations";
-import GoogleMapReact from "google-map-react";
+import { LocationMap } from "components/LocationMap/LocationMap";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure)
@@ -119,7 +119,6 @@ export const AdventureConfirmation = ({ adventure }: any) => {
             opacity: 1,
             scale: 1,
             type: "spring",
-
             transition: {
               ease: [0.23, 1, 0.32, 1],
               duration: 2,
@@ -127,27 +126,12 @@ export const AdventureConfirmation = ({ adventure }: any) => {
           }}
           position="relative"
         >
-          <Box w="100%" h="170px">
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: process.env.NEXT_PUBLIC_FORD_GOOGLE_MAPS,
-              }}
-              defaultCenter={{
-                lat: 10.99835602,
-                lng: 77.01502627,
-              }}
-              defaultZoom={11}
-              yesIWantToUseGoogleMapApiInternals
-              onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-            ></GoogleMapReact>
-          </Box>
+          <LocationMap />
         </MotionBox>
       </Stack>
     </MotionBox>
   );
 };
-
-const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
 export const AdventureConfirmationPage = ({ adventure }: any) => {
   return (
