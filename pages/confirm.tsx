@@ -1,10 +1,12 @@
-import { Flex, Stack } from "@chakra-ui/react";
+import { Box, Flex, Stack } from "@chakra-ui/react";
 import { Header } from "components/Header/Header";
 import { MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "utils/supabase";
 import { addDomEvent } from "@chakra-ui/utils";
+import { item } from "utils/animations";
+import GoogleMapReact from "google-map-react";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure)
@@ -44,6 +46,18 @@ export const AdventureConfirmation = ({ adventure }: any) => {
     }
   }, [headerRef]);
 
+  const handleApiLoaded = (map, maps) => {
+    console.log(
+      "🚀 ~ file: confirm.tsx ~ line 50 ~ handleApiLoaded ~ maps",
+      maps
+    );
+    console.log(
+      "🚀 ~ file: confirm.tsx ~ line 50 ~ handleApiLoaded ~ map",
+      map
+    );
+    // use map and maps objects
+  };
+
   return (
     <MotionBox
       as={Flex}
@@ -64,6 +78,7 @@ export const AdventureConfirmation = ({ adventure }: any) => {
           position: "relative",
         }}
         mx="auto"
+        w="100%"
       >
         <MotionBox
           as={motion.li}
@@ -72,13 +87,67 @@ export const AdventureConfirmation = ({ adventure }: any) => {
           fontSize="4xl"
           lineHeight="1"
           color="text.darknavy"
+          textTransform="uppercase"
+          px="8"
         >
-          you’re all set!
+          Let&apos;s Go!
+        </MotionBox>
+        <MotionBox
+          px={8}
+          variants={item}
+          fontFamily="FontAntennaCond"
+          fontWeight="300"
+          fontSize="sm"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{
+            opacity: 1,
+            type: "spring",
+            y: "0%",
+            transition: {
+              ease: [0.23, 1, 0.32, 1],
+              duration: 1,
+            },
+          }}
+        >
+          A NEW ADVENTURE AWAITS
+        </MotionBox>
+        <MotionBox
+          px={8}
+          variants={item}
+          initial={{ opacity: 0, scale: 1.2 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            type: "spring",
+
+            transition: {
+              ease: [0.23, 1, 0.32, 1],
+              duration: 2,
+            },
+          }}
+          position="relative"
+        >
+          <Box w="100%" h="170px">
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: process.env.NEXT_PUBLIC_FORD_GOOGLE_MAPS,
+              }}
+              defaultCenter={{
+                lat: 10.99835602,
+                lng: 77.01502627,
+              }}
+              defaultZoom={11}
+              yesIWantToUseGoogleMapApiInternals
+              onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+            ></GoogleMapReact>
+          </Box>
         </MotionBox>
       </Stack>
     </MotionBox>
   );
 };
+
+const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
 export const AdventureConfirmationPage = ({ adventure }: any) => {
   return (

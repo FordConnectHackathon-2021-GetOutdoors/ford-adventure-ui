@@ -31,6 +31,7 @@ import {
   TireCarIcon,
 } from "../components/Icons";
 import { error } from "console";
+import { item, animatedList } from "utils/animations";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure) return { props: {} };
@@ -164,27 +165,6 @@ export function useVehicleData() {
   });
 }
 
-const animatedList = {
-  visible: {
-    opacity: 1,
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: 0.05,
-    },
-  },
-  hidden: {
-    opacity: 0,
-    transition: {
-      when: "afterChildren",
-    },
-  },
-};
-
-const item = {
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-  hidden: { opacity: 0, y: -10 },
-};
-
 export default function Vehicle({ adventure }: any) {
   // const { data } = useVehicleData();
   // console.log("🚀 ~ file: vehicle.tsx ~ line 86 ~ Vehicle ~ data", data);
@@ -250,8 +230,17 @@ export default function Vehicle({ adventure }: any) {
               fontFamily="FontAntennaCond"
               fontWeight="300"
               fontSize="sm"
-
-              // lineHeight="1"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{
+                opacity: 1,
+                type: "spring",
+                y: "0%",
+                transition: {
+                  // delay: 2.5,
+                  ease: [0.23, 1, 0.32, 1],
+                  duration: 1,
+                },
+              }}
             >
               WE’VE CHECKED YOUR VEHICLE AND IT’S SAFE TO DRIVE TO
               <Box as="span" pl="1" fontWeight="600">
@@ -276,7 +265,7 @@ export default function Vehicle({ adventure }: any) {
             transition: {
               delay: 1,
               ease: [0.23, 1, 0.32, 1],
-              duration: 1,
+              duration: 0.6,
             },
           }}
         >
@@ -286,6 +275,17 @@ export default function Vehicle({ adventure }: any) {
             fontWeight="400"
             py={4}
             fontFamily="FontAntenna"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{
+              opacity: 1,
+              type: "spring",
+              y: "0%",
+              transition: {
+                delay: 1.2,
+                ease: [0.23, 1, 0.32, 1],
+                duration: 0.6,
+              },
+            }}
           >
             Vehicle status as of
             <Box as="span"> July 9, 2021 at 11:28 am</Box>
@@ -303,7 +303,11 @@ export default function Vehicle({ adventure }: any) {
             animate={{
               opacity: 1,
               y: 0,
-              transition: { delay: 1.8, duration: 0.6 },
+              transition: {
+                delay: 1.2,
+                ease: [0.23, 1, 0.32, 1],
+                duration: 0.6,
+              },
             }}
           >
             <Icon mr="2" viewBox="0 0 18 18">
@@ -441,6 +445,9 @@ export default function Vehicle({ adventure }: any) {
           </VehicleStatusItem>
         </Stack>
 
+        <ContinueButton href={`/`} pt={adventure ? 40 : 10} zIndex="4">
+          Go To Dashboard
+        </ContinueButton>
         {adventure?.slug && (
           <MotionBox
             pos="fixed"
@@ -457,18 +464,17 @@ export default function Vehicle({ adventure }: any) {
           >
             <ContinueButton
               adventure={adventure}
+              pointerEvents="auto"
               href={`/confirm?adventure=${adventure.slug}`}
               py="0"
               bottom="0"
               pos="absolute"
+              zIndex="10"
             >
               Let&apos;s Go!
             </ContinueButton>
           </MotionBox>
         )}
-        <ContinueButton href={`/dashboard`} pt={adventure ? 40 : 10}>
-          Go To Dashboard
-        </ContinueButton>
       </Stack>
     </Flex>
   );
