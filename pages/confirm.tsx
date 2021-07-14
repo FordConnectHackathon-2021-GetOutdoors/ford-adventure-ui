@@ -1,6 +1,6 @@
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import { Header } from "components/Header/Header";
-import { MotionBox, MotionBox } from "components/motion";
+import { MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "utils/supabase";
