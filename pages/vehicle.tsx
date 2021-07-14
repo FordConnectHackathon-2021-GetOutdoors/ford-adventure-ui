@@ -268,14 +268,15 @@ export default function Vehicle({ adventure }: any) {
           color="white"
           pl={8}
           alignItems="center"
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0, y: "100%" }}
           animate={{
             opacity: 1,
             type: "spring",
+            y: "0%",
             transition: {
-              delay: 1.2,
+              delay: 1,
               ease: [0.23, 1, 0.32, 1],
-              duration: 4,
+              duration: 1,
             },
           }}
         >
@@ -335,6 +336,8 @@ export default function Vehicle({ adventure }: any) {
           initial="hidden"
           animate="visible"
           as={motion.ul}
+          bg="white"
+          pos="relative"
         >
           <VehicleStatusItem
             key="odometer"
