@@ -16,11 +16,20 @@ import { LikeCount } from "./LikeCount";
 import { LikeButton } from "./LikeButton";
 import { CommentButton } from "./CommentButton";
 
+import TimeAgo from "javascript-time-ago";
+import colors from "themes/colors";
+
+const timeAgo = new TimeAgo('en-US');
+
 interface PhotoPostProps extends ChakraProps {
   imgSrc: StaticImageData;
+  username: string;
+  vehicleName: string;
+  created: string;
+  content: string;
 }
 
-export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
+export function PhotoPost({ username, vehicleName, created, content, imgSrc, ...props }: PhotoPostProps) {
   return (
     <VStack pb="8">
       <Flex w="100%" pb={1}>
@@ -33,27 +42,21 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
           pb="2"
         >
           <Text fontWeight="500" mb="2" lineHeight="1">
-            Daytona2021
+            {username}
           </Text>
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            px="3.5"
-            py=".4rem"
-            fontSize="xs"
-            lineHeight="1"
-          >
-            Mach-E
-          </Button>
-        </Flex>
-        <Flex
-          flexDir="column"
-          fontSize="xs"
-          justify="flex-end"
-          ml="auto"
-          textTransform="uppercase"
-        >
-          2 hours ago
+          <Flex direction="row" justifyContent="space-between" width="100%">
+            <Button
+              variant="solid"
+              colorScheme="blue"
+              px="3.5"
+              py=".4rem"
+              fontSize="xs"
+              lineHeight="1"
+            >
+              {vehicleName}
+            </Button>
+            <Text color={colors.text.darkgrey}>{ timeAgo.format(new Date(created)) }</Text>
+          </Flex>
         </Flex>
       </Flex>
 
@@ -67,7 +70,7 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
         <Image alt="Utah" src={imgSrc} layout="fill" objectFit="cover" />
       </Box>
 
-      <Box>
+      <Box width="100%">
         <HStack spacing="5" pt="2" pb="3">
           <Flex>
             <LikeButton />
@@ -86,17 +89,11 @@ export function PhotoPost({ imgSrc, ...props }: PhotoPostProps) {
           lineHeight={7}
         >
           <Text fontWeight="500" color="text.darknavy" as="span" pr="2">
-            Daytona2021
+            {username}
           </Text>
-          Great afternoon checking out Zion National Park with Great afternoon
-          checking out Zion National Park with Great afternoon checking out Zion
-          National Park with Great afternoon checking out Zion National Park
-          with
-          <Link passHref href="http://twitter.com/mattwoodnyc">
-            <ChakraLink color="#0276B3" fontWeight="500" pl="1">
-              @freeBritney2021
-            </ChakraLink>
-          </Link>
+          <Text>
+            {content}
+          </Text>
         </Text>
       </Box>
     </VStack>

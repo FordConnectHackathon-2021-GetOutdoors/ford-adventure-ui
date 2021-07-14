@@ -6,7 +6,7 @@ import { supabase } from "./supabase";
 
 const tableName = "user_uploads";
 export const ImageContext = createContext({
-  uploadImage: async (a, b, c, d) => {},
+  uploadImage: async (a, b, c, d, e, f) => {},
   downloadImage: (a) => {},
   listImages: () => {},
   deleteImage: (a) => {},
@@ -16,7 +16,7 @@ export function ImageProvider({ children }) {
   const { showSucess, showError } = useContext(NotificationContext);
   const { user } = useContext(AuthContext);
 
-  const uploadImage = async (name, ext, base64, content) => {
+  const uploadImage = async (name, ext, base64, content, lat, lng) => {
     const { error } = await supabase
       .from(tableName)
       .insert([
@@ -26,6 +26,8 @@ export function ImageProvider({ children }) {
           file_extension: ext,
           image_base64: base64,
           content: content,
+          lat: lat,
+          lng: lng,
         },
       ]);
 
