@@ -15,9 +15,16 @@ import "../public/fonts/antenna/atenna-font.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import React, { Component } from "react";
+import React from "react";
 import { SWRConfig } from "swr";
 import fetcher from "utils/fetcher";
+import { MapProvider } from "utils/MapContext";
+
+import TimeAgo from "javascript-time-ago";
+
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 // React Query
 const queryClient = new QueryClient();
@@ -31,26 +38,28 @@ function AppContainer({ Component, pageProps }: AppProps) {
         <NotificationProvider {...pageProps}>
           <AuthProvider>
             {/* <ThemeSwitcher /> */}
-            <QueryClientProvider client={queryClient}>
-              <ImageProvider>
-                <SWRConfig
-                  value={{
-                    refreshInterval: 50000,
-                    fetcher,
-                  }}
-                >
-                  <CustomHead {...pageProps} />
-                  <Component {...pageProps} />
-                  <ToastContainer
-                    position={toast.POSITION.BOTTOM_CENTER}
-                    transition={Flip}
-                    autoClose={8000}
-                    draggablePercent={50}
-                    hideProgressBar={true}
-                  />
-                </SWRConfig>
-              </ImageProvider>
-            </QueryClientProvider>
+            <MapProvider>
+                <QueryClientProvider client={queryClient}>
+                  <ImageProvider>
+                    <SWRConfig
+                      value={{
+                        refreshInterval: 5000,
+                        fetcher,
+                      }}
+                    >
+                      <CustomHead {...pageProps} />
+                      <Component {...pageProps} />
+                      <ToastContainer
+                        position={toast.POSITION.BOTTOM_CENTER}
+                        transition={Flip}
+                        autoClose={8000}
+                        draggablePercent={50}
+                        hideProgressBar={true}
+                      />
+                    </SWRConfig>
+                  </ImageProvider>
+                </QueryClientProvider>
+            </MapProvider>
           </AuthProvider>
         </NotificationProvider>
       </ThemeProvider>

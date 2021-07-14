@@ -6,6 +6,7 @@ import { PhotoPost } from "components/PhotoPost/PhotoPost";
 import Image from "next/image";
 import utah from "../../public/images/utah.png";
 import { TabContent } from "./TabContent";
+import { PhotoFeed } from "components/PhotoFeed/PhotoFeed";
 
 export const useMobileTabsContent = () => {
   const [currentTabContent, setCurrentTabContent] = React.useState(0);
@@ -31,9 +32,10 @@ export const useMobileTabsContent = () => {
   const TabsContent = useMemo(() => {
     return [
       <TabContent key="photos" headerHeight={headerHeight}>
+        {/* <PhotoPost imgSrc={utah} />
         <PhotoPost imgSrc={utah} />
-        <PhotoPost imgSrc={utah} />
-        <PhotoPost imgSrc={utah} />
+        <PhotoPost imgSrc={utah} /> */}
+        <PhotoFeed />
       </TabContent>,
 
       <TabContent key="leaderboard" headerHeight={headerHeight}>
