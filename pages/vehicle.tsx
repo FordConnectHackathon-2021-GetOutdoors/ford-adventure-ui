@@ -70,9 +70,10 @@ export const VehicleStatusItem = ({
       variants={item}
       templateColumns="repeat(4,1fr)"
       gap="5"
-      h={children ? "auto" : percent ? "4rem" : "3.5rem"}
+      h={children ? "auto" : percent ? "4rem" : "3rem"}
       pos="relative"
       pb={children ? 0 : percent ? 4 : 0}
+      pt="5"
       {...props}
     >
       <GridItem colSpan={2} d="flex" alignItems="center">
@@ -109,7 +110,7 @@ export const VehicleStatusItem = ({
         </GridItem>
       )}
       {percent ? (
-        <GridItem colSpan={4} position="absolute" bottom="1" w="100%">
+        <GridItem colSpan={4} position="absolute" bottom="-2" w="100%">
           <Box bg="gray.300" borderRadius="full" h="2">
             <Box
               bg="bg.darknavy"
@@ -272,7 +273,7 @@ export default function Vehicle({ adventure }: any) {
             opacity: 1,
             type: "spring",
             transition: {
-              delay: 2,
+              delay: 1.2,
               ease: [0.23, 1, 0.32, 1],
               duration: 4,
             },
@@ -301,7 +302,7 @@ export default function Vehicle({ adventure }: any) {
             animate={{
               opacity: 1,
               y: 0,
-              transition: { delay: 2.2, duration: 0.6 },
+              transition: { delay: 1.8, duration: 0.6 },
             }}
           >
             <Icon mr="2" viewBox="0 0 18 18">
@@ -405,7 +406,7 @@ export default function Vehicle({ adventure }: any) {
             key="tire"
             id="tire"
             displayName="Tire Pressure"
-            pt="2"
+            pt="5"
           >
             <GridItem colSpan={4} fontSize="xs">
               <Flex pos="relative" h="28" maxW="200" pt="3" justify="start">
