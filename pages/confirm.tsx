@@ -62,7 +62,7 @@ export const AdventureConfirmation = ({ adventure }: any) => {
     <MotionBox
       as={Flex}
       flexDir="column"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
     >
       <Flex flexShrink={1} flexDir="column" ref={headerRef}>
@@ -126,7 +126,7 @@ export const AdventureConfirmation = ({ adventure }: any) => {
           }}
           position="relative"
         >
-          <LocationMap />
+          <LocationMap handleApiLoaded={handleApiLoaded} />
         </MotionBox>
       </Stack>
     </MotionBox>
