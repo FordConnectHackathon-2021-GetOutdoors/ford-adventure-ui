@@ -1,15 +1,12 @@
 import { parseCookies } from "nookies";
 import {
   Box,
-  Text,
   Button,
   Flex,
-  Heading,
-  HStack,
   Icon,
   Stack,
-  Grid,
   GridItem,
+  Heading,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
@@ -17,7 +14,7 @@ import fetcher from "utils/fetcher";
 import { getVehicleStatus, postVehicleStatus } from "utils/endpoints";
 import { Loading } from "components/Loading";
 import { Header } from "components/Header/Header";
-import { MotionBox } from "components/motion";
+import { MotionBox, MotionGrid } from "components/motion";
 import { motion } from "framer-motion";
 import { addDomEvent } from "@chakra-ui/utils";
 import mockVehicleData from "utils/mockVehicleData";
@@ -33,6 +30,23 @@ import {
   TireIcon,
   TireCarIcon,
 } from "../components/Icons";
+import { error } from "console";
+
+export const getServerSideProps = async (context: any) => {
+  if (!context?.query?.adventure) return { props: {} };
+
+  const { data, error }: any = await supabase
+    .from("adventures")
+    .select()
+    .eq("slug", context?.query?.adventure);
+
+  return {
+    props: {
+      adventure: { ...(await data[0]) },
+      error,
+    },
+  };
+};
 
 export const VehicleStatusItem = ({
   children,
@@ -52,11 +66,8 @@ export const VehicleStatusItem = ({
     tire: <TireIcon boxSize={6} ml={2} />,
   };
   return (
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      as={Grid}
-      // @ts-ignore
+    <MotionGrid
+      variants={item}
       templateColumns="repeat(4,1fr)"
       gap="5"
       h={children ? "auto" : percent ? "4rem" : "3.5rem"}
@@ -66,7 +77,7 @@ export const VehicleStatusItem = ({
     >
       <GridItem colSpan={2} d="flex" alignItems="center">
         {icons[id]}
-        <Text
+        <Box
           fontFamily="FontAntennaCond"
           fontWeight="600"
           letterSpacing="wider"
@@ -76,7 +87,7 @@ export const VehicleStatusItem = ({
           lineHeight={1}
         >
           {displayName}
-        </Text>
+        </Box>
       </GridItem>
       {result && (
         <GridItem
@@ -85,7 +96,7 @@ export const VehicleStatusItem = ({
           alignItems="center"
           justifyContent="space-between"
         >
-          <Text
+          <Box
             fontFamily="FontAntennaCond"
             fontSize="2xl"
             fontWeight="300"
@@ -93,7 +104,7 @@ export const VehicleStatusItem = ({
             pr="2"
           >
             {result}
-          </Text>
+          </Box>
           <CheckboxIcon />
         </GridItem>
       )}
@@ -110,29 +121,8 @@ export const VehicleStatusItem = ({
         </GridItem>
       ) : null}
       {children}
-    </MotionBox>
+    </MotionGrid>
   );
-};
-
-export const getServerSideProps = async (context: any) => {
-  if (!context?.query?.adventure) {
-    return { props: { server: true } };
-  }
-
-  const { data, error }: any = await supabase
-    .from("adventures")
-    .select()
-    .eq("id", 1);
-
-  // const adventureId = context?.query?.adventure;
-  const remoteData = await data[0];
-
-  return {
-    props: {
-      adventure: remoteData,
-      server: true,
-    },
-  };
 };
 
 // wrap a generic fetcher into a single use request
@@ -166,35 +156,35 @@ async function fetchVehicleData(fordToken, vehicleId) {
   }
 }
 
-function useVehicleData() {
+export function useVehicleData() {
   const { fordToken, vehicleId } = parseCookies();
   return useSWR("vehicleStatus", () => fetchVehicleData(fordToken, vehicleId), {
     refreshInterval: 60000,
   });
 }
 
-const list = {
+const animatedList = {
   visible: {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 2,
+      staggerChildren: 0.05,
     },
   },
   hidden: {
     opacity: 0,
     transition: {
       when: "afterChildren",
-      staggerChildren: 4,
     },
   },
 };
 
+const item = {
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: -10 },
+};
+
 export default function Vehicle({ adventure }: any) {
-  console.log(
-    "🚀 ~ file: vehicle.tsx ~ line 100 ~ Vehicle ~ adventure",
-    adventure
-  );
   // const { data } = useVehicleData();
   // console.log("🚀 ~ file: vehicle.tsx ~ line 86 ~ Vehicle ~ data", data);
   const data = mockVehicleData;
@@ -228,56 +218,67 @@ export default function Vehicle({ adventure }: any) {
         as={motion.ul}
         initial="hidden"
         animate="visible"
-        variants={list}
+        variants={animatedList}
         style={{
           height: `calc(var(--100vh) - ${headerHeight || 0}px)`,
           overflowY: "scroll",
           position: "relative",
         }}
         mx="auto"
+        pt={adventure ? 5 : 0}
       >
-        <MotionBox
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          px="8"
-          as={Heading}
-          fontFamily="FontAntennaCond"
-          fontWeight="300"
-          fontSize="4xl"
-          lineHeight="1"
-          color="text.darknavy"
-        >
-          you’re all set!
-        </MotionBox>
-        {adventure?.displayName && (
-          <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            px={8}
-            py={2}
-            as={Heading}
-            fontFamily="FontAntennaCond"
-            fontWeight="300"
-            fontSize="sm"
-            // lineHeight="1"
-          >
-            WE’VE CHECKED YOUR VEHICLE AND IT’S SAFE TO DRIVE TO
-            <Box as="span" pl="1" fontWeight="600">
-              {adventure.displayName}
-            </Box>
-          </MotionBox>
+        {adventure && (
+          <>
+            <Heading
+              px="8"
+              as={motion.li}
+              variants={item}
+              fontFamily="FontAntennaCond"
+              fontWeight="300"
+              fontSize="4xl"
+              lineHeight="1"
+              color="text.darknavy"
+            >
+              you’re all set!
+            </Heading>
+
+            <MotionBox
+              px={8}
+              py={2}
+              variants={item}
+              fontFamily="FontAntennaCond"
+              fontWeight="300"
+              fontSize="sm"
+
+              // lineHeight="1"
+            >
+              WE’VE CHECKED YOUR VEHICLE AND IT’S SAFE TO DRIVE TO
+              <Box as="span" pl="1" fontWeight="600">
+                {adventure.displayName}
+              </Box>
+            </MotionBox>
+          </>
         )}
 
         <MotionBox
-          as={HStack}
+          d="flex"
+          variants={item}
           bg="text.darknavy"
           color="white"
           pl={8}
           alignItems="center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            type: "spring",
+            transition: {
+              delay: 2,
+              ease: [0.23, 1, 0.32, 1],
+              duration: 4,
+            },
+          }}
         >
-          <Box
+          <MotionBox
             fontSize="sm"
             lineHeight="1"
             fontWeight="400"
@@ -286,18 +287,22 @@ export default function Vehicle({ adventure }: any) {
           >
             Vehicle status as of
             <Box as="span"> July 9, 2021 at 11:28 am</Box>
-          </Box>
-          <Button
+          </MotionBox>
+          <MotionBox
             as={Flex}
-            // flexBasis="60%"
             alignItems="center"
-            justify="flex-end"
             fontWeight="400"
             textTransform="none"
             pr="8"
             pl={4}
             borderRadius="0"
             alignSelf="stretch"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: 2.2, duration: 0.6 },
+            }}
           >
             <Icon mr="2" viewBox="0 0 18 18">
               <path
@@ -306,15 +311,14 @@ export default function Vehicle({ adventure }: any) {
               />
             </Icon>
             Refresh
-          </Button>
+          </MotionBox>
         </MotionBox>
         {/* 
         {Object.keys(data?.vehicle).map((key, idx) => {
           return (
             <MotionBox
               key={key}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0, transition: { delay: idx * 0.04 } }}
+            
               px="5"
               fontFamily="FontAntenna"
               // fontWeight="200"
@@ -326,9 +330,10 @@ export default function Vehicle({ adventure }: any) {
         <Stack
           px={8}
           divider={<Box borderBottom="2px solid grey.300" />}
-          variants={list}
+          variants={animatedList}
           initial="hidden"
           animate="visible"
+          as={motion.ul}
         >
           <VehicleStatusItem
             key="odometer"
@@ -439,6 +444,12 @@ export default function Vehicle({ adventure }: any) {
             w="100%"
             bottom="20"
             pointerEvents="none"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: 1.5, duration: 0.5 },
+            }}
           >
             <ContinueButton
               adventure={adventure}
@@ -451,7 +462,7 @@ export default function Vehicle({ adventure }: any) {
             </ContinueButton>
           </MotionBox>
         )}
-        <ContinueButton href={`/dashboard`} pt={40}>
+        <ContinueButton href={`/dashboard`} pt={adventure ? 40 : 10}>
           Go To Dashboard
         </ContinueButton>
       </Stack>
