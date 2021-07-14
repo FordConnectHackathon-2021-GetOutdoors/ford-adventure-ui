@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { addDomEvent } from "@chakra-ui/utils";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { PhotoPost } from "components/PhotoPost/PhotoPost";
 import Image from "next/image";
 import utah from "../../public/images/utah.png";

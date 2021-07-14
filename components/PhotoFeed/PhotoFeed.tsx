@@ -6,26 +6,32 @@ import { AuthContext } from "utils/AuthContext";
 import { supabase } from "utils/supabase";
 
 export function PhotoFeed() {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [userDetails, setUserDetails] = useState();
   const userUploadsPromise = useMemo(async () => {
     const user = supabase.auth.user();
-    setUserDetails(user);
-    console.log(user);
-    return await supabase
-      .from("user_uploads")
-      .select("*")
-      .eq("user_id", "7a26a2d3-b8bc-44d5-a7ec-8cda57ff8c23")
-      .eq("active", true);
+    if (user) {
+      setUserDetails(user);
+      console.log(user);
+      return await supabase
+        .from("user_uploads")
+        .select("*")
+        .eq("user_id", "7a26a2d3-b8bc-44d5-a7ec-8cda57ff8c23")
+        .eq("active", true);
+    }
   }, []);
 
-  userUploadsPromise.then(({ data }) => {
-    if (!!data) {
-      setPosts(data);
-    }
-  });
+  userUploadsPromise &&
+    userUploadsPromise.then(({ data }) => {
+      if (!!data) {
+        setPosts(data);
+      }
+    });
 
+  if (!posts) {
+    return null;
+  }
   return (
     <>
       {posts &&

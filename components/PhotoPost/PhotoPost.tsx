@@ -19,7 +19,7 @@ import { CommentButton } from "./CommentButton";
 import TimeAgo from "javascript-time-ago";
 import colors from "themes/colors";
 
-const timeAgo = new TimeAgo('en-US');
+const timeAgo = new TimeAgo("en-US");
 
 interface PhotoPostProps extends ChakraProps {
   imgSrc: StaticImageData;
@@ -29,9 +29,16 @@ interface PhotoPostProps extends ChakraProps {
   content: string;
 }
 
-export function PhotoPost({ username, vehicleName, created, content, imgSrc, ...props }: PhotoPostProps) {
+export function PhotoPost({
+  username,
+  vehicleName,
+  created,
+  content,
+  imgSrc,
+  ...props
+}: PhotoPostProps) {
   return (
-    <VStack pb="8">
+    <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
         <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
         <Flex
@@ -55,7 +62,9 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ...
             >
               {vehicleName}
             </Button>
-            <Text color={colors.text.darkgrey}>{ timeAgo.format(new Date(created)) }</Text>
+            <Text color={colors.text.darkgrey}>
+              {timeAgo.format(new Date(created))}
+            </Text>
           </Flex>
         </Flex>
       </Flex>
@@ -91,9 +100,7 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ...
           <Text fontWeight="500" color="text.darknavy" as="span" pr="2">
             {username}
           </Text>
-          <Text>
-            {content}
-          </Text>
+          <Text>{content}</Text>
         </Text>
       </Box>
     </VStack>
