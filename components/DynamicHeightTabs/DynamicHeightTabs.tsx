@@ -2,7 +2,6 @@ import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { Header } from "components/Header/Header";
-import { dashboardTabs } from "../../pages/index";
 
 interface TabsProps {
   currentTabContent: number;
@@ -10,6 +9,7 @@ interface TabsProps {
   headerHeight: number | undefined;
   headerRef: React.RefObject<HTMLDivElement>;
   TabsContent: JSX.Element[];
+  tabs: any;
 }
 
 function DynamicHeightTabs({
@@ -18,13 +18,14 @@ function DynamicHeightTabs({
   headerHeight,
   headerRef,
   TabsContent,
+  tabs,
 }: TabsProps) {
   return (
     <Flex flexDir="column">
       <Flex flexShrink={1} flexDir="column" ref={headerRef}>
         <Header />
         <Flex overflow="auto" px="8" pt="1">
-          {dashboardTabs.map((tab: any, idx: number) => {
+          {tabs.map((tab: any, idx: number) => {
             return (
               <Flex
                 key={idx}

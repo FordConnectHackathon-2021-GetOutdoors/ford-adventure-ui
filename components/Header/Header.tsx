@@ -13,6 +13,7 @@ export function Header({
   variant,
   showMenu = true,
   skipSidePad = false,
+  ...props
 }: HeaderProps) {
   return (
     <Flex

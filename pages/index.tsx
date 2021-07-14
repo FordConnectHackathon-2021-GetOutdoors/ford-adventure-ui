@@ -77,11 +77,12 @@ export default function Dashboard({ code = null }: DashboardProps) {
     <>
       <PhotoUpload />
       <DynamicHeightTabs
-        headerRef={headerRef}
         currentTabContent={currentTabContent}
         handleChangeIndex={handleChangeIndex}
-        TabsContent={TabsContent}
         headerHeight={headerHeight}
+        headerRef={headerRef}
+        tabs={dashboardTabs}
+        TabsContent={TabsContent}
       />
     </>
   );

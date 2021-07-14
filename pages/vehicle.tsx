@@ -1,13 +1,15 @@
 import { parseCookies } from "nookies";
 import {
   Box,
+  Text,
   Button,
-  chakra,
   Flex,
   Heading,
   HStack,
   Icon,
   Stack,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
@@ -21,6 +23,96 @@ import { addDomEvent } from "@chakra-ui/utils";
 import mockVehicleData from "utils/mockVehicleData";
 import { supabase } from "utils/supabase";
 import { ContinueButton } from "../components/ContinueButton";
+import {
+  EVIcon,
+  BatteryIcon,
+  CheckboxIcon,
+  GasIcon,
+  OdometerIcon,
+  OilIcon,
+  TireIcon,
+  TireCarIcon,
+} from "../components/Icons";
+
+export const VehicleStatusItem = ({
+  children,
+  displayName,
+  id,
+  percent,
+  result,
+  ...props
+}: any) => {
+  const icons = {
+    battery: <BatteryIcon boxSize={6} />,
+    checkbox: <CheckboxIcon boxSize={10} />,
+    ev: <EVIcon boxSize={7} ml="1" />,
+    gas: <GasIcon boxSize={6} ml="1" />,
+    odometer: <OdometerIcon boxSize={6} />,
+    oil: <OilIcon boxSize={7} />,
+    tire: <TireIcon boxSize={6} ml={2} />,
+  };
+  return (
+    <MotionBox
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      as={Grid}
+      // @ts-ignore
+      templateColumns="repeat(4,1fr)"
+      gap="5"
+      h={children ? "auto" : percent ? "4rem" : "3.5rem"}
+      pos="relative"
+      pb={children ? 0 : percent ? 4 : 0}
+      {...props}
+    >
+      <GridItem colSpan={2} d="flex" alignItems="center">
+        {icons[id]}
+        <Text
+          fontFamily="FontAntennaCond"
+          fontWeight="600"
+          letterSpacing="wider"
+          fontSize="sm"
+          pl="2"
+          textTransform="uppercase"
+          lineHeight={1}
+        >
+          {displayName}
+        </Text>
+      </GridItem>
+      {result && (
+        <GridItem
+          colSpan={2}
+          d="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Text
+            fontFamily="FontAntennaCond"
+            fontSize="2xl"
+            fontWeight="300"
+            lineHeight={1}
+            pr="2"
+          >
+            {result}
+          </Text>
+          <CheckboxIcon />
+        </GridItem>
+      )}
+      {percent ? (
+        <GridItem colSpan={4} position="absolute" bottom="1" w="100%">
+          <Box bg="gray.300" borderRadius="full" h="2">
+            <Box
+              bg="bg.darknavy"
+              borderRadius="xl"
+              w={`${percent ? percent : 0}%`}
+              h={2}
+            />
+          </Box>
+        </GridItem>
+      ) : null}
+      {children}
+    </MotionBox>
+  );
+};
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure) {
@@ -32,7 +124,7 @@ export const getServerSideProps = async (context: any) => {
     .select()
     .eq("id", 1);
 
-  const adventureId = context?.query?.adventure;
+  // const adventureId = context?.query?.adventure;
   const remoteData = await data[0];
 
   return {
@@ -86,13 +178,14 @@ const list = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.3,
+      staggerChildren: 2,
     },
   },
   hidden: {
     opacity: 0,
     transition: {
-      wh4n: "afterChildren",
+      when: "afterChildren",
+      staggerChildren: 4,
     },
   },
 };
@@ -141,11 +234,12 @@ export default function Vehicle({ adventure }: any) {
           overflowY: "scroll",
           position: "relative",
         }}
+        mx="auto"
       >
         <MotionBox
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          px="5"
+          px="8"
           as={Heading}
           fontFamily="FontAntennaCond"
           fontWeight="300"
@@ -159,12 +253,12 @@ export default function Vehicle({ adventure }: any) {
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            px={5}
+            px={8}
             py={2}
             as={Heading}
             fontFamily="FontAntennaCond"
             fontWeight="300"
-            fontSize="lg"
+            fontSize="sm"
             // lineHeight="1"
           >
             WE’VE CHECKED YOUR VEHICLE AND IT’S SAFE TO DRIVE TO
@@ -178,21 +272,32 @@ export default function Vehicle({ adventure }: any) {
           as={HStack}
           bg="text.darknavy"
           color="white"
-          p={5}
-          py={4}
+          pl={8}
           alignItems="center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          <Box fontSize="sm" lineHeight="1" fontWeight="400">
+          <Box
+            fontSize="sm"
+            lineHeight="1"
+            fontWeight="400"
+            py={4}
+            fontFamily="FontAntenna"
+          >
             Vehicle status as of
             <Box as="span"> July 9, 2021 at 11:28 am</Box>
           </Box>
           <Button
             as={Flex}
-            flexBasis="60%"
+            // flexBasis="60%"
             alignItems="center"
             justify="flex-end"
             fontWeight="400"
             textTransform="none"
+            pr="8"
+            pl={4}
+            borderRadius="0"
+            alignSelf="stretch"
           >
             <Icon mr="2" viewBox="0 0 18 18">
               <path
@@ -203,7 +308,7 @@ export default function Vehicle({ adventure }: any) {
             Refresh
           </Button>
         </MotionBox>
-
+        {/* 
         {Object.keys(data?.vehicle).map((key, idx) => {
           return (
             <MotionBox
@@ -217,7 +322,116 @@ export default function Vehicle({ adventure }: any) {
               {JSON.stringify(data?.vehicle[key])}
             </MotionBox>
           );
-        })}
+        })} */}
+        <Stack
+          px={8}
+          divider={<Box borderBottom="2px solid grey.300" />}
+          variants={list}
+          initial="hidden"
+          animate="visible"
+        >
+          <VehicleStatusItem
+            key="odometer"
+            id="odometer"
+            displayName="Odometer"
+            result="124,123 mi"
+          />
+
+          <VehicleStatusItem
+            key="gas"
+            id="gas"
+            displayName="Fuel Level"
+            percent={24}
+            result={
+              <>
+                147 mi
+                <Box fontFamily="FontAntenna" fontSize="xs" fontWeight="500">
+                  to empty
+                </Box>
+              </>
+            }
+          />
+
+          <VehicleStatusItem
+            key="battery"
+            id="battery"
+            displayName="Battery"
+            percent={14}
+            result={
+              <>
+                14%
+                <Box fontFamily="FontAntenna" fontSize="xs" fontWeight="500">
+                  to empty
+                </Box>
+              </>
+            }
+          />
+
+          <VehicleStatusItem
+            key="oil"
+            id="oil"
+            displayName="Oil Life"
+            percent={57}
+            result={
+              <>
+                57%
+                <Box fontFamily="FontAntenna" fontSize="xs" fontWeight="500">
+                  remaining
+                </Box>
+              </>
+            }
+          />
+
+          <VehicleStatusItem
+            key="ev"
+            id="ev"
+            displayName="EV Charge"
+            percent={27}
+            result={
+              <>
+                27%
+                <Box fontFamily="FontAntenna" fontSize="xs" fontWeight="500">
+                  charge level
+                </Box>
+              </>
+            }
+          ></VehicleStatusItem>
+          <VehicleStatusItem
+            key="tire"
+            id="tire"
+            displayName="Tire Pressure"
+            pt="2"
+          >
+            <GridItem colSpan={4} fontSize="xs">
+              <Flex pos="relative" h="28" maxW="200" pt="3" justify="start">
+                <Flex
+                  flexBasis="55%"
+                  flexDir="column"
+                  justifyContent="stretch"
+                  alignItems="stretch"
+                  h="100%"
+                  // mx="auto"
+                  pos="relative"
+                  w="auto"
+                >
+                  <Box h="12">100%</Box>
+                  <Box>100%</Box>
+                </Flex>
+                <Flex flexDir="column" justifyContent="stretch">
+                  <Box h="12">100%</Box>
+                  <Box>10%</Box>
+                </Flex>
+                <Box pos="absolute" h="24" top="0">
+                  <TireCarIcon boxSize="24" ml="22%" />
+                </Box>
+              </Flex>
+              <Box maxW="200" w="100%">
+                Warning: do not use as a tire pressure gauge
+              </Box>
+            </GridItem>
+          </VehicleStatusItem>
+        </Stack>
+
         {adventure?.slug && (
           <MotionBox
             pos="fixed"
@@ -233,7 +447,7 @@ export default function Vehicle({ adventure }: any) {
               bottom="0"
               pos="absolute"
             >
-              Continue
+              Let&apos;s Go!
             </ContinueButton>
           </MotionBox>
         )}

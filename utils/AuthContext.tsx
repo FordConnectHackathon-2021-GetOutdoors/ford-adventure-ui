@@ -22,10 +22,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const session = supabase.auth.session();
 
-    if (!session) {
-      Router.push("/login");
-      return;
-    }
+    // overriding this for now
+    // if (!session) {
+    //   Router.push("/login");
+    //   return;
+    // }
 
     setSession(session);
     setUser(session?.user ?? null);
