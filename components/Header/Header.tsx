@@ -25,7 +25,6 @@ export function Header({
       marginLeft={skipSidePad ? "-10" : "0"}
       px="10"
       py="6"
-      justify="space-between"
       color={variant === "overlay" ? "white" : "inherit"}
       initial={{ opacity: 0, y: 40 }}
       animate={{

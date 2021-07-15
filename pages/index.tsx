@@ -52,7 +52,7 @@ export default function Dashboard({ code = null }: DashboardProps) {
 
     const Login = async () => {
       await saveCodeToSession();
-      router.push("/vehicle");
+      // router.push("/vehicle");
     };
 
     if (code && !isFordLoggedIn) {
@@ -69,7 +69,7 @@ export default function Dashboard({ code = null }: DashboardProps) {
     TabsContent,
   } = useMobileTabsContent();
 
-  if (!isReady) {
+  if (!TabsContent) {
     return <Loading />;
   }
 
