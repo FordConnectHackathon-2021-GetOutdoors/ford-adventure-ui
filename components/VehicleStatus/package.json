@@ -1,0 +1,6 @@
+{
+  "name": "vehicle-status",
+  "scripts": {
+    "gen-api": "npx orval --config ./openapi/orval.config.js"
+  }
+}
