@@ -9,7 +9,6 @@ import {
   Button,
   Flex,
   VStack,
-  Link as ChakraLink
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar"
 import Link from "next/link";
@@ -107,26 +106,28 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
             <Interpolate
                 string={content}
                 mapping={{
-                    mention: text => (
-                      <Link key={Math.random()} href="/profile/me" passHref>
-                        <a style={{
+                  mention: text => (
+                    <Link key={Math.random()} href="/profile/me" passHref>
+                      <a style={{
+                        textDecoration: "underline",
+                        color: `${colors.text.link}`,
+                      }}>@{text}</a>
+                    </Link>
+                  ),
+                  hashtag: text => {
+                    const tag = text[0]['props']['children'];
+                    return (
+                      <a 
+                        style={{
                           textDecoration: "underline",
                           color: `${colors.text.link}`,
-                        }}>@{text}</a>
-                      </Link>
-                    ),
-                    hashtag: text => {
-                      const tag = text[0]['props']['children'];
-                      return (
-                      <ChakraLink key={Math.random()} onClick={() => {
-                        parentRef.current();
-                      }}>
-                        <a style={{
-                          textDecoration: "underline",
-                          color: `${colors.text.link}`,
-                        }}>#{text}</a>
-                      </ChakraLink>
-                    )},
+                        }} 
+                        onClick={() => {
+                          parentRef.current(tag);
+                        }}
+                      >#{text}</a>
+                    )
+                  },
                 }}
             />
           </Text>

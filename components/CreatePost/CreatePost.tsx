@@ -43,7 +43,7 @@ const neverMatchingRegex = /($a)/;
 
 export const CreatePost = forwardRef((props: FileProps, ref) => {
   const { showError } = useContext(NotificationContext);
-  const { uploadImage } = useContext(ImageContext);
+  const { uploadImage, getTags } = useContext(ImageContext);
   const { getShortLocationPromise } = useContext(MapContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState("md");
@@ -57,6 +57,14 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
   const initialRef = useRef();
 
   const { fileName, ext, imageBase64 } = props;
+
+  const [tags, setTags] = useState([]);
+  const [followers] = useState([
+    { id: "matt", display: "Matt Wood" },
+    { id: "kori", display: "Kori Skeffington" },
+    { id: "brad", display: "Bradley Horlander" },
+    { id: "pushkar", display: "Pushkar Atul Mungikar" },
+  ]);
 
   useImperativeHandle(ref, () => ({
     openHandler(newSize: string) {
@@ -80,20 +88,6 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
     );
     onClose();
   };
-
-  const [followers] = useState([
-    { id: "matt", display: "Matt Wood" },
-    { id: "kori", display: "Kori Skeffington" },
-    { id: "brad", display: "Bradley Horlander" },
-    { id: "pushkar", display: "Pushkar Atul Mungikar" },
-  ]);
-  const [tags] = useState([
-    { id: "denvermountains", display: "denvermountains" },
-    { id: "vermontfoliage", display: "vermontfoliage" },
-    { id: "utahdesert", display: "utahdesert" },
-    { id: "dallascityline", display: "dallascityline" },
-    { id: "streetsofnewyork", display: "streetsofnewyork" },
-  ]);
 
   const queryEmojis = (query, callback) => {
     if (query.length === 0) return;

@@ -8,17 +8,19 @@ import { Button } from "@chakra-ui/react";
 
 export function PhotoFeed () {
     const { fetchFeedData, posts, users, authUser } = useContext(PhotoFeedContext);
-    const photoFeedRef = useRef();
+    const photoFeedRef = useRef<Function>();
+    
+    let tag = null;
 
     useEffect(() => {
         if (posts.length == 0) {
-            fetchFeedData();
+            fetchFeedData(tag);
         }
-    }, [fetchFeedData, posts]);
+    }, [fetchFeedData, posts, tag]);
 
-    photoFeedRef.current = () => {
-        console.log('filter feed');
-        fetchFeedData();
+    photoFeedRef.current = function (_tag) {
+        tag = _tag
+        fetchFeedData(_tag);
     };
     
     return (
@@ -26,7 +28,11 @@ export function PhotoFeed () {
             <PullToRefresh onRefresh={fetchFeedData}>
                 {
                     posts && posts.length > 0 &&
-                    posts.map(({ 
+                    posts
+                    .filter(p => {
+                        return !!users.filter(u => u.user_id === p.user_id)[0];
+                    })
+                    .map(({ 
                         image_base64, 
                         created, 
                         content, 
@@ -35,45 +41,26 @@ export function PhotoFeed () {
                         comments
                     }) => {
                         const user = users.filter(u => u.user_id === user_id)[0];
-                        return {
-                            image_base64, 
-                            created, 
-                            content, 
-                            profile_pic_base64: user['profile_pic_base64'], 
-                            user_id,
-                            username: user['username'] || user['email'],
-                            vehicle_name: user['vehicle_name'],
-                            authUserUuid: authUser['id'],
-                            likes,
-                            comments
-                        };
-                    }).map(({
-                        image_base64, 
-                        created, 
-                        content, 
-                        profile_pic_base64, 
-                        user_id,
-                        username,
-                        vehicle_name,
-                        authUserUuid,
-                        likes,
-                        comments
-                    }) => (
-                        <PhotoPost 
-                            key={Math.random()} 
-                            imgSrc={image_base64} 
-                            username={username}
-                            vehicleName={vehicle_name}
-                            created={created}
-                            content={content}
-                            avatarSrc={profile_pic_base64}
-                            userUuid={user_id}
-                            authUserUuid={authUserUuid}
-                            parentRef={photoFeedRef}
-                            likes={likes}
-                            comments={comments}
-                        />
-                    ))
+                        let { profile_pic_base64, username, email, vehicle_name } = user;
+                        username = username || email;
+
+                        return (
+                            <PhotoPost 
+                                key={Math.random()} 
+                                imgSrc={image_base64} 
+                                username={username}
+                                vehicleName={vehicle_name}
+                                created={created}
+                                content={content}
+                                avatarSrc={profile_pic_base64}
+                                userUuid={user_id}
+                                authUserUuid={authUser['id']}
+                                parentRef={photoFeedRef}
+                                likes={likes}
+                                comments={comments}
+                            />
+                        );
+                    })
                 }
             </PullToRefresh>
         </>

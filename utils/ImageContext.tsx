@@ -1,11 +1,13 @@
 // @ts-nocheck
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { NotificationContext } from "./NotificationContext";
 import { supabase } from "./supabase";
 
 const userUploadsTable = "user_uploads";
 const usersTable = "users";
+const tagsTable = "tags";
+
 export const ImageContext = createContext({
   uploadImage: async (a, b, c, d, e, f) => {},
   downloadImage: (a) => {},
@@ -13,6 +15,7 @@ export const ImageContext = createContext({
   deleteImage: (a) => {},
   uploadProfilePic: (a) => {},
   uploadCoverPic: (a) => {},
+  getTags: async () => {},
 });
 
 export function ImageProvider({ children }) {
@@ -106,6 +109,14 @@ export function ImageProvider({ children }) {
       showSucess("Image uploaded successfully !");
     }
   };
+  const getTags = async () => {
+    const { data: tags, error } = await supabase
+      .from(tagsTable)
+      .select("*");
+
+    return tags || [];
+  };
+
   return (
     <ImageContext.Provider
       value={{
@@ -114,7 +125,8 @@ export function ImageProvider({ children }) {
         listImages,
         deleteImage,
         uploadProfilePic,
-        uploadCoverPic
+        uploadCoverPic,
+        getTags,
       }}
     >
       {children}
