@@ -144,7 +144,7 @@ export const UnlockIcon = ({ ...props }) => (
       fill="#102B4E"
       fillRule="evenodd"
       d="M18 17H2v12h16V17zM2 15c-1.104569 0-2 .8954-2 2v12c0 1.1046.895431 2 2 2h16c1.1046 0 2-.8954 2-2V17c0-1.1046-.8954-2-2-2H2z"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
     <path
       fill="#102B4E"
