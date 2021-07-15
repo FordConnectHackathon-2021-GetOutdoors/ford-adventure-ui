@@ -10,6 +10,8 @@ export const Loading = () => (
     h="var(--100vh)"
     w="100%"
     justifyContent="center"
+    // @ts-ignore
+    align="center"
     flexDir="column"
     initial={{ opacity: 0, y: 30 }}
     animate={{
