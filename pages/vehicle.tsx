@@ -22,6 +22,7 @@ import {
 import { error } from "console";
 import { item } from "utils/animations";
 import { VehicleStatus } from "../components/VehicleStatus/src/VehicleStatus";
+import { data } from "msw/lib/types/context";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure) return { props: {} };
@@ -156,9 +157,9 @@ export function useVehicleData() {
 }
 
 export default function Vehicle({ adventure }: any) {
-  // const { data } = useVehicleData();
+  const { data } = useVehicleData();
   // console.log("🚀 ~ file: vehicle.tsx ~ line 86 ~ Vehicle ~ data", data);
-  const data = mockVehicleData;
+  // const data = mockVehicleData;
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);

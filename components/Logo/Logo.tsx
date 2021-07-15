@@ -1,6 +1,6 @@
 import { Img } from "@chakra-ui/react";
 
-export function Logo() {
+export function Logo({ ...props }) {
   return (
     <Img
       src="/images/ford-logo.svg"
@@ -16,6 +16,7 @@ export function Logo() {
         lg: "3.5em",
         xl: "3.5em",
       }}
+      {...props}
     />
   );
 }

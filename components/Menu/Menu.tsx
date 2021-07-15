@@ -100,13 +100,7 @@ export default function Menu() {
             <Stack divider={<StackDivider />} spacing="0">
               {menuItems.map(({ text, to, id }, index) => (
                 <Link
-                  href={
-                    process.env.NODE_ENV === "production" &&
-                    id === "connect" &&
-                    !isFordLoggedIn
-                      ? getCode
-                      : to
-                  }
+                  href={id === "connect" && !isFordLoggedIn ? getCode : to}
                   passHref
                   key={index}
                 >
@@ -120,13 +114,11 @@ export default function Menu() {
                         ? () => signOut()
                         : id === "vehicle" && !isFordLoggedIn
                         ? (e: any) => {
-                            if (process.env.NODE_ENV === "production") {
-                              e.preventDefault();
-                              toast({
-                                title: "Connect Vehicle to view status",
-                                status: "info",
-                              });
-                            }
+                            e.preventDefault();
+                            toast({
+                              title: "Connect Vehicle to view status",
+                              status: "info",
+                            });
                           }
                         : null
                     }
