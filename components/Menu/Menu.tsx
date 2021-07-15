@@ -49,7 +49,7 @@ export default function Menu() {
     },
     {
       text: "Profile",
-      to: "/",
+      to: "/profile/me",
     },
     {
       text: "Settings",

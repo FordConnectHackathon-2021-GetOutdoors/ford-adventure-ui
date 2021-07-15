@@ -11,5 +11,10 @@
         "cssPropOptimization": true
       }
     ]
-  ]
+  ],
+  "env": {
+    "development" : {
+      "compact": true
+    }
+  }
 }

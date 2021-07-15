@@ -12,7 +12,7 @@ async function postFormData(url, data) {
     headers: new Headers({
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     }),
-  }).then((response) => response.json());
+  }).then((response) => response.json()).catch(e => console.log(e));
 }
 
 const formData = {

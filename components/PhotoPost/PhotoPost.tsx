@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import {
   Box,
-  Link as ChakraLink,
   HStack,
   Text,
   ChakraProps,
@@ -27,26 +26,24 @@ interface PhotoPostProps extends ChakraProps {
   vehicleName: string;
   created: string;
   content: string;
+  avatarSrc: StaticImageData;
+  userUuid: string;
+  authUserUuid: string;
 }
 
-export function PhotoPost({
-  username,
-  vehicleName,
-  created,
-  content,
-  imgSrc,
-  ...props
-}: PhotoPostProps) {
+export function PhotoPost({ username, vehicleName, created, content, imgSrc, avatarSrc, userUuid, authUserUuid }: PhotoPostProps) {
+  console.log(username, vehicleName, created, content, 'cover pic', 'avatar pic', userUuid, authUserUuid)
   return (
     <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
-        <Avatar src="/images/carAvatar.png" w="4rem" h="4rem" />
+        <Avatar src={avatarSrc} w="4rem" h="4rem" />
         <Flex
           ml="4"
           flexDir="column"
           justify="flex-end"
           alignItems="flex-start"
           pb="2"
+          w="100%"
         >
           <Box fontWeight="500" mb="2" lineHeight="1">
             {username}
@@ -62,9 +59,13 @@ export function PhotoPost({
             >
               {vehicleName}
             </Button>
+<<<<<<< HEAD
             <Box color={colors.text.darkgrey}>
               {timeAgo.format(new Date(created))}
             </Box>
+=======
+            {/* <Text color={colors.text.darkgrey}>{ timeAgo.format(new Date(created)) }</Text> */}
+>>>>>>> b2aa76d (profile + photo feed changes)
           </Flex>
         </Flex>
       </Flex>
@@ -76,7 +77,7 @@ export function PhotoPost({
         position="relative"
         width="100%"
       >
-        <Image alt="Utah" src={imgSrc} layout="fill" objectFit="cover" />
+        <Image alt="Upload Photo" src={imgSrc} layout="fill" objectFit="cover" />
       </Box>
 
       <Box width="100%">
@@ -90,7 +91,10 @@ export function PhotoPost({
             <LikeCount likeCount={3} />
           </Flex>
         </HStack>
+<<<<<<< HEAD
         {/* <LikeCount likeCount={99} /> */}
+=======
+>>>>>>> b2aa76d (profile + photo feed changes)
         <Box
           fontFamily="FontAntenna"
           color="gray.600"
@@ -98,9 +102,17 @@ export function PhotoPost({
           lineHeight={7}
         >
           <Text fontWeight="500" color="text.darknavy" as="span" pr="2">
-            {username}
+            <Link key={Math.random()} href={authUserUuid == userUuid ? `/profile/me` : `/profile/${userUuid}`} passHref>
+              {username}
+            </Link>
           </Text>
+<<<<<<< HEAD
           <Text>{content}</Text>
+=======
+          <Text>
+            {content}
+          </Text>
+>>>>>>> b2aa76d (profile + photo feed changes)
         </Box>
       </Box>
     </VStack>

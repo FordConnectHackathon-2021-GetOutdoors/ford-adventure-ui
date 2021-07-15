@@ -1,46 +1,81 @@
-import React, { useContext, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { PhotoPost } from "components/PhotoPost/PhotoPost";
-// import { useMemo } from "react";
-// import { AuthContext } from "utils/AuthContext";
 import { supabase } from "utils/supabase";
-import { useEffect } from "react";
+import _ from "lodash";
 
-export function PhotoFeed() {
-  // const { user } = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
+export const PhotoFeed = memo(function () {
+    const [posts, setPosts] = useState([]);
+    const [authUser, setAuthUser] = useState({});
+    const [users, setUsers] = useState([]);
 
-  const [userDetails, setUserDetails] = useState<any>();
-  const user = supabase.auth.user();
+    const fetchFeedData = useCallback(async () => {
+        const { data: user_posts } = await supabase
+            .from('user_uploads')
+            .select('*')
+            .eq('active', true)
+            .order('id', { ascending: false });
 
-  useEffect(() => {
-    if (user) {
-      setUserDetails(user);
-      supabase
-        .from("user_uploads")
-        .select("*")
-        .eq("user_id", "7a26a2d3-b8bc-44d5-a7ec-8cda57ff8c23")
-        .eq("active", true)
-        .then(({ data }: any) => !posts.length && data && setPosts(data));
-    }
-  }, [user]);
+        const post_user_ids: string[] = Array.from(new Set([...(user_posts).map(({ user_id }) => user_id)]));
 
-  if (!posts) {
-    return null;
-  }
-  return (
-    <>
-      {posts &&
-        posts.length > 0 &&
-        posts.map((upload_data: any) => (
-          <PhotoPost
-            key={Math.random()}
-            imgSrc={upload_data["image_base64"]}
-            username={userDetails["email"]}
-            vehicleName={"F-150"}
-            created={upload_data["created"]}
-            content={upload_data["content"]}
-          />
-        ))}
-    </>
-  );
-}
+        const { data: post_authors } = await supabase
+            .from('users')
+            .select('*')
+            .in('user_uuid', [...post_user_ids]);
+
+        const user = await supabase.auth.user();
+
+        setUsers([...post_authors]);
+        setPosts([...user_posts]);
+        setAuthUser(user);
+    }, []);
+
+    // setInterval(fetchFeedData, 5000);
+
+    return (
+        <>
+            {
+                posts && posts.length > 0 &&
+                posts.map(({ 
+                    image_base64, 
+                    created, 
+                    content, 
+                    profile_pic_base64, 
+                    user_uuid 
+                }) => {
+                    const user = users.filter(u => u.user_id === user_uuid)[0];
+                    return {
+                        image_base64, 
+                        created, 
+                        content, 
+                        profile_pic_base64, 
+                        user_uuid,
+                        username: user['username'] || user['email'],
+                        vehicle_name: user['vehicle_name'],
+                        authUserUuid: authUser['id'],
+                    };
+                }).map(({
+                    image_base64, 
+                    created, 
+                    content, 
+                    profile_pic_base64, 
+                    user_uuid,
+                    username,
+                    vehicle_name,
+                    authUserUuid,
+                }) => (
+                    <PhotoPost 
+                        key={Math.random()} 
+                        imgSrc={image_base64} 
+                        username={username}
+                        vehicleName={vehicle_name}
+                        created={created}
+                        content={content}
+                        avatarSrc={profile_pic_base64}
+                        userUuid={user_uuid}
+                        authUserUuid={authUserUuid}
+                    />
+                ))
+            }
+        </>
+    );
+});

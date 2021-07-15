@@ -37,7 +37,7 @@ export function MapProvider({ children }) {
                 (error) => {
                     reject(error);
                 }
-            );
+            ).catch(e => console.log(e));
         });
     };
     return (

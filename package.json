@@ -40,6 +40,7 @@
     "react-responsive-carousel": "^3.2.19",
     "react-tinder-card": "^1.4.0",
     "react-toastify": "^7.0.4",
+    "react-use-cookie": "^1.2.1",
     "swr": "0.5.6"
   },
   "devDependencies": {

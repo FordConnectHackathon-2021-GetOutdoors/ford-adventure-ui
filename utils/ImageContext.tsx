@@ -4,12 +4,15 @@ import { AuthContext } from "./AuthContext";
 import { NotificationContext } from "./NotificationContext";
 import { supabase } from "./supabase";
 
-const tableName = "user_uploads";
+const userUploadsTable = "user_uploads";
+const usersTable = "users";
 export const ImageContext = createContext({
   uploadImage: async (a, b, c, d, e, f) => {},
   downloadImage: (a) => {},
   listImages: () => {},
   deleteImage: (a) => {},
+  uploadProfilePic: (a) => {},
+  uploadCoverPic: (a) => {},
 });
 
 export function ImageProvider({ children }) {
@@ -18,7 +21,7 @@ export function ImageProvider({ children }) {
 
   const uploadImage = async (name, ext, base64, content, lat, lng) => {
     const { error } = await supabase
-      .from(tableName)
+      .from(userUploadsTable)
       .insert([
         {
           user_id: user.id,
@@ -39,7 +42,7 @@ export function ImageProvider({ children }) {
   };
   const downloadImage = async (image_id) => {
     const { data: image_base64, error } = await supabase
-      .from(tableName)
+      .from(userUploadsTable)
       .select("image_base64")
       .eq("user_id", user.id)
       .eq("id", image_id);
@@ -53,7 +56,7 @@ export function ImageProvider({ children }) {
   };
   const listImages = async () => {
     const { data: images_base64, error } = await supabase
-      .from(tableName)
+      .from(userUploadsTable)
       .select("image_base64")
       .eq("user_id", user.id);
 
@@ -63,12 +66,44 @@ export function ImageProvider({ children }) {
     return images_base64;
   };
   const deleteImage = async (image_id) => {
-    const { error } = await supabase.from(tableName).eq("id", image_id);
+    const { error } = await supabase.from(userUploadsTable).eq("id", image_id);
 
     if (error) {
       showError(error.message);
     } else {
       showSucess("Image deleted successfully !");
+    }
+  };
+  const uploadProfilePic = async (base64) => {
+    const { error } = await supabase
+      .from(usersTable)
+      .update([
+        {
+          profile_pic_base64: base64,
+        },
+      ])
+      .eq('user_uuid', user.id,);
+
+    if (error) {
+      showError(error.message);
+    } else {
+      showSucess("Image uploaded successfully !");
+    }
+  };
+  const uploadCoverPic = async (base64) => {
+    const { error } = await supabase
+      .from(usersTable)
+      .update([
+        {
+          cover_pic_base64: base64,
+        },
+      ])
+      .eq('user_uuid', user.id,);
+
+    if (error) {
+      showError(error.message);
+    } else {
+      showSucess("Image uploaded successfully !");
     }
   };
   return (
@@ -78,6 +113,8 @@ export function ImageProvider({ children }) {
         downloadImage,
         listImages,
         deleteImage,
+        uploadProfilePic,
+        uploadCoverPic
       }}
     >
       {children}
