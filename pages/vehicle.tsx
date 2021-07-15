@@ -1,5 +1,5 @@
 import { parseCookies } from "nookies";
-import { Box, Button, Flex, GridItem } from "@chakra-ui/react";
+import { Box, Flex, GridItem } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import fetcher from "utils/fetcher";
@@ -8,7 +8,6 @@ import { Loading } from "components/Loading";
 import { Header } from "components/Header/Header";
 import { MotionGrid } from "components/motion";
 import { addDomEvent } from "@chakra-ui/utils";
-import mockVehicleData from "utils/mockVehicleData";
 import { supabase } from "utils/supabase";
 import {
   EVIcon,
@@ -19,10 +18,8 @@ import {
   OilIcon,
   TireIcon,
 } from "../components/Icons";
-import { error } from "console";
 import { item } from "utils/animations";
 import { VehicleStatus } from "../components/VehicleStatus/src/VehicleStatus";
-import { data } from "msw/lib/types/context";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure) return { props: {} };
@@ -158,8 +155,6 @@ export function useVehicleData() {
 
 export default function Vehicle({ adventure }: any) {
   const { data } = useVehicleData();
-  // console.log("🚀 ~ file: vehicle.tsx ~ line 86 ~ Vehicle ~ data", data);
-  // const data = mockVehicleData;
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);

@@ -26,6 +26,7 @@ export const VehicleStatus = ({
     }}
     mx="auto"
     pt={adventure ? 5 : 0}
+    {...props}
   >
     {adventure && (
       <>
@@ -138,20 +139,6 @@ export const VehicleStatus = ({
         Refresh
       </MotionBox>
     </MotionBox>
-    {/*
-  {Object.keys(data?.vehicle).map((key, idx) => {
-    return (
-      <MotionBox
-        key={key}
-      
-        px="5"
-        fontFamily="FontAntenna"
-        // fontWeight="200"
-      >
-        {JSON.stringify(data?.vehicle[key])}
-      </MotionBox>
-    );
-  })} */}
     <Stack
       px={8}
       divider={<Box borderBottom="2px solid grey.300" />}
