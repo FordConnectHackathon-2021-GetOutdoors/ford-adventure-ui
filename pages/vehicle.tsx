@@ -104,7 +104,7 @@ export const VehicleStatusItem = ({
             <Box
               bg="bg.darknavy"
               borderRadius="xl"
-              w={`${percent ? percent : 0}%`}
+              w={`${percent === 0 ? 0 : percent ? percent : 0}%`}
               h={2}
             />
           </Box>
@@ -148,6 +148,7 @@ async function fetchVehicleData(fordToken, vehicleId) {
 
 export function useVehicleData() {
   const { fordToken, vehicleId } = parseCookies();
+
   return useSWR("vehicleStatus", () => fetchVehicleData(fordToken, vehicleId), {
     refreshInterval: 60000,
   });
