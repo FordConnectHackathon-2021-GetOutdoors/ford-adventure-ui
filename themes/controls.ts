@@ -18,7 +18,7 @@ function DefaultInput(props: Record<string, any>) {
       height: "3.125rem",
       px: 5,
       color: mode("text.navy", "text.white")(props),
-      boxShadow: mode("lightInputShadow", "darkInputShadow")(props),
+      // boxShadow: mode("lightInputShadow", "darkInputShadow")(props),
       border: "1px solid",
       borderColor: mode("white", "bg.darkOverlay")(props),
       _focus: {
@@ -49,7 +49,7 @@ function SearchInputVariant(props: Record<string, any>) {
       bg: "bg.overlay",
       borderRadius: "full",
       height: "3.125rem",
-      boxShadow: mode("lightSearchShadow", "darkSearchShadow")(props),
+      boxShadow: mode("buttonShadowDefault", "darkSearchShadow")(props),
       _placeholder: {
         color: mode("text.placeholder", "text.darkPlaceholder")(props),
         textAlign: "center",

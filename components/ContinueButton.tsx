@@ -6,6 +6,7 @@ export const ContinueButton = ({
   href,
   adventure,
   children,
+  outline,
   ...props
 }: any) => (
   <Link href={href} passHref>
@@ -20,14 +21,18 @@ export const ContinueButton = ({
       {...props}
     >
       <Box
-        bg="bg.darknavy"
-        color="white"
+        bg={outline ? "white" : "bg.darknavy"}
+        color={outline ? "bg.darknavy" : "white"}
         fontFamily="FontAntenna"
         px="4"
         py="4"
         w="20rem"
         borderRadius="md"
+        borderColor="bg.darknavy"
+        borderWidth="1px"
+        borderStyle="solid"
         textAlign="center"
+        // variant={outline ? "ouline" : ""}
       >
         {children}
       </Box>

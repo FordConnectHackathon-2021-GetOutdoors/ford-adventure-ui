@@ -14,9 +14,9 @@ const darkTop = `0 -.25rem 1rem .25rem ${darkHighlight}`;
 const darkInnerShadow = "inset 0 .125rem .2rem 0 rgba(0,0,0,.25)";
 const darkInnerHighlight = "inset 0 -.125rem .25rem 0 rgba(255,255,255,.075)";
 
-const buttonShadow1 = "0 10px 10px 0 rgba(0,0,0,.15)";
-const buttonShadow2 = "0 5px 5px 0 rgba(0,0,0,.1)";
-const buttonShadow3 = "0 3px 3px 0 rgba(0,0,0,.1)";
+const buttonShadow1 = "0 10px 10px 0 rgba(0,0,0,.03)";
+const buttonShadow2 = "0 5px 5px 0 rgba(0,0,0,.03)";
+const buttonShadow3 = "0 3px 3px 0 rgba(0,0,0,.03)";
 const buttonShadowDefault = `${buttonShadow1}, ${buttonShadow2}, ${buttonShadow3}`;
 
 const shadows = {

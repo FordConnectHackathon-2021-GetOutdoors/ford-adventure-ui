@@ -445,7 +445,7 @@ export default function Vehicle({ adventure }: any) {
           </VehicleStatusItem>
         </Stack>
 
-        <ContinueButton href={`/`} pt={adventure ? 40 : 10} zIndex="4">
+        <ContinueButton href={`/`} pt={adventure ? 40 : 10} zIndex="4" outline>
           Go To Dashboard
         </ContinueButton>
         {adventure?.slug && (

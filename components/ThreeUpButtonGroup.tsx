@@ -1,10 +1,4 @@
 import {
-  ArrowRightIcon,
-  QuestionIcon,
-  SunIcon,
-  UnlockIcon,
-} from "@chakra-ui/icons";
-import {
   ComponentWithAs,
   FormControl as ChakraFormControl,
   IconProps,
@@ -14,20 +8,26 @@ import {
   InputLeftElement,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { item } from "utils/animations";
 
 export interface RadioButtonProps {
   id: string;
   size?: "sm" | "md" | "lg" | "xl";
   icon?: ComponentWithAs<"svg", IconProps>;
+  as?: any;
 }
 
-function RadioButton({ size, id, icon }: RadioButtonProps) {
+export function RadioButton({ as, size, id, icon }: RadioButtonProps) {
   return (
     <ChakraFormControl
+      as={as}
       id={id}
       display="flex"
       alignItems="center"
       justifyContent="center"
+      top={size === "lg" ? 2 : 0}
+      pos="relative"
     >
       <InputLeftElement
         pointerEvents="none"
@@ -38,8 +38,8 @@ function RadioButton({ size, id, icon }: RadioButtonProps) {
       >
         <Icon
           as={icon}
-          w={size === "lg" ? 16 : 8}
-          h={size === "lg" ? 16 : 8}
+          w={size === "lg" ? 16 : 10}
+          h={size === "lg" ? 16 : 10}
           margin="0 auto"
         />
       </InputLeftElement>
@@ -61,10 +61,8 @@ export function ThreeUpButtonGroup(props: any) {
     "text.darkPlaceholder"
   );
   return (
-    <HStack spacing={4} py={6} mb={10}>
-      <RadioButton id="one" icon={UnlockIcon} />
-      <RadioButton id="two" size="lg" icon={SunIcon} />
-      <RadioButton id="three" icon={QuestionIcon} />
+    <HStack spacing={4} alignItems="baseline">
+      {props.children}
     </HStack>
   );
 }
