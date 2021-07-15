@@ -48,9 +48,9 @@ export function PhotoPost({
           alignItems="flex-start"
           pb="2"
         >
-          <Text fontWeight="500" mb="2" lineHeight="1">
+          <Box fontWeight="500" mb="2" lineHeight="1">
             {username}
-          </Text>
+          </Box>
           <Flex direction="row" justifyContent="space-between" width="100%">
             <Button
               variant="solid"
@@ -62,9 +62,9 @@ export function PhotoPost({
             >
               {vehicleName}
             </Button>
-            <Text color={colors.text.darkgrey}>
+            <Box color={colors.text.darkgrey}>
               {timeAgo.format(new Date(created))}
-            </Text>
+            </Box>
           </Flex>
         </Flex>
       </Flex>
@@ -91,7 +91,7 @@ export function PhotoPost({
           </Flex>
         </HStack>
         {/* <LikeCount likeCount={99} /> */}
-        <Text
+        <Box
           fontFamily="FontAntenna"
           color="gray.600"
           fontWeight="300"
@@ -101,7 +101,7 @@ export function PhotoPost({
             {username}
           </Text>
           <Text>{content}</Text>
-        </Text>
+        </Box>
       </Box>
     </VStack>
   );
