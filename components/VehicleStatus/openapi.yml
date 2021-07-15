@@ -1,0 +1,960 @@
+openapi: 3.0.0
+info:
+  title: FordConnect Prod Collection V3.1.2
+  version: 1.0.0
+servers:
+  - url: https://dah2vb2cprod.b2clogin.com
+  - url: https://api.mps.ford.com
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: Tokens
+  - name: Vehicle Commands
+  - name: EV Commands
+  - name: Vehicle Information
+  - name: Location
+  - name: Vehicle Image
+paths:
+  /914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token:
+    post:
+      tags:
+        - Tokens
+      summary: >-
+        Lincoln Get Refresh Token (as access token is valid for 20 mins only)
+        Copy
+      description: >-
+        FordConnect access token is valid for 20 mins and refresh token is valid
+        for 90 days
+      requestBody:
+        content: {}
+      parameters:
+        - name: p
+          in: query
+          schema:
+            type: string
+          example: B2C_1A_signup_signin_common_lincoln
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1:
+    get:
+      tags:
+        - Tokens
+      summary: Get Vehicle List
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '{{api-version}}'
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/unlock:
+    post:
+      tags:
+        - Vehicle Commands
+      summary: Unlock Vehicle
+      description: sends unlock command to vehicle
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '*/*'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: callback-url
+          in: header
+          schema:
+            type: string
+          example: '{{callback-url}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/unlock/{UnlockcommandId}:
+    get:
+      tags:
+        - Vehicle Commands
+      summary: Unlock Command Status
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: commandid
+          in: header
+          schema:
+            type: string
+          example: '{{UnlockcommandId}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: UnlockcommandId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/lock:
+    post:
+      tags:
+        - Vehicle Commands
+      summary: Lock Vehicle
+      description: sends Lock command to vehicle
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: callback-url
+          in: header
+          schema:
+            type: string
+          example: '{{callback-url}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/lock/{LockcommandId}:
+    get:
+      tags:
+        - Vehicle Commands
+      summary: Lock Command Status
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: LockcommandId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/startEngine:
+    post:
+      tags:
+        - Vehicle Commands
+      summary: Start Engine
+      description: sends Start Engine command to vehicle
+      requestBody:
+        content: {}
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/startEngine/{StartcommandId}:
+    get:
+      tags:
+        - Vehicle Commands
+      summary: Start Command Status
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: StartcommandId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/stopEngine:
+    post:
+      tags:
+        - Vehicle Commands
+      summary: Stop Engine
+      description: sends Start Engine command to vehicle
+      requestBody:
+        content: {}
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/stopEngine/{StopcommandId}:
+    get:
+      tags:
+        - Vehicle Commands
+      summary: Stop Command Status
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: StopcommandId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/wake:
+    post:
+      tags:
+        - Vehicle Commands
+      summary: Wake
+      description: sends Start Engine command to vehicle
+      requestBody:
+        content: {}
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/wake/{WakecommandId}:
+    get:
+      tags:
+        - Vehicle Commands
+      summary: Wake Command Status
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: commandid
+          in: header
+          schema:
+            type: string
+          example: '{{UnlockcommandId}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: WakecommandId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/startCharge:
+    post:
+      tags:
+        - EV Commands
+      summary: Start Charge
+      description: sends unlock command to vehicle
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '*/*'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: callback-url
+          in: header
+          schema:
+            type: string
+          example: '{{callback-url}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/stopCharge:
+    post:
+      tags:
+        - EV Commands
+      summary: Stop Charge
+      description: sends unlock command to vehicle
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '*/*'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: callback-url
+          in: header
+          schema:
+            type: string
+          example: '{{callback-url}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/chargeSchedules:
+    get:
+      tags:
+        - EV Commands
+      summary: Get charge schedule
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: commandid
+          in: header
+          schema:
+            type: string
+          example: '{{UnlockcommandId}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/departureTimes:
+    get:
+      tags:
+        - EV Commands
+      summary: Get depature times
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: commandid
+          in: header
+          schema:
+            type: string
+          example: '{{UnlockcommandId}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/status:
+    post:
+      tags:
+        - Vehicle Information
+      summary: Vehicle Status
+      description: sends unlock command to vehicle
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '*/*'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: callback-url
+          in: header
+          schema:
+            type: string
+          example: '{{callback-url}}'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}:
+    get:
+      tags:
+        - Vehicle Information
+      summary: Vehicle information
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/location:
+    post:
+      tags:
+        - Location
+      summary: Vehicle Location
+      description: Gets the status of the command
+      requestBody:
+        content: {}
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Location
+      summary: Vehicle Location
+      description: Gets the status of the command
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/images/thumbnail:
+    get:
+      tags:
+        - Vehicle Image
+      summary: Get Vehicle Image Thumbnail
+      description: Returns vehicle image thumbnail
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          description: api-version
+          example: '2020-06-01'
+        - name: make
+          in: query
+          schema:
+            type: string
+          description: make
+          example: Ford
+        - name: model
+          in: query
+          schema:
+            type: string
+          description: model
+        - name: year
+          in: query
+          schema:
+            type: integer
+          description: year
+          example: '2019'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/fordconnect/vehicles/v1/{vehicleId}/images/full:
+    get:
+      tags:
+        - Vehicle Image
+      summary: Get image Full
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: api-version
+          in: header
+          schema:
+            type: string
+          example: '2020-06-01'
+        - name: Application-Id
+          in: header
+          schema:
+            type: string
+          description: Application-Id
+          example: '{{applicationId}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: Authorization
+          example: Bearer {{accessToken}}
+        - name: make
+          in: query
+          schema:
+            type: string
+          example: Ford
+        - name: model
+          in: query
+          schema:
+            type: string
+        - name: year
+          in: query
+          schema:
+            type: integer
+          example: '2019'
+        - name: vehicleId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
