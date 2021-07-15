@@ -18,6 +18,7 @@ import { CommentButton } from "./CommentButton";
 
 import TimeAgo from "javascript-time-ago";
 import colors from "themes/colors";
+// @ts-ignore
 import Interpolate from "@doist/react-interpolate";
 
 const timeAgo = new TimeAgo("en-US");
@@ -40,6 +41,8 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
   return (
     <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
+        {/* 
+          // @ts-ignore */}
         <Avatar src={avatarSrc} w="4rem" h="4rem" />
         <Flex
           ml="4"
@@ -106,7 +109,7 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
             <Interpolate
                 string={content}
                 mapping={{
-                  mention: text => (
+                  mention: (text: any) => (
                     <Link key={Math.random()} href="/profile/me" passHref>
                       <a style={{
                         textDecoration: "underline",
@@ -114,7 +117,7 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
                       }}>@{text}</a>
                     </Link>
                   ),
-                  hashtag: text => {
+                  hashtag: (text: any) => {
                     const tag = text[0]['props']['children'];
                     return (
                       <a 

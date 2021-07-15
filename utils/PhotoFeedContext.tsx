@@ -1,9 +1,6 @@
 // @ts-nocheck
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useState } from "react";
 import { supabase } from "./supabase";
-import Router from "next/router";
-import { NotificationContext } from "./NotificationContext";
-import { setCookie } from 'react-use-cookie';
 
 export const PhotoFeedContext = createContext({
     fetchFeedData: async (t) => {},
@@ -58,8 +55,38 @@ export function PhotoFeedProvider({ children }) {
 
         const user = await supabase.auth.user();
 
+        const _user_posts = user_posts
+        .filter(p => {
+            return !!users.filter(u => u.user_id === p.user_id)[0];
+        })
+        .map(({ 
+            image_base64, 
+            created, 
+            content, 
+            user_id,
+            likes,
+            comments
+        }) => {
+            const user = users.filter(u => u.user_id === user_id)[0];
+            let { profile_pic_base64, username, email, vehicle_name } = user;
+            username = username || email;
+
+            return {
+              image_base64,
+              username,
+              vehicle_name,
+              created,
+              content,
+              profile_pic_base64,
+              user_id,
+              authUserUuid: authUser['id'],
+              likes,
+              comments,
+            }
+        });
+
         setUsers([...post_authors]);
-        setPosts([...user_posts]);
+        setPosts([..._user_posts]);
         setAuthUser(user);
     };
 
