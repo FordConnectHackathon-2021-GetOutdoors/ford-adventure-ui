@@ -72,7 +72,7 @@ export default function Profile() {
     return await supabase
             .from('users')
             .select('*')
-            .eq('user_uuid', queryUserId);
+            .eq('user_id', queryUserId);
   }, [id])
   .then(({ data }) => {
     if (_.isEmpty(user) && !!data && data.length > 0) {
@@ -93,7 +93,7 @@ export default function Profile() {
     return await supabase
             .from('users')
             .update({ [field]: `${fieldValue}` })
-            .eq('user_uuid', queryUserId);
+            .eq('user_id', queryUserId);
   }, [field, fieldValue, id])
   .then(({ data }) => {
     if (_.isEmpty(user) && !!data && data.length > 0) {
@@ -112,7 +112,7 @@ export default function Profile() {
   //   return await supabase
   //           .from('users_followers')
   //           .upsert({ [field]: `${fieldValue}` })
-  //           .eq('user_uuid', user['id'] || '');
+  //           .eq('user_id', user['id'] || '');
   // }, [field, fieldValue])
   // .then(({ data }) => {
   //   if (_.isEmpty(user) && !!data && data.length > 0) {

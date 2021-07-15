@@ -23,6 +23,7 @@ import { MapProvider } from "utils/MapContext";
 import TimeAgo from "javascript-time-ago";
 
 import en from 'javascript-time-ago/locale/en';
+import { PhotoFeedProvider } from "utils/PhotoFeedContext";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -38,28 +39,30 @@ function AppContainer({ Component, pageProps }: AppProps) {
         <NotificationProvider {...pageProps}>
           <AuthProvider>
             {/* <ThemeSwitcher /> */}
-            <MapProvider>
-                <QueryClientProvider client={queryClient}>
-                  <ImageProvider>
-                    <SWRConfig
-                      value={{
-                        refreshInterval: 5000,
-                        fetcher,
-                      }}
-                    >
-                      <CustomHead {...pageProps} />
-                      <Component {...pageProps} />
-                      <ToastContainer
-                        position={toast.POSITION.BOTTOM_CENTER}
-                        transition={Flip}
-                        autoClose={8000}
-                        draggablePercent={50}
-                        hideProgressBar={true}
-                      />
-                    </SWRConfig>
-                  </ImageProvider>
-                </QueryClientProvider>
-            </MapProvider>
+            <PhotoFeedProvider>
+              <MapProvider>
+                  <QueryClientProvider client={queryClient}>
+                    <ImageProvider>
+                      <SWRConfig
+                        value={{
+                          refreshInterval: 5000,
+                          fetcher,
+                        }}
+                      >
+                        <CustomHead {...pageProps} />
+                        <Component {...pageProps} />
+                        <ToastContainer
+                          position={toast.POSITION.BOTTOM_CENTER}
+                          transition={Flip}
+                          autoClose={8000}
+                          draggablePercent={50}
+                          hideProgressBar={true}
+                        />
+                      </SWRConfig>
+                    </ImageProvider>
+                  </QueryClientProvider>
+              </MapProvider>
+            </PhotoFeedProvider>
           </AuthProvider>
         </NotificationProvider>
       </ThemeProvider>

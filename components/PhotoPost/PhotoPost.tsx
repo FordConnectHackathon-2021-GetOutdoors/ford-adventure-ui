@@ -5,11 +5,11 @@ import {
   HStack,
   Text,
   ChakraProps,
-  Avatar,
   Button,
   Flex,
   VStack,
 } from "@chakra-ui/react";
+import { Avatar } from "@chakra-ui/avatar"
 import Link from "next/link";
 import { LikeCount } from "./LikeCount";
 import { LikeButton } from "./LikeButton";
@@ -32,7 +32,6 @@ interface PhotoPostProps extends ChakraProps {
 }
 
 export function PhotoPost({ username, vehicleName, created, content, imgSrc, avatarSrc, userUuid, authUserUuid }: PhotoPostProps) {
-  console.log(username, vehicleName, created, content, 'cover pic', 'avatar pic', userUuid, authUserUuid)
   return (
     <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
@@ -59,13 +58,9 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
             >
               {vehicleName}
             </Button>
-<<<<<<< HEAD
             <Box color={colors.text.darkgrey}>
               {timeAgo.format(new Date(created))}
             </Box>
-=======
-            {/* <Text color={colors.text.darkgrey}>{ timeAgo.format(new Date(created)) }</Text> */}
->>>>>>> b2aa76d (profile + photo feed changes)
           </Flex>
         </Flex>
       </Flex>
@@ -91,10 +86,6 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
             <LikeCount likeCount={3} />
           </Flex>
         </HStack>
-<<<<<<< HEAD
-        {/* <LikeCount likeCount={99} /> */}
-=======
->>>>>>> b2aa76d (profile + photo feed changes)
         <Box
           fontFamily="FontAntenna"
           color="gray.600"
@@ -106,13 +97,7 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
               {username}
             </Link>
           </Text>
-<<<<<<< HEAD
           <Text>{content}</Text>
-=======
-          <Text>
-            {content}
-          </Text>
->>>>>>> b2aa76d (profile + photo feed changes)
         </Box>
       </Box>
     </VStack>

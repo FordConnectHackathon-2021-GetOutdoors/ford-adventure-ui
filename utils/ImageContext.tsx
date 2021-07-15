@@ -82,7 +82,7 @@ export function ImageProvider({ children }) {
           profile_pic_base64: base64,
         },
       ])
-      .eq('user_uuid', user.id,);
+      .eq('user_id', user.id,);
 
     if (error) {
       showError(error.message);
@@ -98,7 +98,7 @@ export function ImageProvider({ children }) {
           cover_pic_base64: base64,
         },
       ])
-      .eq('user_uuid', user.id,);
+      .eq('user_id', user.id,);
 
     if (error) {
       showError(error.message);
