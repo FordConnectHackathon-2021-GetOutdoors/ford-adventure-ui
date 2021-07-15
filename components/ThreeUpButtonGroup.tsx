@@ -61,7 +61,7 @@ export function ThreeUpButtonGroup(props: any) {
     "text.darkPlaceholder"
   );
   return (
-    <HStack spacing={4} alignItems="baseline">
+    <HStack spacing={4} alignItems="baseline" mt="-2">
       {props.children}
     </HStack>
   );

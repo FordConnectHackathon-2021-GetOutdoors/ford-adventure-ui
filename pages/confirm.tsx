@@ -1,4 +1,13 @@
-import { Box, Flex, Stack, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Icon,
+  Stack,
+  VStack,
+} from "@chakra-ui/react";
 import { Header } from "components/Header/Header";
 import { MotionBox } from "components/motion";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,6 +20,7 @@ import { RadioButton, ThreeUpButtonGroup } from "components/ThreeUpButtonGroup";
 
 import { LockIcon, StartIcon, UnlockIcon } from "components/Icons";
 import { ContinueButton } from "components/ContinueButton";
+import { PhoneIcon } from "@chakra-ui/icons";
 
 export const getServerSideProps = async (context: any) => {
   if (!context?.query?.adventure)
@@ -84,6 +94,7 @@ export const AdventureConfirmation = ({ adventure }: any) => {
         }}
         mx="auto"
         w="100%"
+        spacing="4"
       >
         <MotionBox
           as={motion.li}
@@ -133,8 +144,8 @@ export const AdventureConfirmation = ({ adventure }: any) => {
         >
           <LocationMap handleApiLoaded={handleApiLoaded} />
         </MotionBox>
-        <MotionBox as={Flex}>
-          <Box px={8} py={4}>
+        <MotionBox as={Flex} px={8} alignItems="flex-start ">
+          <Stack flexBasis="90%" spacing="2">
             <Box
               fontFamily="FontAntennaCond"
               fontWeight="600"
@@ -145,6 +156,19 @@ export const AdventureConfirmation = ({ adventure }: any) => {
             >
               {displayName}
             </Box>
+            <Box>1 Zion Park Blvd. State Route 9 Springdale, UT 84767</Box>
+          </Stack>
+          <Box
+            flexBasis="20%"
+            shadow="buttonShadowDefault"
+            as={Button}
+            borderRadius="full"
+            h="10"
+            w="10"
+            pos="relative"
+            top="-2"
+          >
+            <PhoneIcon />
           </Box>
         </MotionBox>
         <Box px={8}>
