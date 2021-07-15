@@ -25,7 +25,7 @@ export function PhotoFeed () {
     
     return (
         <>
-            <PullToRefresh onRefresh={() => Promise.resolve(fetchFeedData())}>
+            <PullToRefresh onRefresh={() => Promise.resolve(fetchFeedData(""))}>
                 {
                     posts && posts.length > 0 &&
                     posts
