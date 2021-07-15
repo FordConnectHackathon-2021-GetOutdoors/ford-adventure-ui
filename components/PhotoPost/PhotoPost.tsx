@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from "react";
 import Image from "next/image";
 import {
@@ -8,6 +9,7 @@ import {
   Button,
   Flex,
   VStack,
+  Link as ChakraLink
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar"
 import Link from "next/link";
@@ -17,6 +19,7 @@ import { CommentButton } from "./CommentButton";
 
 import TimeAgo from "javascript-time-ago";
 import colors from "themes/colors";
+import Interpolate from "@doist/react-interpolate";
 
 const timeAgo = new TimeAgo("en-US");
 
@@ -29,9 +32,12 @@ interface PhotoPostProps extends ChakraProps {
   avatarSrc: StaticImageData;
   userUuid: string;
   authUserUuid: string;
+  parentRef: any;
+  likes: number;
+  comments: number;
 }
 
-export function PhotoPost({ username, vehicleName, created, content, imgSrc, avatarSrc, userUuid, authUserUuid }: PhotoPostProps) {
+export function PhotoPost({ username, vehicleName, created, content, imgSrc, avatarSrc, userUuid, authUserUuid, parentRef, likes, comments }: PhotoPostProps) {
   return (
     <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
@@ -79,11 +85,11 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
         <HStack spacing="5" pt="2" pb="3">
           <Flex>
             <LikeButton />
-            <LikeCount likeCount={100} />
+            <LikeCount likeCount={likes} />
           </Flex>
           <Flex>
             <CommentButton />
-            <LikeCount likeCount={3} />
+            <LikeCount likeCount={comments} />
           </Flex>
         </HStack>
         <Box
@@ -97,7 +103,33 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
               {username}
             </Link>
           </Text>
-          <Text>{content}</Text>
+          <Text>
+            <Interpolate
+                string={content}
+                mapping={{
+                    mention: text => (
+                      <Link key={Math.random()} href="/profile/me" passHref>
+                        <a style={{
+                          textDecoration: "underline",
+                          color: `${colors.text.link}`,
+                        }}>@{text}</a>
+                      </Link>
+                    ),
+                    hashtag: text => {
+                      const tag = text[0]['props']['children'];
+                      return (
+                      <ChakraLink key={Math.random()} onClick={() => {
+                        parentRef.current();
+                      }}>
+                        <a style={{
+                          textDecoration: "underline",
+                          color: `${colors.text.link}`,
+                        }}>#{text}</a>
+                      </ChakraLink>
+                    )},
+                }}
+            />
+          </Text>
         </Box>
       </Box>
     </VStack>

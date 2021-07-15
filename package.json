@@ -16,6 +16,7 @@
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",
     "@chakra-ui/theme-tools": "^1.1.8",
+    "@doist/react-interpolate": "0.2.1",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@supabase/supabase-js": "^1.18.1",

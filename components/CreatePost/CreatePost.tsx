@@ -134,7 +134,7 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                 data={followers}
                 className={classNames.mentions__mention}
                 appendSpaceOnAdd
-                markup="@[__id__]"
+                markup="<mention>__id__</mention>"
                 displayTransform={(id) => `@${id}`}
               />
               <Mention
@@ -142,7 +142,7 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                 data={tags}
                 className={classNames.mentions__mention}
                 appendSpaceOnAdd
-                markup="#[__id__]"
+                markup="<hashtag>__id__</hashtag>"
                 displayTransform={(id) => `#${id}`}
               />
               <Mention

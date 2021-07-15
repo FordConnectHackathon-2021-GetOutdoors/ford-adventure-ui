@@ -36,7 +36,6 @@ export function PhotoFeedProvider({ children }) {
         setUsers([...post_authors]);
         setPosts([...user_posts]);
         setAuthUser(user);
-        console.log('called', user)
     };
 
   return (
