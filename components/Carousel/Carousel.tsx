@@ -143,7 +143,11 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
       >
         <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
           <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
+<<<<<<< HEAD
             {mockSlides.map((slide, sid) => (
+=======
+            {slides.map((slide: any, sid) => (
+>>>>>>> 75f7bf71e9901f05cda054a8e29b3c17317f6ce4
               <Box
                 key={`slide-${sid}`}
                 h="var(--100vh)"

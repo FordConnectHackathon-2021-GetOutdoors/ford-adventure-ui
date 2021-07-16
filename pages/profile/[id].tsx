@@ -22,8 +22,8 @@ import _ from 'lodash';
 import colors from 'themes/colors';
 import { useRouter } from 'next/router';
 
-const defaultPicLink = '../public/images/default-cover-pic.jpg';
-const defaultAvatarLink = '../public/images/default-avatar.png';
+const defaultPicLink = '../images/default-cover-pic.jpg';
+const defaultAvatarLink = '../images/default-avatar.png';
 
 export default function Profile() {
   const { query } = useRouter();

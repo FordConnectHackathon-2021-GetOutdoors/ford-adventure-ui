@@ -88,7 +88,7 @@ export default function Adventures({ ...props }) {
               })}
             </HStack>
           </HStack>
-          <Carousel filterBy={queryType} />
+          <Carousel filterBy={queryType as any} />
         </>
       ) : (
         <Carousel />
