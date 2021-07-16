@@ -38,6 +38,7 @@ import { FileProps } from "utils/CommonProps";
 import classNames from "./CreatePost.module.css";
 
 import { emojiJSON } from "./emojis";
+import { useEffect } from "react";
 
 const neverMatchingRegex = /($a)/;
 
@@ -65,6 +66,19 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
     { id: "brad", display: "Bradley Horlander" },
     { id: "pushkar", display: "Pushkar Atul Mungikar" },
   ]);
+
+  useEffect(() => {
+    Promise.resolve(getTags())
+    .then((_tags: any[]) => {
+      setTags(
+        _tags.map(t => ({
+          id: t['hashtag'],
+          display: t['hashtag']
+        }))
+      );
+    })
+    .catch(e => console.log(e));
+  }, [getTags]);
 
   useImperativeHandle(ref, () => ({
     openHandler(newSize: string) {
