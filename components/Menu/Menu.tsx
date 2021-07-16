@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import {
   Box,
+  Button,
   Divider,
   Drawer,
   DrawerBody,
@@ -22,8 +23,11 @@ import { Logo } from "components/Logo/Logo";
 import useFordUser from "utils/useFordUser";
 import { getCode } from "utils/endpoints";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Menu() {
+  const { pathname } = useRouter();
+
   const { isDesktopOrLaptop } = useContext(DeviceContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -73,7 +77,7 @@ export default function Menu() {
   };
 
   const toast = useToast();
-
+  console.log("🚀 ~ file: Menu.tsx ~ line 161 ~ Menu ~ pathname");
   return (
     <>
       <IconButton
@@ -93,7 +97,13 @@ export default function Menu() {
         <DrawerContent>
           <DrawerCloseButton mt="2em" />
           <DrawerHeader pb="0">
-            <Logo />
+            {pathname !== "/" && (
+              <Link href="/" passHref>
+                <a>
+                  <Logo />
+                </a>
+              </Link>
+            )}
           </DrawerHeader>
           <DrawerBody paddingStart="0" paddingEnd="0">
             <Divider />

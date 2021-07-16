@@ -7,19 +7,22 @@ import {
   Image,
   Heading,
   Icon,
+  filter,
+  Link,
 } from "@chakra-ui/react";
 import { SliderButton } from "./SliderButton";
 import { MotionBox } from "components/motion";
 import { AnimatePresence } from "framer-motion";
 
 type CarouselProps = {
-  filterBy: string;
+  filterBy?: string;
+  adventure?: any;
 };
 
-export function Carousel({ ...props }: CarouselProps) {
+export function Carousel({ adventure, ...props }: CarouselProps) {
+  const { slug }: any = props || { slug: "foo" };
   const arrowStyles = {
     cursor: "pointer",
-    // position: "absolute",
     top: "50%",
     w: "auto",
     mt: "-22px",
@@ -29,7 +32,6 @@ export function Carousel({ ...props }: CarouselProps) {
     fontSize: "18px",
     transition: "0.6s ease",
     borderRadius: "0 3px 3px 0",
-    // userSelect: "none",
     _hover: {
       opacity: 0.8,
       bg: "black",
@@ -105,7 +107,6 @@ export function Carousel({ ...props }: CarouselProps) {
       justifyContent="center"
       position="fixed"
       top="0"
-      // zIndex={-1}
     >
       <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
         <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
@@ -147,15 +148,15 @@ export function Carousel({ ...props }: CarouselProps) {
                     px={10}
                     pb={10}
                   >
-                    <Heading variant="SummaryTitle" mb="4">
-                      {slide.tagLine}
-                    </Heading>
-                    {/* <Heading
+                    <Heading
                       variant="SummaryTitle"
                       fontSize={["1rem", "clamp(4rem, 20vh, 20rem)"]}
                     >
                       {slide.displayName}
-                    </Heading> */}
+                    </Heading>
+                    <Heading variant="SectionHeading" my="4" color="white">
+                      {slide.tagLine}
+                    </Heading>
                     <Flex fontSize={["1rem", "xl", "5xl"]}>
                       <Flex alignItems="center">
                         <Icon

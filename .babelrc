@@ -11,5 +11,6 @@
         "cssPropOptimization": true
       }
     ]
-  ]
+  ],
+  "exclude": ["components/CreatePost/emojis.js"]
 }

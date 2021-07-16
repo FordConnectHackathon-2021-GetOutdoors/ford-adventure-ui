@@ -10,7 +10,6 @@ import {
   Stack,
   Grid,
   GridItem,
-  chakra,
 } from "@chakra-ui/react";
 import useFordUser from "utils/useFordUser";
 import Link from "next/link";

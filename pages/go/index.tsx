@@ -49,42 +49,41 @@ export default function Adventures({ ...props }) {
   return (
     <>
       <Header variant="overlay" />
-      {/* <Box> */}
-      {/* <h3>Cookies</h3>
-        <ul>
-          {Object.keys(cookies).map((name) => (
-            <li key={name}>
-              {name} : {cookies[name]}
-            </li>
-          ))}
-        </ul>
-
-      </Box> */}
-      <HStack
-        overflowX="scroll"
-        pl={9}
-        position="relative"
-        zIndex="2"
-        css={{ "::-webkit-scrollbar": { display: "none" } }}
-      >
-        <HStack pr="9">
-          {filters.map((filter: Filter, i: number) => {
-            return (
-              <Link key={filter.key} href={`/go?type=${filter.key}`} passHref>
-                <Button
-                  as="a"
-                  variant={
-                    currentFilter === filter.key ? "pill" : "pillSelected"
-                  }
-                >
-                  {filter.displayName}
-                </Button>
-              </Link>
-            );
-          })}
-        </HStack>
-      </HStack>
-      <Carousel filterBy={currentFilter} />
+      {filters.length ? (
+        <>
+          <HStack
+            overflowX="scroll"
+            pl={9}
+            position="relative"
+            zIndex="2"
+            css={{ "::-webkit-scrollbar": { display: "none" } }}
+          >
+            <HStack pr="9">
+              {filters.map((filter: Filter, i: number) => {
+                return (
+                  <Link
+                    key={filter.key}
+                    href={`/go?type=${filter.key}`}
+                    passHref
+                  >
+                    <Button
+                      as="a"
+                      variant={
+                        currentFilter === filter.key ? "pill" : "pillSelected"
+                      }
+                    >
+                      {filter.displayName}
+                    </Button>
+                  </Link>
+                );
+              })}
+            </HStack>
+          </HStack>
+          <Carousel filterBy={currentFilter} />
+        </>
+      ) : (
+        <Carousel />
+      )}
     </>
   );
 }
