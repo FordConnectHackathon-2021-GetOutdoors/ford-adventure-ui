@@ -142,12 +142,44 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
         top="0"
       >
         <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
-          <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
-<<<<<<< HEAD
-            {mockSlides.map((slide, sid) => (
-=======
-            {slides.map((slide: any, sid) => (
->>>>>>> 75f7bf71e9901f05cda054a8e29b3c17317f6ce4
+          <Box
+            bg="
+            linear-gradient(
+              to bottom,
+              hsla(0, 0%, 0%, 0) 0%,
+              hsla(0, 0%, 0%, 0.006) 8.1%,
+              hsla(0, 0%, 0%, 0.023) 15.5%,
+              hsla(0, 0%, 0%, 0.049) 22.5%,
+              hsla(0, 0%, 0%, 0.082) 29%,
+              hsla(0, 0%, 0%, 0.122) 35.3%,
+              hsla(0, 0%, 0%, 0.165) 41.2%,
+              hsla(0, 0%, 0%, 0.212) 47.1%,
+              hsla(0, 0%, 0%, 0.258) 52.9%,
+              hsla(0, 0%, 0%, 0.305) 58.8%,
+              hsla(0, 0%, 0%, 0.348) 64.7%,
+              hsla(0, 0%, 0%, 0.388) 71%,
+              hsla(0, 0%, 0%, 0.421) 77.5%,
+              hsla(0, 0%, 0%, 0.447) 84.5%,
+              hsla(0, 0%, 0%, 0.464) 91.9%,
+              hsla(0, 0%, 0%, 0.47) 100%
+            )
+          "
+            pos="fixed"
+            bottom={0}
+            w="100%"
+            h="50%"
+            zIndex={1}
+            pointerEvents="none"
+          />
+
+          <Flex
+            h="var(--100vh)"
+            width="100vw"
+            {...carouselStyle}
+            pos="relative"
+            zIndex="10"
+          >
+            {mockSlides.map((slide: any, sid) => (
               <Box
                 key={`slide-${sid}`}
                 h="var(--100vh)"
@@ -267,10 +299,22 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
               </Box>
             ))}
           </Flex>
-          <SliderButton {...arrowStyles} onClick={prevSlide} left="5">
+          <SliderButton
+            {...arrowStyles}
+            onClick={prevSlide}
+            left="5"
+            pos="relative"
+            zIndex="11"
+          >
             ◀
           </SliderButton>
-          <SliderButton {...arrowStyles} onClick={nextSlide} right="5">
+          <SliderButton
+            {...arrowStyles}
+            onClick={nextSlide}
+            right="5"
+            pos="relative"
+            zIndex="11"
+          >
             ▶
           </SliderButton>
         </Flex>

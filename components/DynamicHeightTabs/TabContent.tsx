@@ -4,7 +4,7 @@ import { MotionBox } from "components/motion";
 
 interface TabContentProps {
   headerHeight: number | undefined;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function TabContent({ headerHeight, children }: TabContentProps) {
