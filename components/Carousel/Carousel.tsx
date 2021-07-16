@@ -149,7 +149,7 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
       >
         <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
           <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
-            {slides.map((slide, sid) => (
+            {slides.map((slide: any, sid) => (
               <Box
                 key={`slide-${sid}`}
                 h="var(--100vh)"
