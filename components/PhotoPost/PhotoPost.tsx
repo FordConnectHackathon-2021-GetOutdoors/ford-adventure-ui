@@ -110,7 +110,7 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
                 string={content}
                 mapping={{
                   mention: (text: any) => (
-                    <Link key={Math.random()} href="/profile/me" passHref>
+                    <Link key={Math.random()} href={authUserUuid == userUuid ? `/profile/me` : `/profile/${userUuid}`} passHref>
                       <a style={{
                         textDecoration: "underline",
                         color: `${colors.text.link}`,
