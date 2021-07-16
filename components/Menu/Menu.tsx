@@ -53,7 +53,7 @@ export default function Menu() {
     },
     {
       text: "Profile",
-      to: "/",
+      to: "/profile/me",
     },
     {
       text: "Settings",
@@ -77,7 +77,7 @@ export default function Menu() {
   };
 
   const toast = useToast();
-  console.log("🚀 ~ file: Menu.tsx ~ line 161 ~ Menu ~ pathname");
+
   return (
     <>
       <IconButton

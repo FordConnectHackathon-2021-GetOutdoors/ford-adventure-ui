@@ -32,9 +32,6 @@ export const useMobileTabsContent = () => {
   const TabsContent = useMemo(() => {
     return [
       <TabContent key="photos" headerHeight={headerHeight}>
-        {/* <PhotoPost imgSrc={utah} />
-        <PhotoPost imgSrc={utah} />
-        <PhotoPost imgSrc={utah} /> */}
         <PhotoFeed />
       </TabContent>,
 

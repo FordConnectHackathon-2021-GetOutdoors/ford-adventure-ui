@@ -28,7 +28,7 @@ export function PhotoUpload() {
     const childRef = useRef({
         openHandler: (size: string) => {}
     });
-    const { showError } = useContext(NotificationContext);
+    const { showCustom } = useContext(NotificationContext);
     const { isBigScreen, isDesktopOrLaptop } = useContext(DeviceContext);
 
     return (
@@ -63,7 +63,12 @@ export function PhotoUpload() {
                             }
                         };
                         reader.onerror = function (error) {
-                            showError(error);
+                            console.log(error)
+                            showCustom({ 
+                                title: 'Something went wrong', 
+                                message: 'Sorry, your post could not be uploaded !', 
+                                status: "ERROR"
+                            });
                         };
                         reader.readAsDataURL(file);
                     }

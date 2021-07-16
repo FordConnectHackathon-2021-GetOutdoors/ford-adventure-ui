@@ -71,7 +71,7 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.14.6"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.14.6.tgz"
   integrity sha512-/PCB2uJ7oM44tz8YhC4Z/6PeOKXp4K588f+5M3clr1M4zbqztlo0XEfJ2LEzj/FgwfgGcIdl8n7YYjTCI0BYwg==
@@ -116,9 +116,9 @@
     "@chakra-ui/react-utils" "1.1.2"
     "@chakra-ui/utils" "1.8.1"
 
-"@chakra-ui/avatar@1.2.7":
+"@chakra-ui/avatar@1.2.7", "@chakra-ui/avatar@^1.2.7":
   version "1.2.7"
-  resolved "https://registry.npmjs.org/@chakra-ui/avatar/-/avatar-1.2.7.tgz"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/avatar/-/avatar-1.2.7.tgz#dcb85effd1617f39afc31dc233e0e3dddc835129"
   integrity sha512-WwtHDEmnSglBKOkxQHRu8tUtRTKu+vn35JlO6QVP+Mb5SPX0vFns3F38dohVr2s1wGUiMVMq/bt0JNCG5fFzhQ==
   dependencies:
     "@chakra-ui/image" "1.0.17"
@@ -651,6 +651,13 @@
   integrity sha512-wFFXdejxwOT7r7AbD/IFl6Ve+n6VIOl2Drjcrn3JXmfwzL9NKB3xrtcdMXe8G/zW9jRXh+E6DUkTyEUjdUZErg==
   dependencies:
     "@chakra-ui/utils" "1.8.1"
+
+"@doist/react-interpolate@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@doist/react-interpolate/-/react-interpolate-0.2.1.tgz#89826e19a7eb2972c44d351385c791336dc45f60"
+  integrity sha512-GC5AOU/X0mP92pEacuY8d/cgm/Fiu9z8q1U6WdCRkXvUJDp9DmjskNnHd+Eq13ORvt06lVn3N9jLjhPmOXJYUg==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
 
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
@@ -5006,6 +5013,11 @@ react-responsive@^8.2.0:
     prop-types "^15.6.1"
     shallow-equal "^1.1.0"
 
+react-simple-pull-to-refresh@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-simple-pull-to-refresh/-/react-simple-pull-to-refresh-1.2.3.tgz#e2fc67ba25e688c9866670e08c455ebc464f497f"
+  integrity sha512-GH4dJn3954IavyOg6rkF00LPqr2lG0DzLNGMhTYXDaOP5mjAduW3TCThexExS/sDWrRpN37IU8gzaimCvUse+w==
+
 react-spring@^8.0.27:
   version "8.0.27"
   resolved "https://registry.npmjs.org/react-spring/-/react-spring-8.0.27.tgz"
@@ -5074,6 +5086,11 @@ react-transition-group@^4.4.1:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-use-cookie@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-use-cookie/-/react-use-cookie-1.2.1.tgz#c14690217bd9f1e17c5cca0921653feb1ef48719"
+  integrity sha512-3StMDEL5TbwfX0KqbgtNcC+FD7hSE2DZpgvxz1jXrwBS2gsnb2W8EgkJoVgu+MxjFMKrW4wDBuGlf/jXLXb2cQ==
 
 react@17.0.2:
   version "17.0.2"

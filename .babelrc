@@ -12,5 +12,6 @@
       }
     ]
   ],
-  "exclude": ["components/CreatePost/emojis.js"]
+  "exclude": ["components/CreatePost/emojis.js"],
+  "env": { "development": { "compact": true } }
 }

@@ -38,12 +38,13 @@ import { FileProps } from "utils/CommonProps";
 import classNames from "./CreatePost.module.css";
 
 import { emojiJSON } from "./emojis";
+import { useEffect } from "react";
 
 const neverMatchingRegex = /($a)/;
 
 export const CreatePost = forwardRef((props: FileProps, ref) => {
-  const { showError } = useContext(NotificationContext);
-  const { uploadImage } = useContext(ImageContext);
+  const { showCustom } = useContext(NotificationContext);
+  const { uploadImage, getTags } = useContext(ImageContext);
   const { getShortLocationPromise } = useContext(MapContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState("md");
@@ -57,6 +58,27 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
   const initialRef = useRef();
 
   const { fileName, ext, imageBase64 } = props;
+
+  const [tags, setTags] = useState([]);
+  const [followers] = useState([
+    { id: "matt", display: "Matt Wood" },
+    { id: "kori", display: "Kori Skeffington" },
+    { id: "brad", display: "Bradley Horlander" },
+    { id: "pushkar", display: "Pushkar Atul Mungikar" },
+  ]);
+
+  useEffect(() => {
+    Promise.resolve(getTags())
+    .then((_tags: any[]) => {
+      setTags(
+        _tags.map(t => ({
+          id: t['hashtag'],
+          display: t['hashtag']
+        }))
+      );
+    })
+    .catch(e => console.log(e));
+  }, [getTags]);
 
   useImperativeHandle(ref, () => ({
     openHandler(newSize: string) {
@@ -80,20 +102,6 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
     );
     onClose();
   };
-
-  const [followers] = useState([
-    { id: "matt", display: "Matt Wood" },
-    { id: "kori", display: "Kori Skeffington" },
-    { id: "brad", display: "Bradley Horlander" },
-    { id: "pushkar", display: "Pushkar Atul Mungikar" },
-  ]);
-  const [tags] = useState([
-    { id: "denvermountains", display: "denvermountains" },
-    { id: "vermontfoliage", display: "vermontfoliage" },
-    { id: "utahdesert", display: "utahdesert" },
-    { id: "dallascityline", display: "dallascityline" },
-    { id: "streetsofnewyork", display: "streetsofnewyork" },
-  ]);
 
   const queryEmojis = (query, callback) => {
     if (query.length === 0) return;
@@ -134,7 +142,7 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                 data={followers}
                 className={classNames.mentions__mention}
                 appendSpaceOnAdd
-                markup="@[__id__]"
+                markup="<mention>__id__</mention>"
                 displayTransform={(id) => `@${id}`}
               />
               <Mention
@@ -142,7 +150,7 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                 data={tags}
                 className={classNames.mentions__mention}
                 appendSpaceOnAdd
-                markup="#[__id__]"
+                markup="<hashtag>__id__</hashtag>"
                 displayTransform={(id) => `#${id}`}
               />
               <Mention
@@ -178,7 +186,12 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                             setCurrentLocation(shortLocation);
                           },
                           (error) => {
-                            showError(error);
+                            console.log(error.message);
+                            showCustom({ 
+                              title: 'Something went wrong', 
+                              message: 'Sorry, unable to tag your location !', 
+                              status: "ERROR"
+                            });
                           }
                         );
                       }

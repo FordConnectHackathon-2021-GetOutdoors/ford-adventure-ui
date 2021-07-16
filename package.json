@@ -11,10 +11,12 @@
     "gen-api": "npx orval --config components/VehicleStatus/orval.config.js"
   },
   "dependencies": {
+    "@chakra-ui/avatar": "^1.2.7",
     "@chakra-ui/core": "^0.8.0",
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.5",
     "@chakra-ui/theme-tools": "^1.1.8",
+    "@doist/react-interpolate": "0.2.1",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@supabase/supabase-js": "^1.18.1",
@@ -38,8 +40,10 @@
     "react-query": "^3.18.1",
     "react-responsive": "^8.2.0",
     "react-responsive-carousel": "^3.2.19",
+    "react-simple-pull-to-refresh": "^1.2.3",
     "react-tinder-card": "^1.4.0",
     "react-toastify": "^7.0.4",
+    "react-use-cookie": "^1.2.1",
     "swr": "0.5.6"
   },
   "devDependencies": {
