@@ -41,7 +41,7 @@ export function NotificationProvider({ children }) {
     toast(
       <CustomToast props={Object.assign(defaultProps, props)} />, 
       { 
-        autoClose: props['status'] == "ERROR", 
+        autoClose: props['status'] !== "ERROR", 
         style: {
           margin: "1em" 
         }

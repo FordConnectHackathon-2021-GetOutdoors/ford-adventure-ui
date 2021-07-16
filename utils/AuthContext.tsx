@@ -15,7 +15,7 @@ export const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
-  const { showError } = useContext(NotificationContext);
+  const { showCustom } = useContext(NotificationContext);
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
@@ -60,7 +60,12 @@ export function AuthProvider({ children }) {
       ? await supabase.auth.signIn(props)
       : await supabase.auth.signUp(props);
     if (error) {
-      showError(error);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to signup or signin !', 
+        status: "ERROR"
+      });
     }
     if (user) {
       setUser(user);
@@ -73,7 +78,12 @@ export function AuthProvider({ children }) {
   const resetPasswordHandler = async ({ email }) => {
     const { error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) {
-      showError(error);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to reset your password !', 
+        status: "ERROR"
+      });
     }
   };
 

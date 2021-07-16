@@ -19,7 +19,7 @@ export const ImageContext = createContext({
 });
 
 export function ImageProvider({ children }) {
-  const { showSuccess, showError } = useContext(NotificationContext);
+  const { showCustom } = useContext(NotificationContext);
   const { user } = useContext(AuthContext);
 
   const uploadImage = async (name, ext, base64, content, lat, lng) => {
@@ -38,9 +38,18 @@ export function ImageProvider({ children }) {
       ]);
 
     if (error) {
-      showError(error.message);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to upload photo !', 
+        status: "ERROR"
+      });
     } else {
-      showSuccess("Image uploaded successfully !");
+      showCustom({ 
+        title: 'SUCCESS', 
+        message: 'Photo was uploaded successfully !', 
+        status: "SUCCESS"
+      });
     }
   };
   const downloadImage = async (image_id) => {
@@ -51,9 +60,18 @@ export function ImageProvider({ children }) {
       .eq("id", image_id);
 
     if (error) {
-      showError(error.message);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to download the photo !', 
+        status: "ERROR"
+      });
     } else {
-      showSuccess("Image downloaded successfully !");
+      showCustom({ 
+        title: 'SUCCESS', 
+        message: 'Photo was downloaded successfully !', 
+        status: "SUCCESS"
+      });
     }
     return image_base64?.length > 0 ? image_base64[0] : null;
   };
@@ -64,7 +82,12 @@ export function ImageProvider({ children }) {
       .eq("user_id", user.id);
 
     if (error) {
-      showError(error.message);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to list your photos !', 
+        status: "ERROR"
+      });
     }
     return images_base64;
   };
@@ -72,9 +95,18 @@ export function ImageProvider({ children }) {
     const { error } = await supabase.from(userUploadsTable).eq("id", image_id);
 
     if (error) {
-      showError(error.message);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to delete your photo !', 
+        status: "ERROR"
+      });
     } else {
-      showSuccess("Image deleted successfully !");
+      showCustom({ 
+        title: 'SUCCESS', 
+        message: 'Photo was deleted successfully !', 
+        status: "SUCCESS"
+      });
     }
   };
   const uploadProfilePic = async (base64) => {
@@ -88,9 +120,18 @@ export function ImageProvider({ children }) {
       .eq('user_id', user.id,);
 
     if (error) {
-      showError(error.message);
+      console.log(error);
+      showCustom({ 
+        title: 'Something went wrong', 
+        message: 'Sorry, unable to upload profile photo !', 
+        status: "ERROR"
+      });
     } else {
-      showSuccess("Image uploaded successfully !");
+      showCustom({ 
+        title: 'SUCCESS', 
+        message: 'Your profile photo was uploaded successfully !', 
+        status: "SUCCESS"
+      });
     }
   };
   const uploadCoverPic = async (base64) => {
@@ -103,11 +144,20 @@ export function ImageProvider({ children }) {
       ])
       .eq('user_id', user.id,);
 
-    if (error) {
-      showError(error.message);
-    } else {
-      showSuccess("Image uploaded successfully !");
-    }
+      if (error) {
+        console.log(error);
+        showCustom({ 
+          title: 'Something went wrong', 
+          message: 'Sorry, unable to upload cover photo !', 
+          status: "ERROR"
+        });
+      } else {
+        showCustom({ 
+          title: 'SUCCESS', 
+          message: 'Your cover photo was uploaded successfully !', 
+          status: "SUCCESS"
+        });
+      }
   };
   const getTags = async () => {
     const { data: tags, error } = await supabase

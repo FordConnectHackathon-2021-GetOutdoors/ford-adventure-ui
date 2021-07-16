@@ -37,7 +37,7 @@ export default function Profile() {
   const inputFileAv = useRef<HTMLInputElement | null>(null);
   const [avImage, setAvImage] = useState<string>();
 
-  const { showError } = useContext(NotificationContext);
+  const { showCustom } = useContext(NotificationContext);
 
   const { uploadProfilePic, uploadCoverPic } = useContext(ImageContext);
   const [user, setUser] = useState({} as any);
@@ -163,7 +163,12 @@ export default function Profile() {
                         Promise.resolve(updateUserPromise);
                     };
                     reader.onerror = function (error) {
-                        showError(error);
+                      console.log(error);
+                      showCustom({ 
+                        title: 'Something went wrong', 
+                        message: 'Sorry, your cover photo could not be uploaded !', 
+                        status: "ERROR"
+                      });
                     };
                     reader.readAsDataURL(file);
                 }
@@ -199,7 +204,12 @@ export default function Profile() {
                           // Promise.resolve(updateUserPromise);
                       };
                       reader.onerror = function (error) {
-                          showError(error);
+                        console.log(error);
+                        showCustom({ 
+                          title: 'Something went wrong', 
+                          message: 'Sorry, your avatar could not be uploaded !', 
+                          status: "ERROR"
+                        });
                       };
                       reader.readAsDataURL(file);
                   }

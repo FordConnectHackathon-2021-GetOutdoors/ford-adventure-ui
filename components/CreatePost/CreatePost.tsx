@@ -42,7 +42,7 @@ import { emojiJSON } from "./emojis";
 const neverMatchingRegex = /($a)/;
 
 export const CreatePost = forwardRef((props: FileProps, ref) => {
-  const { showError } = useContext(NotificationContext);
+  const { showCustom } = useContext(NotificationContext);
   const { uploadImage, getTags } = useContext(ImageContext);
   const { getShortLocationPromise } = useContext(MapContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -172,7 +172,12 @@ export const CreatePost = forwardRef((props: FileProps, ref) => {
                             setCurrentLocation(shortLocation);
                           },
                           (error) => {
-                            showError(error);
+                            console.log(error.message);
+                            showCustom({ 
+                              title: 'Something went wrong', 
+                              message: 'Sorry, unable to tag your location !', 
+                              status: "ERROR"
+                            });
                           }
                         );
                       }
