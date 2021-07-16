@@ -10,7 +10,7 @@ import {
   Flex,
   VStack,
 } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/avatar"
+import { Avatar } from "@chakra-ui/avatar";
 import Link from "next/link";
 import { LikeCount } from "./LikeCount";
 import { LikeButton } from "./LikeButton";
@@ -37,7 +37,19 @@ interface PhotoPostProps extends ChakraProps {
   comments: number;
 }
 
-export function PhotoPost({ username, vehicleName, created, content, imgSrc, avatarSrc, userUuid, authUserUuid, parentRef, likes, comments }: PhotoPostProps) {
+export function PhotoPost({
+  username,
+  vehicleName,
+  created,
+  content,
+  imgSrc,
+  avatarSrc,
+  userUuid,
+  authUserUuid,
+  parentRef,
+  likes,
+  comments,
+}: PhotoPostProps) {
   return (
     <VStack pb="8" w="100%">
       <Flex w="100%" pb={1}>
@@ -80,7 +92,12 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
         position="relative"
         width="100%"
       >
-        <Image alt="Upload Photo" src={imgSrc} layout="fill" objectFit="cover" />
+        <Image
+          alt="Upload Photo"
+          src={imgSrc}
+          layout="fill"
+          objectFit="cover"
+        />
       </Box>
 
       <Box width="100%">
@@ -100,38 +117,50 @@ export function PhotoPost({ username, vehicleName, created, content, imgSrc, ava
           fontWeight="300"
           lineHeight={7}
         >
-          <Text fontWeight="500" color="text.darknavy" as="span" pr="2">
-            <Link key={Math.random()} href={authUserUuid == userUuid ? `/profile/me` : `/profile/${userUuid}`} passHref>
-              {username}
-            </Link>
-          </Text>
+          <Text fontWeight="500" color="text.darknavy" as="span" pr="2"></Text>
           <Text>
             <Interpolate
-                string={content}
-                mapping={{
-                  mention: (text: any) => (
-                    <Link key={Math.random()} href={authUserUuid == userUuid ? `/profile/me` : `/profile/${userUuid}`} passHref>
-                      <a style={{
+              string={content}
+              mapping={{
+                mention: (text: any) => (
+                  <Link
+                    key={Math.random()}
+                    href="d"
+                    // href={
+                    //   authUserUuid == userUuid
+                    //     ? `/profile/me`
+                    //     : `/profile/${userUuid}`
+                    // }
+                    passHref
+                  >
+                    <a
+                      style={{
                         textDecoration: "underline",
                         color: `${colors.text.link}`,
-                      }}>@{text}</a>
-                    </Link>
-                  ),
-                  hashtag: (text: any) => {
-                    const tag = text[0]['props']['children'];
-                    return (
-                      <a 
-                        style={{
-                          textDecoration: "underline",
-                          color: `${colors.text.link}`,
-                        }} 
-                        onClick={() => {
-                          parentRef.current(tag);
-                        }}
-                      >#{text}</a>
-                    )
-                  },
-                }}
+                      }}
+                    >
+                      @test
+                      {/* {text} */}
+                    </a>
+                  </Link>
+                ),
+                hashtag: (text: any) => {
+                  const tag = text[0]["props"]["children"];
+                  return (
+                    <a
+                      style={{
+                        textDecoration: "underline",
+                        color: `${colors.text.link}`,
+                      }}
+                      onClick={() => {
+                        parentRef.current(tag);
+                      }}
+                    >
+                      {/* #{text} */}
+                    </a>
+                  );
+                },
+              }}
             />
           </Text>
         </Box>
