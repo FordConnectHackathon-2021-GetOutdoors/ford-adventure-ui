@@ -14,6 +14,7 @@ export const VehicleStatus = ({
   setHeight,
   ...props
 }) => {
+  console.log("🚀 ~ file: VehicleStatus.tsx ~ line 17 ~ adventure", adventure);
   const { odometer, fuelLevel, batteryChargeLevel } =
     data?.vehicle?.vehicleDetails;
 

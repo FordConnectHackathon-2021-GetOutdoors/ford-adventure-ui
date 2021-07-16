@@ -7,6 +7,7 @@ import {
   Image,
   Heading,
   Icon,
+  Link,
 } from "@chakra-ui/react";
 import { SliderButton } from "./SliderButton";
 import { MotionBox } from "components/motion";
@@ -27,6 +28,7 @@ const mockSlides = [
     points: 23,
     distance: "120 miles, 4.2 hours",
     tagLine: "The best place on planet earth",
+    slug: "zions",
   },
   {
     id: "123123123",
@@ -35,6 +37,7 @@ const mockSlides = [
     points: 23,
     distance: "120 miles, 4.2 hours",
     tagLine: "The best place on planet earth",
+    slug: "the-new-beach",
   },
   {
     id: "1276783123123",
@@ -43,6 +46,7 @@ const mockSlides = [
     points: 23,
     distance: "120 miles, 4.2 hours",
     tagLine: "The best place on planet earth",
+    slug: "shelter-island",
   },
   {
     id: "123434534123123",
@@ -51,14 +55,7 @@ const mockSlides = [
     points: 23,
     distance: "120 miles, 4.2 hours",
     tagLine: "The best place on planet earth",
-  },
-  {
-    id: "123123456123",
-    img: "https://images.pexels.com/photos/3124111/pexels-photo-3124111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    displayName: "Zion National Park",
-    points: 23,
-    distance: "120 miles, 4.2 hours",
-    tagLine: "The best place on planet earth",
+    slug: "another-one",
   },
 ];
 
@@ -85,12 +82,9 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
   const [filter, setFilter] = useState();
   const [loading, setLoading] = useState(true);
   const [slides, setSlides] = useState([]);
-
+  console.log("🚀 ~ file: Carousel.tsx ~ line 88 ~ Carousel ~ slides", slides);
+  const [currentSlide, setCurrentSlide] = useState(0);
   async function getSlides() {
-    console.log(
-      "🚀 ~ file: Carousel.tsx ~ line 83 ~ Carousel ~ filterBy",
-      filterBy
-    );
     try {
       setLoading(true);
       let { data, error }: any = await supabase
@@ -104,6 +98,7 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
 
       if (data) {
         setSlides(data);
+        setCurrentSlide(0);
         setFilter(filterBy);
       }
     } catch (error) {
@@ -118,7 +113,6 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
     // eslint-disable-next-line
   }, [filterBy]);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
   const slidesCount = slides.length;
 
   const prevSlide = () => {
@@ -149,7 +143,7 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
       >
         <Flex h="var(--100vh)" width="100vw" overflow="hidden" pos="relative">
           <Flex h="var(--100vh)" width="100vw" {...carouselStyle}>
-            {slides.map((slide, sid) => (
+            {mockSlides.map((slide, sid) => (
               <Box
                 key={`slide-${sid}`}
                 h="var(--100vh)"
@@ -186,13 +180,17 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
                       px={10}
                       pb={10}
                     >
-                      <Heading
-                        variant="SummaryTitle"
-                        fontSize={["3.5rem", "clamp(4rem, 20vh, 20rem)"]}
-                        whiteSpace="break-spaces"
-                      >
-                        {slide.displayName}
-                      </Heading>
+                      <Link href={`/go/${slide.slug}`}>
+                        <a>
+                          <Heading
+                            variant="SummaryTitle"
+                            fontSize={["3.5rem", "clamp(4rem, 20vh, 20rem)"]}
+                            whiteSpace="break-spaces"
+                          >
+                            {slide.displayName}
+                          </Heading>
+                        </a>
+                      </Link>
                       <Heading variant="SectionHeading" my="4" color="white">
                         {slide.tagLine}
                       </Heading>

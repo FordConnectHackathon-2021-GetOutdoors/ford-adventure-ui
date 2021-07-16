@@ -23,13 +23,13 @@ import { ContinueButton } from "components/ContinueButton";
 import { PhoneIcon } from "@chakra-ui/icons";
 
 export const getServerSideProps = async (context: any) => {
-  if (!context?.query?.adventure)
-    return {
-      redirect: {
-        destination: "/go",
-        permanent: false,
-      },
-    };
+  // if (!context?.query?.adventure)
+  //   return {
+  //     redirect: {
+  //       destination: "/go",
+  //       permanent: false,
+  //     },
+  //   };
 
   const { data, error }: any = await supabase
     .from("adventures")
@@ -46,6 +46,10 @@ export const getServerSideProps = async (context: any) => {
 
 export const AdventureConfirmation = ({ adventure }: any) => {
   const { displayName } = adventure;
+  console.log(
+    "🚀 ~ file: confirm.tsx ~ line 49 ~ AdventureConfirmation ~ adventure",
+    adventure
+  );
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeight] = useState(headerRef?.current?.clientHeight);
   useEffect(

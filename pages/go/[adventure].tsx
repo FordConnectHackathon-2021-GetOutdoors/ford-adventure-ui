@@ -309,7 +309,7 @@ export default function Adventure({
                       </Box>
                       <Box>
                         <Heading variant="SectionHeading">Description</Heading>
-                        <Box pt={5} mb="20">
+                        <Box pt={5}>
                           <Text>
                             Follow the paths where ancient native people and
                             pioneers walked. Gaze up at massive sandstone cliffs
@@ -326,7 +326,9 @@ export default function Adventure({
                         <ContinueButton
                           adventure={adventure}
                           href={`/vehicle?adventure=${adventure.slug}`}
-                        />
+                        >
+                          Continue
+                        </ContinueButton>
                       )}
                     </Stack>
                   </MotionBox>
@@ -398,7 +400,7 @@ export default function Adventure({
                   </MotionBox>
                 );
               }
-              return <h2 key={idx}>{idx}</h2>;
+              return <Box>Badges</Box>;
             })}
           </AnimatePresence>
         </Box>
