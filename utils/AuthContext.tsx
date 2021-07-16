@@ -24,10 +24,10 @@ export function AuthProvider({ children }) {
     const session = supabase.auth.session();
 
     // overriding this for now
-    // if (!session) {
-    //   Router.push("/login");
-    //   return;
-    // }
+    if (!session) {
+      Router.push("/login");
+      return;
+    }
 
     setSession(session);
     setUser(session?.user ?? null);
