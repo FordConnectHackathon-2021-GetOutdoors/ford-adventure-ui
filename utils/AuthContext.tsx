@@ -23,9 +23,10 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const session = supabase.auth.session();
 
-    // overriding this for now
+   // overriding this for now
     if (!session) {
-      Router.push("/login");
+      // need to comment this to make sure user is not kicked back to login
+      // Router.push("/login");
       return;
     }
 
