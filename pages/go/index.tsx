@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import { Carousel } from "components/Carousel/Carousel";
 import { Header } from "components/Header/Header";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import nookies from "nookies";
 import useFordUser from "utils/useFordUser";
+
+import { NotificationContext } from "utils/NotificationContext";
 
 type Filter = { key: string; displayName: string };
 const filters: Filter[] = [
@@ -17,7 +19,7 @@ const filters: Filter[] = [
   { key: "city", displayName: "City" },
 ];
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   let cookies = nookies.get(context);
   return {
     props: {
@@ -34,10 +36,19 @@ export default function Adventures({ ...props }) {
   } = router;
 
   const [currentFilter, setFilter] = useState("beach");
+  const { showCustom } = useContext(NotificationContext);
+
   useEffect(
     () => {
       !queryType && router.push({ query: { type: "beach" } });
       queryType && queryType !== currentFilter && setFilter(`${queryType}`);
+      showCustom({ 
+        title: 'MY FORD VEHICLE STATUS', 
+        message: 'Your vehicle is ready to travel upto 548 miles today !', 
+        status: "SUCCESS",
+        hasInternal: true,
+        internalLink: '/vehicle',
+      });
     },
     // eslint-disable-next-line
     [queryType]

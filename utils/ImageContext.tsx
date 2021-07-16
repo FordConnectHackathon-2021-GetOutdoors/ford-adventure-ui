@@ -19,7 +19,7 @@ export const ImageContext = createContext({
 });
 
 export function ImageProvider({ children }) {
-  const { showSucess, showError } = useContext(NotificationContext);
+  const { showSuccess, showError } = useContext(NotificationContext);
   const { user } = useContext(AuthContext);
 
   const uploadImage = async (name, ext, base64, content, lat, lng) => {
@@ -40,7 +40,7 @@ export function ImageProvider({ children }) {
     if (error) {
       showError(error.message);
     } else {
-      showSucess("Image uploaded successfully !");
+      showSuccess("Image uploaded successfully !");
     }
   };
   const downloadImage = async (image_id) => {
@@ -53,7 +53,7 @@ export function ImageProvider({ children }) {
     if (error) {
       showError(error.message);
     } else {
-      showSucess("Image downloaded successfully !");
+      showSuccess("Image downloaded successfully !");
     }
     return image_base64?.length > 0 ? image_base64[0] : null;
   };
@@ -74,7 +74,7 @@ export function ImageProvider({ children }) {
     if (error) {
       showError(error.message);
     } else {
-      showSucess("Image deleted successfully !");
+      showSuccess("Image deleted successfully !");
     }
   };
   const uploadProfilePic = async (base64) => {
@@ -90,7 +90,7 @@ export function ImageProvider({ children }) {
     if (error) {
       showError(error.message);
     } else {
-      showSucess("Image uploaded successfully !");
+      showSuccess("Image uploaded successfully !");
     }
   };
   const uploadCoverPic = async (base64) => {
@@ -106,7 +106,7 @@ export function ImageProvider({ children }) {
     if (error) {
       showError(error.message);
     } else {
-      showSucess("Image uploaded successfully !");
+      showSuccess("Image uploaded successfully !");
     }
   };
   const getTags = async () => {

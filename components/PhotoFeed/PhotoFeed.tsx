@@ -6,7 +6,7 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Center, Text } from "@chakra-ui/react";
 
 export function PhotoFeed () {
-    const { fetchFeedData, posts, users, authUser } = useContext(PhotoFeedContext);
+    const { fetchFeedData, posts } = useContext(PhotoFeedContext);
     const photoFeedRef = useRef<Function>();
     
     let tag = "";
