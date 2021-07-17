@@ -6,7 +6,7 @@ export default function CustomHead({ pageProps }: any) {
       {/* // Title */}
       <title>Ford Adventure</title>
       {/* // Favicon */}
-      <link rel="shortcut icon" href="favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" />
       {/* // Support responsive mobile sizes */}
       <meta
         name="viewport"
