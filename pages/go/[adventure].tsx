@@ -400,7 +400,7 @@ export default function Adventure({
                   </MotionBox>
                 );
               }
-              return <Box>Badges</Box>;
+              return <Box key="x">Badges</Box>;
             })}
           </AnimatePresence>
         </Box>

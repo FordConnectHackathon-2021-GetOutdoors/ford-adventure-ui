@@ -125,12 +125,11 @@ export function PhotoPost({
                 mention: (text: any) => (
                   <Link
                     key={Math.random()}
-                    href="d"
-                    // href={
-                    //   authUserUuid == userUuid
-                    //     ? `/profile/me`
-                    //     : `/profile/${userUuid}`
-                    // }
+                    href={
+                      authUserUuid == userUuid
+                        ? `/profile/me`
+                        : `/profile/${userUuid}`
+                    }
                     passHref
                   >
                     <a
@@ -139,8 +138,7 @@ export function PhotoPost({
                         color: `${colors.text.link}`,
                       }}
                     >
-                      @test
-                      {/* {text} */}
+                      @test asdasdasd
                     </a>
                   </Link>
                 ),
@@ -156,7 +154,7 @@ export function PhotoPost({
                         parentRef.current(tag);
                       }}
                     >
-                      {/* #{text} */}
+                      asdasdasd
                     </a>
                   );
                 },
