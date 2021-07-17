@@ -65,7 +65,9 @@ export const getServerSideProps = async (context: any) => {
     imageSrc: "/images/zion.png",
   };
 
-  return { props: { adventure, server: true } };
+  return adventure
+    ? { props: { adventure, server: true } }
+    : { props: { server: true } };
 };
 
 interface AdventureProps {

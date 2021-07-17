@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint",
     "forceupdate": "npx taze major -r -w && yarn",
