@@ -50,6 +50,10 @@ export const defaultAdventure = {
 };
 
 export const getServerSideProps = async (context: any) => {
+  console.log(
+    "🚀 ~ file: [adventure].tsx ~ line 53 ~ getServerSideProps ~ context",
+    context
+  );
   if (!context?.params?.adventure) {
     return { props: { server: true } };
   }
@@ -90,7 +94,11 @@ export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
   } = router;
 
   const ford = useFordUser();
-  const [adventure, setAdventure] = useState(defaultAdventure);
+  const [fetchedAdventure, setAdventure] = useState(defaultAdventure);
+  console.log(
+    "🚀 ~ file: [adventure].tsx ~ line 98 ~ Adventure ~ fetchedAdventure",
+    fetchedAdventure
+  );
 
   useEffect(() => {
     const fetchAdventure = async () => {
@@ -106,11 +114,19 @@ export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
         imageSrc: "/images/zion.png",
       };
 
-      setAdventure(adventure);
+      if (!fetchedAdventure) {
+        setAdventure(adventure);
+      }
+      console.log(
+        "🚀 ~ file: [adventure].tsx ~ line 118 ~ fetchAdventure ~ fetchAdventure",
+        fetchAdventure
+      );
     };
+
     if (adventureSlug) {
       fetchAdventure();
     }
+    // eslint-disable-next-line
   }, [adventureSlug]);
 
   // const [currentFilter, setFilter] = useState("beach");
