@@ -52,12 +52,17 @@ export default function Dashboard({ code = null }: DashboardProps) {
 
     const Login = async () => {
       await saveCodeToSession();
-      // router.push("/vehicle");
+      router.push("/vehicle");
     };
 
     if (code && !isFordLoggedIn) {
       Login();
     }
+
+    if (!isFordLoggedIn) {
+      router.push("/login");
+    }
+
     // eslint-disable-next-line
   }, [code]);
 
