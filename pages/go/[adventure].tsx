@@ -79,7 +79,6 @@ export default function Adventure({
   adventure = defaultAdventure,
   ...props
 }: AdventureProps) {
-  console.log("🚀 ~ file: [adventure].tsx ~ line 107 ~ adventure", adventure);
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const handleChangeIndex = (index: number) => {
     setCurrentSlide(index);

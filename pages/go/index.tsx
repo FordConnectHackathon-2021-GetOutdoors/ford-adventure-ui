@@ -7,6 +7,8 @@ import { useEffect, useContext, useRef } from "react";
 import nookies from "nookies";
 import useFordUser from "utils/useFordUser";
 import { NotificationContext } from "utils/NotificationContext";
+import useUser from "utils/useFordUser";
+import { useAuth } from "utils/AuthContext";
 
 type Filter = { key: string; displayName: string };
 const filters: Filter[] = [
@@ -28,6 +30,7 @@ export async function getServerSideProps(context: any) {
 }
 
 export default function Adventures({ ...props }) {
+  const { user } = useAuth();
   const router = useRouter();
   const {
     query: { type: queryType },
@@ -37,7 +40,7 @@ export default function Adventures({ ...props }) {
   const hasShown = useRef(false);
   useEffect(
     () => {
-      if (!hasShown.current) {
+      if (user && !hasShown.current) {
         showCustom({
           title: "MY FORD VEHICLE STATUS",
           message: "Your vehicle is ready to travel up to 548 miles today !",
@@ -52,8 +55,6 @@ export default function Adventures({ ...props }) {
     [queryType]
   );
   const { data } = useFordUser();
-  data?.isFordLoggedIn &&
-    console.log("🚀 ~ file: index.tsx ~ line 47 ~ Adventures ~ data", data);
 
   return (
     <>

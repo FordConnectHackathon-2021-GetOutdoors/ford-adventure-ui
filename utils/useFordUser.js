@@ -3,7 +3,7 @@ import Router from "next/router";
 import useSWR from "swr";
 import fetcher from "./fetcher";
 
-export default function useUser({
+export default function useFordUser({
   redirectTo = false,
   redirectIfFound = false,
 } = {}) {

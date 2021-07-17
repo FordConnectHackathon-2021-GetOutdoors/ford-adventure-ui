@@ -31,7 +31,7 @@ export default function Menu() {
   const { isDesktopOrLaptop } = useContext(DeviceContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const { signOut } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
   const [menuItems] = useState([
     {
       text: "New Adventure",
@@ -60,8 +60,9 @@ export default function Menu() {
       to: "/",
     },
     {
+      id: "login",
       text: "Sign Out",
-      to: "/",
+      to: "/login",
     },
   ]);
   const [lastIndex] = useState(menuItems.length - 1);
@@ -120,7 +121,7 @@ export default function Menu() {
                     onClick={
                       id === "connect" && isFordLoggedIn
                         ? () => handleVehicleDisconnect()
-                        : index === lastIndex
+                        : user && id === "login"
                         ? () => signOut()
                         : id === "vehicle" && !isFordLoggedIn
                         ? (e: any) => {

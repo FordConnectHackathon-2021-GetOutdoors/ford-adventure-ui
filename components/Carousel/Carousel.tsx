@@ -82,7 +82,7 @@ export function Carousel({ adventure, ...props }: CarouselProps) {
   const [filter, setFilter] = useState();
   const [loading, setLoading] = useState(true);
   const [slides, setSlides] = useState([]);
-  console.log("🚀 ~ file: Carousel.tsx ~ line 88 ~ Carousel ~ slides", slides);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   async function getSlides() {
     try {

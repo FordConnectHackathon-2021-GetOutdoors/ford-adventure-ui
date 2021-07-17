@@ -7,6 +7,7 @@ import fetcher from "utils/fetcher";
 import useFordUser from "utils/useFordUser";
 import { useRouter } from "next/router";
 import { Loading } from "components/Loading";
+import { supabase } from "utils/supabase";
 
 export const dashboardTabs = [
   { id: "photos", displayName: "Photos" },
@@ -18,18 +19,26 @@ const isTokenRequest = (context: any) =>
   context.query.code &&
   context.req.headers.referer === "https://fordconnect.cv.ford.com/";
 
-export const getServerSideProps = async (context: any) => ({
-  props: isTokenRequest(context)
-    ? { server: true, code: context.query.code }
-    : { server: true },
-});
+export const getServerSideProps = async (context: any) => {
+  const { user } = await supabase.auth.api.getUserByCookie(context.req);
+  if (!user) {
+    // If no user, redirect to index.
+    return { props: {}, redirect: { destination: "/go", permanent: false } };
+  }
+  return {
+    props: isTokenRequest(context)
+      ? { server: true, code: context.query.code, user }
+      : { server: true },
+  };
+};
 
 interface DashboardProps {
   code: string | null;
+  user?: any;
   [key: string]: any;
 }
 
-export default function Dashboard({ code = null }: DashboardProps) {
+export default function Dashboard({ code = null, user }: DashboardProps) {
   const { isFordLoggedIn } = useFordUser();
   const router = useRouter();
   const [isReady, setReady] = useState(code ? false : true);
@@ -57,10 +66,6 @@ export default function Dashboard({ code = null }: DashboardProps) {
 
     if (code && !isFordLoggedIn) {
       Login();
-    }
-
-    if (!isFordLoggedIn) {
-      router.push("/login");
     }
 
     // eslint-disable-next-line
