@@ -141,7 +141,7 @@ export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
 
   // @ts-ignore
   const { displayName, id, points, distance, tagLine, imageSrc }: any =
-    adventure;
+    fetchedAdventure;
   return (
     <>
       <Box
