@@ -47,6 +47,7 @@ export const defaultAdventure = {
   points: 225,
   content: "Hello World",
   imageSrc: "/images/zion.png",
+  slug: "zion",
 };
 
 export const getServerSideProps = async (context: any) => {
