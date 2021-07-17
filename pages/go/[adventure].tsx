@@ -117,6 +117,7 @@ export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
       if (!fetchedAdventure) {
         setAdventure(adventure);
       }
+
       console.log(
         "🚀 ~ file: [adventure].tsx ~ line 118 ~ fetchAdventure ~ fetchAdventure",
         fetchAdventure
@@ -346,10 +347,10 @@ export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
                           </Text>
                         </Box>
                       </Box>
-                      {adventure && (
+                      {fetchedAdventure && (
                         <ContinueButton
-                          adventure={adventure}
-                          href={`/vehicle?adventure=${adventure.slug}`}
+                          adventure={fetchedAdventure}
+                          href={`/vehicle?adventure=${fetchedAdventure.slug}`}
                         >
                           Continue
                         </ContinueButton>
