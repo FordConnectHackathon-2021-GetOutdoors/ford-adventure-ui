@@ -21,14 +21,15 @@ const isTokenRequest = (context: any) =>
 
 export const getServerSideProps = async (context: any) => {
   const { user } = await supabase.auth.api.getUserByCookie(context.req);
-  if (!user) {
-    // If no user, redirect to index.
-    return { props: {}, redirect: { destination: "/go", permanent: false } };
-  }
+  // if (!user) {
+  //   // If no user, redirect to index.
+  //   return { props: {}, redirect: { destination: "/go", permanent: false } };
+  // }
   return {
-    props: isTokenRequest(context)
-      ? { server: true, code: context.query.code, user }
-      : { server: true },
+    props:
+      user && isTokenRequest(context)
+        ? { server: true, code: context.query.code, user }
+        : { server: true },
   };
 };
 
