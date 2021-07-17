@@ -22,6 +22,7 @@ import thumb1 from "../../public/images/thumb1.jpg";
 import thumb2 from "../../public/images/thumb2.jpg";
 import { supabase } from "utils/supabase";
 import { ContinueButton } from "../../components/ContinueButton";
+import { context } from "msw";
 
 const adventureTabs = [
   {
@@ -53,32 +54,15 @@ export const getServerSideProps = async (context: any) => {
     return { props: { server: true } };
   }
 
-  const { data, error } = await supabase
-    .from("adventures")
-    .select()
-    .eq("slug", context?.params?.adventure);
-
-  const adventure = data && {
-    ...data[0],
-    points: 225,
-    distance: "4 Hrs 9 Min, 268 Miles",
-    imageSrc: "/images/zion.png",
-  };
-
-  return adventure
-    ? { props: { adventure, server: true } }
-    : { props: { server: true } };
+  return { props: { adventureSlug: context?.params?.adventure, server: true } };
 };
 
 interface AdventureProps {
-  adventure: Record<string, any>;
+  adventureSlug?: Record<string, any>;
   children: React.ReactNode;
 }
 
-export default function Adventure({
-  adventure = defaultAdventure,
-  ...props
-}: AdventureProps) {
+export default function Adventure({ adventureSlug, ...props }: AdventureProps) {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const handleChangeIndex = (index: number) => {
     setCurrentSlide(index);
@@ -101,10 +85,33 @@ export default function Adventure({
 
   const router = useRouter();
   const {
+    pathname,
     query: { type: queryType },
   } = router;
 
   const ford = useFordUser();
+  const [adventure, setAdventure] = useState(defaultAdventure);
+
+  useEffect(() => {
+    const fetchAdventure = async () => {
+      const { data, error } = await supabase
+        .from("adventures")
+        .select()
+        .eq("slug", adventureSlug);
+
+      const adventure = data && {
+        ...data[0],
+        points: 225,
+        distance: "4 Hrs 9 Min, 268 Miles",
+        imageSrc: "/images/zion.png",
+      };
+
+      setAdventure(adventure);
+    };
+    if (adventureSlug) {
+      fetchAdventure();
+    }
+  }, [adventureSlug]);
 
   // const [currentFilter, setFilter] = useState("beach");
   // useEffect(
